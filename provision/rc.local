@@ -42,6 +42,7 @@ echo "- Done!"
 sleep 2
 
 su - $USER_APP -c "bash $REPOSITORY_HOME/provision/gateway.sh &"
+su - $USER_APP -c "bash $REPOSITORY_HOME/provision/registry-server.sh clean-all"
 su - $USER_APP -c "bash $REPOSITORY_HOME/provision/registry-server.sh -DapplyEvolutions.default=true start &"
 
 exit 0
