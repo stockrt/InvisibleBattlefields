@@ -39,14 +39,14 @@ else
     HOST_ARCH="i586"
 fi
 
-JAVA_BINS="jdk-${JAVA_VER}u${JAVA_UPD}-${HOST_OS}-${HOST_ARCH}${JAVA_EXT}"
+JAVA_BIN="jdk-${JAVA_VER}u${JAVA_UPD}-${HOST_OS}-${HOST_ARCH}${JAVA_EXT}"
 pushd /opt
-test ! -f $JAVA_BINS && \
-wget --no-check-certificate --header "Cookie: gpw_e24=a" "http://download.oracle.com/otn-pub/java/jdk/${JAVA_VER}u${JAVA_UPD}-b${JAVA_BLD}/${JAVA_BINS}"
+test ! -f $JAVA_BIN && \
+wget --no-check-certificate --header "Cookie: gpw_e24=a" "http://download.oracle.com/otn-pub/java/jdk/${JAVA_VER}u${JAVA_UPD}-b${JAVA_BLD}/${JAVA_BIN}"
 
 if [[ "$JAVA_EXT" == ".tar.gz" ]]
 then
-    tar xzvf $JAVA_BINS
+    tar xzvf $JAVA_BIN
     ln -snf "jdk1.${JAVA_VER}.${JAVA_REL}_${JAVA_UPD}" java
     echo
     echo '- Configure your environment variables:
@@ -54,6 +54,6 @@ then
     export PATH="$JAVA_HOME/bin:$PATH"
     '
 else
-    open $JAVA_BINS
+    open $JAVA_BIN
 fi
 echo "- Done!"
