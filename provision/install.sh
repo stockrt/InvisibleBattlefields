@@ -120,7 +120,7 @@ echo -n "- Executing rc.local..."
 
 # Message
 echo
-echo "- Wait until we run:
+echo "- Please wait until we run:
     - Gateway
     - Registry (Core Server and Web Server)
     - Database evolutions/migrations
