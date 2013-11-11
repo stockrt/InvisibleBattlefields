@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ "$HOSTNAME" == "registry" ]]
+if [[ "$HOSTNAME" == "ibf" ]]
 then
     echo "You must run this script on your host, not in the VM."
     exit 1

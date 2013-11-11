@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ "$HOSTNAME" != "registry" && "$1" != "-f" ]]
+if [[ "$HOSTNAME" != "ibf" && "$1" != "-f" ]]
 then
     echo "You must run this script on the VM, not in your host."
     exit
@@ -17,12 +17,12 @@ echo
 echo "- Configuring..."
 CORE_VERSION="3.5.16"
 PLAY_VERSION="2.2.0"
-REGISTRY_HOME=${REGISTRY_HOME:-"/vagrant"}
+REPOSITORY_HOME=${REPOSITORY_HOME:-"/vagrant"}
 USER_APP=${USER_APP:-"vagrant"}
 USER_HOME=${USER_HOME:-"/home/$USER_APP"}
 echo "CORE_VERSION=\"$CORE_VERSION\""
 echo "PLAY_VERSION=\"$PLAY_VERSION\""
-echo "REGISTRY_HOME=\"$REGISTRY_HOME\""
+echo "REPOSITORY_HOME=\"$REPOSITORY_HOME\""
 echo "USER_APP=\"$USER_APP\""
 echo "USER_HOME=\"$USER_HOME\""
 
@@ -34,9 +34,9 @@ else
     COREDX_PKG="coredx-$CORE_VERSION-Linux_2.6_x86_gcc43-Evaluation.tgz"
 fi
 
-if [[ ! -d "$REGISTRY_HOME" ]]
+if [[ ! -d "$REPOSITORY_HOME" ]]
 then
-    echo "Home directory for the project was not found: $REGISTRY_HOME" 1>&2
+    echo "Home directory for the project was not found: $REPOSITORY_HOME" 1>&2
     exit
 fi
 
@@ -49,11 +49,11 @@ fi
 echo "# Config" > /config.sh
 echo "export CORE_VERSION=\"$CORE_VERSION\"" >> /config.sh
 echo "export PLAY_VERSION=\"$PLAY_VERSION\"" >> /config.sh
-echo "export REGISTRY_HOME=\"$REGISTRY_HOME\"" >> /config.sh
+echo "export REPOSITORY_HOME=\"$REPOSITORY_HOME\"" >> /config.sh
 echo "export USER_APP=\"$USER_APP\"" >> /config.sh
 echo "export USER_HOME=\"$USER_HOME\"" >> /config.sh
 echo >> /config.sh
-cat $REGISTRY_HOME/provision/config.sh >> /config.sh
+cat $REPOSITORY_HOME/provision/config.sh >> /config.sh
 echo "- Done!"
 
 # Packages
@@ -70,10 +70,10 @@ echo "- Done!"
 # MySQL
 echo
 echo "- Installing MySQL..."
-sudo debconf-set-selections <<< "mysql-server-<version> mysql-server/root_password password registry"
-sudo debconf-set-selections <<< "mysql-server-<version> mysql-server/root_password_again password registry"
+sudo debconf-set-selections <<< "mysql-server-<version> mysql-server/root_password password ibf"
+sudo debconf-set-selections <<< "mysql-server-<version> mysql-server/root_password_again password ibf"
 apt-get -y install mysql-server-5.5
-mysql --password=registry < $REGISTRY_HOME/provision/sql/registry_grant.sql
+mysql --password=ibf < $REPOSITORY_HOME/provision/sql/ibf_grant.sql
 echo "- Done!"
 
 # CoreDX
@@ -81,13 +81,13 @@ echo
 echo "- Installing CoreDX..."
 echo "$COREDX_PKG"
 mkdir -p /opt/coredx
-tar xzf $REGISTRY_HOME/provision/coredx/$COREDX_PKG -C /opt/coredx/
+tar xzf $REPOSITORY_HOME/provision/coredx/$COREDX_PKG -C /opt/coredx/
 echo "- Done!"
 
 # Java
 echo
 echo "- Installing Java..."
-$REGISTRY_HOME/script/java-dl.sh >/dev/null 2>&1
+$REPOSITORY_HOME/script/java-dl.sh >/dev/null 2>&1
 chown -R ${USER_APP}: /opt/jdk*
 echo "- Done!"
 
@@ -103,13 +103,13 @@ echo "- Done!"
 # Aliases
 echo
 echo "- Installing Aliases..."
-cat $REGISTRY_HOME/provision/bashrc > $USER_HOME/.bashrc
+cat $REPOSITORY_HOME/provision/bashrc > $USER_HOME/.bashrc
 echo "- Done!"
 
 # rc.local set
 echo
 echo "- Installing rc.local..."
-cat $REGISTRY_HOME/provision/rc.local > /etc/rc.local
+cat $REPOSITORY_HOME/provision/rc.local > /etc/rc.local
 chmod 755 /etc/rc.local
 echo "- Done!"
 
@@ -124,7 +124,7 @@ echo "- Wait until we run:
     - Gateway
     - Registry (Core Server and Web Server)
     - Database evolutions/migrations
-Then try to access: http://registry.vm"
+Then try to access: http://ibf.vm"
 
 # Wait
 timeout=180
@@ -149,7 +149,7 @@ echo
 if [[ $flag_ok -eq 1 ]]
 then
     echo "- Done!
-You can now access: http://registry.vm"
+You can now access: http://ibf.vm"
 else
     echo "- Problem starting daemons. Please try to start by hand.
 Use \"vagrant ssh\" and the aliases configured in the environment." 1>&2

@@ -113,8 +113,8 @@ source /config.sh
 alias play='$HOME/play-$PLAY_VERSION/play'
 
 # Gateway
-alias gateway='bash $REGISTRY_HOME/provision/gateway.sh'
+alias gateway='bash $REPOSITORY_HOME/provision/gateway.sh'
 
 # Registry
-alias registry-server-dev='bash $REGISTRY_HOME/provision/registry-server.sh run'
-alias registry-server='bash $REGISTRY_HOME/provision/registry-server.sh start'
+alias registry-server-dev='bash $REPOSITORY_HOME/provision/registry-server.sh run'
+alias registry-server='bash $REPOSITORY_HOME/provision/registry-server.sh start'

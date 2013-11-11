@@ -1,6 +1,6 @@
 # Config
 hosts_ip = '10.10.10.10'
-hosts_domain_name = 'registry.vm'
+hosts_domain_name = 'ibf.vm'
 
 def cputs(str, color=:normal)
   # Escape with " for shell colors.
@@ -82,8 +82,8 @@ Vagrant.configure('2') do |config|
     vb.customize ['modifyvm', :id, '--cpuexecutioncap', 90]
   end
 
-  config.vm.define 'registry' do |v|
-    v.vm.hostname = 'registry'
+  config.vm.define 'ibf' do |v|
+    v.vm.hostname = 'ibf'
     v.vm.box = 'precise64'
     v.vm.box_url = 'http://files.vagrantup.com/precise64.box'
     v.vm.network :private_network, ip: hosts_ip

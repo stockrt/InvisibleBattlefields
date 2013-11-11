@@ -45,7 +45,7 @@ As a shared directory for files exchange between the host and the VM remember th
 - The Registry Web Console interface will be accessible at:
 
 <pre>
-    http://registry.vm
+    http://ibf.vm
     or
     http://10.10.10.10
 </pre>
@@ -78,7 +78,7 @@ It is recommended that when importing the project to workspace you *do not copy*
 
 h2(#contributors). Contributors
 
-"People":https://github.com/stockrt/registry/contributors
+"People":https://github.com/stockrt/InvisibleBattlefields/contributors
 * André Mac Dowell <adowell@inf.puc-rio.br>
 * Ivan Xavier Araújo de Lima <ilima@inf.puc-rio.br>
 * Rogério Carvalho Schneider <rschneider@inf.puc-rio.br>

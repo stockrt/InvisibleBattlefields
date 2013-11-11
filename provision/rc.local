@@ -25,11 +25,11 @@ iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 9000
 source /config.sh
 
 echo
-echo "- Waiting for directory $REGISTRY_HOME/provision..."
+echo "- Waiting for directory $REPOSITORY_HOME/provision..."
 flag_wait=0
 while true
 do
-    if [[ -d "$REGISTRY_HOME/provision" ]]; then break; fi
+    if [[ -d "$REPOSITORY_HOME/provision" ]]; then break; fi
     flag_wait=1
     echo -n "."
     sleep 0.5
@@ -41,7 +41,7 @@ fi
 echo "- Done!"
 sleep 2
 
-su - $USER_APP -c "bash $REGISTRY_HOME/provision/gateway.sh &"
-su - $USER_APP -c "bash $REGISTRY_HOME/provision/registry-server.sh -DapplyEvolutions.default=true start &"
+su - $USER_APP -c "bash $REPOSITORY_HOME/provision/gateway.sh &"
+su - $USER_APP -c "bash $REPOSITORY_HOME/provision/registry-server.sh -DapplyEvolutions.default=true start &"
 
 exit 0
