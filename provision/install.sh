@@ -127,7 +127,7 @@ echo "- Please wait until we run:
 Then try to access: http://ibf.vm"
 
 # Wait
-timeout=180
+timeout=300
 wtime=0
 echo
 echo "- Waiting daemons to start up for at most $timeout seconds..."
