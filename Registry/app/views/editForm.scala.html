@@ -1,0 +1,32 @@
+@(id: Long, nodeForm: Form[Node])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
+
+@main {
+
+    <h1>Edit node</h1>
+
+    @form(routes.Application.update(id)) {
+
+        <fieldset>
+
+            @inputText(nodeForm("name"), '_label -> "Node name")
+            @inputText(nodeForm("uuid"), '_label -> "Node uuid")
+            @textarea(nodeForm("info"), '_label -> "Node info", 'rows -> 15)
+
+        </fieldset>
+
+        <div class="actions">
+            <input type="submit" value="Save this node" class="btn primary"> or
+            <a href="@routes.Application.list()" class="btn">Cancel</a>
+        </div>
+
+    }
+
+    @form(routes.Application.delete(id), 'class -> "topRight") {
+        <input type="submit" value="Delete this node" class="btn danger">
+    }
+
+}

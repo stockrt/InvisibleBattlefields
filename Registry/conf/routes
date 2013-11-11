@@ -1,0 +1,53 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+#################
+## Web Console ##
+#################
+
+# Default path will just redirect to the node list
+GET     /                           controllers.Application.index()
+
+# Create node
+GET     /nodes/new                  controllers.Application.create()
+POST    /nodes                      controllers.Application.save()
+
+# Retrieve node list (look at the default values for pagination parameters)
+GET     /nodes                      controllers.Application.list(p:Int ?= 0, s ?= "name", o ?= "asc", f ?= "")
+
+# Update node
+GET     /nodes/:id                  controllers.Application.edit(id:Long)
+POST    /nodes/:id                  controllers.Application.update(id:Long)
+
+# Delete node
+POST    /nodes/:id/delete           controllers.Application.delete(id:Long)
+
+##############
+## REST API ##
+##############
+
+# Create node
+POST    /api/nodes                     controllers.API.addNode()
+
+# Retrieve node
+GET     /api/nodes/:uuid_name          controllers.API.getNode(uuid_name:String)
+
+# Nodes list
+GET     /api/nodes                     controllers.API.lstNodes()
+
+# Search nodes
+GET     /api/nodes/search/:uuid_name   controllers.API.srchNodes(uuid_name:String)
+
+# Update node
+PUT     /api/nodes/:uuid_name          controllers.API.updNode(uuid_name:String)
+
+# Delete node
+DELETE  /api/nodes/:uuid_name          controllers.API.delNode(uuid_name:String)
+
+############
+## Static ##
+############
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

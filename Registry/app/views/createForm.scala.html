@@ -1,0 +1,28 @@
+@(nodeForm: Form[Node])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
+
+@main {
+
+    <h1>Add a node</h1>
+
+    @form(routes.Application.save()) {
+
+        <fieldset>
+
+            @inputText(nodeForm("name"), '_label -> "Node name")
+            @inputText(nodeForm("uuid"), '_label -> "Node uuid")
+            @textarea(nodeForm("info"), '_label -> "Node info", 'rows -> 15)
+
+        </fieldset>
+
+        <div class="actions">
+            <input type="submit" value="Create this node" class="btn primary"> or
+            <a href="@routes.Application.list()" class="btn">Cancel</a>
+        </div>
+
+    }
+
+}

@@ -1,0 +1,108 @@
+# Utilizando a API REST
+
+export registry_host="registry.vm"
+#export registry_host="localhost"
+
+
+# Create node
+# POST /api/nodes
+
+# Cria node teste
+curl \
+  --header 'Content-type: application/json' \
+  --request POST \
+  --data '{"uuid":"1234","name":"teste","info":"some_data"}' \
+  http://$registry_host/api/nodes
+# Cria node teste1
+curl \
+  --header 'Content-type: application/json' \
+  --request POST \
+  --data '{"uuid":"111","name":"teste1","info":"some_data1"}' \
+  http://$registry_host/api/nodes
+# Cria node teste2
+curl \
+  --header 'Content-type: application/json' \
+  --request POST \
+  --data '{"uuid":"222","name":"teste2","info":"some_data2"}' \
+  http://$registry_host/api/nodes
+
+
+# Retrieve node
+# GET /api/nodes/:uuid_name
+
+# Recupera teste pelo name
+curl \
+  --request GET \
+  http://$registry_host/api/nodes/teste
+# Recupera teste pelo uuid
+curl \
+  --request GET \
+  http://$registry_host/api/nodes/1234
+
+
+# Nodes list
+# GET /api/nodes
+
+# Lista todos os nodes com todos seus atributos
+curl \
+  --request GET \
+  http://$registry_host/api/nodes
+
+
+# Search nodes
+# GET /api/nodes/search/:uuid_name
+
+# Procura pela substring "tes" que vai casar com alguns usuários
+curl \
+  --request GET \
+  http://$registry_host/api/nodes/search/tes
+# Procura pela substring "1" que vai casar com alguns uuids
+curl \
+  --request GET \
+  http://$registry_host/api/nodes/search/1
+
+
+# Update node
+# PUT /api/nodes/:uuid_name
+
+# Atualiza o node teste pelo name
+curl \
+  --header 'Content-type: application/json' \
+  --request PUT \
+  --data '{"uuid":"1234","name":"teste","info":"some_other_data"}' \
+  http://$registry_host/api/nodes/teste
+# Mostra uma consulta com os dados atualizados para o node teste
+curl \
+  --request GET \
+  http://$registry_host/api/nodes/teste
+# Atualiza o node teste pelo uuid
+curl \
+  --header 'Content-type: application/json' \
+  --request PUT \
+  --data '{"uuid":"1234","name":"teste","info":"some_yet_other_data"}' \
+  http://$registry_host/api/nodes/1234
+# Mostra uma consulta com os dados atualizados para o node teste
+curl \
+  --request GET \
+  http://$registry_host/api/nodes/teste
+
+
+# Delete node
+# DELETE /api/nodes/:uuid_name
+
+# Deleta o node teste pelo name
+curl \
+  --request DELETE \
+  http://$registry_host/api/nodes/teste
+# Faz uma consulta que não mais encontra o node recém deletado
+curl \
+  --request GET \
+  http://$registry_host/api/nodes/teste
+# Deleta o node teste1 pelo uuid
+curl \
+  --request DELETE \
+  http://$registry_host/api/nodes/111
+# Faz uma consulta que não mais encontra o node recém deletado
+curl \
+  --request GET \
+  http://$registry_host/api/nodes/teste1
