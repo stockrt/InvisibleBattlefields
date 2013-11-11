@@ -1,0 +1,37 @@
+# General
+*~
+*.log
+dump
+tmp
+
+# Eclipse
+.cache
+.classpath
+.project
+.scala_dependencies
+.settings
+bin
+
+# SBT
+.target
+dist
+project/boot
+project/target
+project/project
+project/plugins/target
+target
+
+# Play
+.history
+.idea
+.idea_modules
+*.iml
+logs
+RUNNING_PID
+
+# Extra
+.DS_Store
+out
+provision/macspoof/*.o
+provision/macspoof/*.so.*
+.vagrant
