@@ -14,7 +14,7 @@ fi
 
 # Config
 echo
-echo "- Configurando sistema..."
+echo "- Configuring..."
 CORE_VERSION="3.5.16"
 PLAY_VERSION="2.2.0"
 REGISTRY_HOME=${REGISTRY_HOME:-"/vagrant"}
@@ -36,13 +36,13 @@ fi
 
 if [[ ! -d "$REGISTRY_HOME" ]]
 then
-    echo "Diretório home do projeto não foi encontrado: $REGISTRY_HOME" 1>&2
+    echo "Home directory for the project was not found: $REGISTRY_HOME" 1>&2
     exit
 fi
 
 if [[ ! -d "$USER_HOME" ]]
 then
-    echo "Diretório home do usuário do projeto ($USER_APP) não foi encontrado: $USER_HOME" 1>&2
+    echo "Home directory for the project user ($USER_APP) was not found: $USER_HOME" 1>&2
     exit
 fi
 
@@ -54,83 +54,83 @@ echo "export USER_APP=\"$USER_APP\"" >> /config.sh
 echo "export USER_HOME=\"$USER_HOME\"" >> /config.sh
 echo >> /config.sh
 cat $REGISTRY_HOME/provision/config.sh >> /config.sh
-echo "- Pronto!"
+echo "- Done!"
 
-# Pacotes
+# Packages
 echo
-echo "- Instalando pacotes..."
+echo "- Installing packages..."
 DEBIAN_FRONTEND="noninteractive"
 apt-get -f install
 dpkg --configure -a
 apt-get -y update
 apt-get -y install build-essential linux-headers-$(uname -r)
 apt-get -y install curl zip unzip
-echo "- Pronto!"
+echo "- Done!"
 
 # MySQL
 echo
-echo "- Instalando MySQL..."
+echo "- Installing MySQL..."
 sudo debconf-set-selections <<< "mysql-server-<version> mysql-server/root_password password registry"
 sudo debconf-set-selections <<< "mysql-server-<version> mysql-server/root_password_again password registry"
 apt-get -y install mysql-server-5.5
 mysql --password=registry < $REGISTRY_HOME/provision/sql/registry_grant.sql
-echo "- Pronto!"
+echo "- Done!"
 
 # CoreDX
 echo
-echo "- Instalando CoreDX..."
+echo "- Installing CoreDX..."
 echo "$COREDX_PKG"
 mkdir -p /opt/coredx
 tar xzf $REGISTRY_HOME/provision/coredx/$COREDX_PKG -C /opt/coredx/
-echo "- Pronto!"
+echo "- Done!"
 
 # Java
 echo
-echo "- Instalando Java..."
+echo "- Installing Java..."
 $REGISTRY_HOME/script/java-dl.sh >/dev/null 2>&1
 chown -R ${USER_APP}: /opt/jdk*
-echo "- Pronto!"
+echo "- Done!"
 
 # Play
 echo
-echo "- Instalando Play..."
+echo "- Installing Play..."
 cd $USER_HOME
 wget -q -c http://downloads.typesafe.com/play/$PLAY_VERSION/play-${PLAY_VERSION}.zip
 echo A | unzip -q play-${PLAY_VERSION}.zip >/dev/null 2>&1
 chown -R ${USER_APP}: play*
-echo "- Pronto!"
+echo "- Done!"
 
 # Aliases
 echo
-echo "- Instalando Aliases..."
+echo "- Installing Aliases..."
 cat $REGISTRY_HOME/provision/bashrc > $USER_HOME/.bashrc
-echo "- Pronto!"
+echo "- Done!"
 
 # rc.local set
 echo
-echo "- Instalando rc.local..."
+echo "- Installing rc.local..."
 cat $REGISTRY_HOME/provision/rc.local > /etc/rc.local
 chmod 755 /etc/rc.local
-echo "- Pronto!"
+echo "- Done!"
 
 # rc.local run
 echo
-echo -n "- Executando rc.local..."
+echo -n "- Executing rc.local..."
 /etc/rc.local
 
 # Message
 echo
-echo "- Aguarde enquanto são executados:
+echo "- Wait until we run:
     - Gateway
-    - Registry (Web Server e Core Server)
-    - Migração do banco de dados
-E então tente acessar: http://registry.vm"
+    - Registry (Core Server and Web Server)
+    - Database evolutions/migrations
+Then try to access: http://registry.vm"
 
 # Wait
 timeout=180
 wtime=0
 echo
-echo "- Aguardando start dos processos por até $timeout segundos..."
+echo "- Waiting daemons to start up for at most $timeout seconds..."
 while [[ $wtime -lt $timeout ]]
 do
     flag_ok=1
@@ -144,13 +144,13 @@ do
 done
 
 # Done
-sleep 5 # Aguardar alguns segundos devido ao bind
+sleep 5 # Wait a few seconds due to bind process
 echo
 if [[ $flag_ok -eq 1 ]]
 then
-    echo "- Pronto!
-Já pode acessar: http://registry.vm"
+    echo "- Done!
+You can now access: http://registry.vm"
 else
-    echo "- Problema no start dos processos. Por favor tente subir manualmente.
-Utilize \"vagrant ssh\" e as aliases configurados no ambiente." 1>&2
+    echo "- Problem starting daemons. Please try to start by hand.
+Use \"vagrant ssh\" and the aliases configured in the environment." 1>&2
 fi

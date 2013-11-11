@@ -3,7 +3,7 @@ hosts_ip = '10.10.10.10'
 hosts_domain_name = 'registry.vm'
 
 def cputs(str, color=:normal)
-  # Escape com " para colorir no shell.
+  # Escape with " for shell colors.
   hash_color = {
     :normal       => "\033[0m",
     :red          => "\033[00;31m",

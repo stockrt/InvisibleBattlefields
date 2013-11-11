@@ -42,7 +42,7 @@ As a shared directory for files exchange between the host and the VM remember th
     registry-server
 </pre>
 
-- The Registry Web Console interface will be acessible at:
+- The Registry Web Console interface will be accessible at:
 
 <pre>
     http://registry.vm
@@ -74,7 +74,7 @@ The PATH environment variable must give preference in load order to $JAVA_HOME/b
     export PATH="$JAVA_HOME/bin:$PATH"
 </pre>
 
-It is recommended that when importing the project to workspace you *do not copy* (do not check the copy option) so any updates from git can reflect immediately to your Eclipse environment.
+It is recommended that when importing the project to workspace you *do not copy* (do not check the copy option) so any update from git can reflect immediately to your Eclipse environment.
 
 h2(#contributors). Contributors
 

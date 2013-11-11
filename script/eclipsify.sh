@@ -21,29 +21,30 @@ popd
 
 pushd ../Registry
 echo
-echo "- Versão do java:"
+echo "- java version:"
 java -version
 echo
-echo "- Versão do javac:"
+echo "- javac version:"
 javac -version
 echo
-echo "- Preparando o projeto para importar no Eclipse."
+echo "- Preparing project to import into Eclipse."
 echo "play clean-all"
 $HOME/play-$PLAY_VERSION/play clean-all
 echo "play eclipse"
 $HOME/play-$PLAY_VERSION/play eclipse
 echo
-echo "- Pronto!"
+echo "- Done!"
 
 echo
 echo "#######################################################################"
-echo "Certifique-se de ter um Java versão 7 instalado.
+echo "Ensure that you have Java version 7 installed.
     java -version
     javac -version
 
-Recomenda-se importar para o workspace sem copiar, assim os updates com git pull
-ficam disponíveis de imediato no ambiente do Eclipse."
+It is recommended that when importing the project to workspace you do not copy
+(do not check the copy option) so any update from git can reflect immediately
+to your Eclipse environment."
 echo "#######################################################################"
 echo
-echo "- Path a ser importado (sem copiar) para o workspace do Eclispe:"
+echo "- Path to be imported (without copying) to the Eclipse workspace:"
 pwd
