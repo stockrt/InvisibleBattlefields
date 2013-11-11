@@ -47,7 +47,7 @@ As a shared directory for files exchange between the host and the VM remember th
 <pre>
     http://ibf.vm
     or
-    http://10.10.10.10
+    http://10.10.10.11
 </pre>
 
 h2(#exploring). Exploring the source code with Eclipse

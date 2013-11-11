@@ -1,5 +1,5 @@
 # Config
-hosts_ip = '10.10.10.10'
+hosts_ip = '10.10.10.11'
 hosts_domain_name = 'ibf.vm'
 
 def cputs(str, color=:normal)
