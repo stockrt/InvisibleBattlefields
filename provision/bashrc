@@ -118,5 +118,3 @@ alias gateway='bash $REGISTRY_HOME/provision/gateway.sh'
 # Registry
 alias registry-server-dev='bash $REGISTRY_HOME/provision/registry-server.sh run'
 alias registry-server='bash $REGISTRY_HOME/provision/registry-server.sh start'
-# TODO
-#alias registry-client='cd $REGISTRY_HOME/Registry && javac app/br/pucrio/inf/lac/registry/RegistryCoreClient.java && java app/br/pucrio/inf/lac/registry/RegistryCoreClient'
