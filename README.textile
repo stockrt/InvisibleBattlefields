@@ -1,0 +1,85 @@
+h2(#game). Invisible Battlefields Game
+
+*Invisible Battlefields* game uses the "SDDL":http://lac-rio.com/software/contextnetsddl-scalable-data-distribution-layer software, part of the "ContextNet":http://lac-rio.com/projects/contextnet project from *PUC-Rio*.
+
+h2(#running). Running the VM for server-side services
+
+To install and run the servers for this game you will need an *Ubuntu VM*.
+Doing this with *Vagrant* the installation can be pretty easy.
+- First, install "Virtualbox":https://www.virtualbox.org and "Vagrant":http://www.vagrantup.com in your machine.
+- Second, at the git clone directory, type:
+
+<pre>
+    vagrant up
+</pre>
+
+Done, in a few minutes the VM should be running with all services installed.
+- Vagrant allows you to easily destroy and recreate a VM.
+When recreated, the VM will be totally reconfigured:
+
+<pre>
+    vagrant status
+    vagrant destroy
+    vagrant up
+    vagrant reload
+    vagrant provision
+</pre>
+
+* Note: This VM is designated to *code execution* only, not to the development process. So, do not edit any files through the VM, use it only as a *headless server* (no GUI) to run the *Gateway*, *Core Server* and *Web Server*.
+As a shared directory for files exchange between the host and the VM remember that the git clone directory is mapped to the VM /vagrant directory. The *git clone root directory* is the local directory (host) and the */vagrant* is the remote directory (VM).
+
+- Accessing the VM:
+
+<pre>
+    vagrant ssh
+</pre>
+
+- Using the aliases to run the services:
+
+<pre>
+    gateway
+    registry-server-dev
+    registry-server
+</pre>
+
+- The Registry Web Console interface will be acessible at:
+
+<pre>
+    http://registry.vm
+    or
+    http://10.10.10.10
+</pre>
+
+h2(#exploring). Exploring the source code with Eclipse
+
+To contribute with this project and edit/visualize the source code in Eclipse you will need to run a script with the "Play Framework":http://www.playframework.com that will prepare the git clone directory to be used in the *Eclipse workspace*.
+- Inside the directory script, run eclipsify:
+
+<pre>
+    cd script
+    ./eclipsify.sh
+</pre>
+
+- If you need to install *Java*:
+
+<pre>
+    sudo script/java-dl.sh
+</pre>
+
+The JAVA_HOME environment variable must be exported to Java version 7.
+The PATH environment variable must give preference in load order to $JAVA_HOME/bin:$PATH so that the *java* and *javac* commands are version 7:
+
+<pre>
+    export JAVA_HOME="/opt/java"
+    export PATH="$JAVA_HOME/bin:$PATH"
+</pre>
+
+It is recommended that when importing the project to workspace you *do not copy* (do not check the copy option) so any updates from git can reflect immediately to your Eclipse environment.
+
+h2(#contributors). Contributors
+
+"People":https://github.com/stockrt/registry/contributors
+* André Mac Dowell <adowell@inf.puc-rio.br>
+* Ivan Xavier Araújo de Lima <ilima@inf.puc-rio.br>
+* Rogério Carvalho Schneider <rschneider@inf.puc-rio.br>
+* Markus Endler <endler@inf.puc-rio.br>
