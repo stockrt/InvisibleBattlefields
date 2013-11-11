@@ -1,0 +1,11 @@
+#--------------------------------------
+#  Linux 64-bit Run-time License
+#  HOSTID=080027fb0d2f
+#--------------------------------------
+LICENSE PRODUCT=coredx_c BUILD=Evaluation EXP=2014_07_31 CUSTOMER=LAC_University HOSTID=080027fb0d2f OS=Linux_2.6 CPU=x86_64 COMPILER=any SIG=b960a55d17a38ba24324423b4fde9e0d6df77e3a81854d90aa481dd696d2eb2f96c8bf57019b8c438e91e224860a569a908a1de0154319facf4162a8e01e434bcc553953684459a647ad41a57b45d728676972d495618a226df1758ea86b4460ba945ded1808752aeb9593efa7fa21ac68045ae99074fc37d57dcb117776298f
+
+#--------------------------------------
+#  Linux 32-bit Run-time License
+#  HOSTID=001c426bf445
+#--------------------------------------
+LICENSE PRODUCT=coredx_c BUILD=Evaluation EXP=2014_07_31 CUSTOMER=LAC_University HOSTID=001c426bf445 OS=Linux_2.6 CPU=x86 COMPILER=any SIG=8c3a05b9bcd89cd07a5f190e45a891aea29fbc6b0f600d9f440fc13fff412b88c59f27feb0e96bbdd8a5ad437ab85b2797d868e67617523009cb360949ddf6dda8a9a49d36bb5aa8e1c2bd128b13f77349962a5c4c365a0a96abd1e2388ba33afd6e4c914d599f7836256611d4e5c8cf851697365d381930930a0eb4a3f5dbf4
