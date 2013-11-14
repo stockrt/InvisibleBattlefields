@@ -41,9 +41,9 @@ echo "Ensure that you have Java version 7 installed.
     java -version
     javac -version
 
-It is recommended that when importing the project to workspace you do not copy
-(do not check the copy option) so any update from git can reflect immediately
-to your Eclipse environment."
+It is recommended that when importing the project to workspace you *do not copy*
+(do not check the copy option) so any git update can be immediately reflected
+into your Eclipse environment."
 echo "#######################################################################"
 echo
 echo "- Path to be imported (without copying) to the Eclipse workspace:"

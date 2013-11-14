@@ -152,7 +152,7 @@ echo
 if [[ $flag_ok -eq 1 ]]
 then
     echo "- Done!
-You can now access: http://ibf.vm"
+You may now access: http://ibf.vm"
 else
     echo "- Problem starting daemons. Please try to start by hand.
 Use \"vagrant ssh\" and the aliases configured in the environment." 1>&2

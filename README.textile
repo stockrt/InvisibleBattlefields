@@ -76,7 +76,7 @@ The PATH environment variable must give preference in load order to $JAVA_HOME/b
     export PATH="$JAVA_HOME/bin:$PATH"
 </pre>
 
-It is recommended that when importing the project to workspace you *do not copy* (do not check the copy option) so any update from git can reflect immediately to your Eclipse environment.
+It is recommended that when importing the project to workspace you *do not copy* (do not check the copy option) so any git update can be immediately reflected into your Eclipse environment.
 
 h2(#contributors). Contributors
 
