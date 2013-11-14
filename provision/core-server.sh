@@ -4,6 +4,7 @@ source /config.sh
 
 if [[ "$1" == "registry" ]]
 then
+    shift
     pidfile="$REPOSITORY_HOME/InvisibleBattlefields/registry.pid"
     pkill -f "DcoreServer=registry"
     sleep 2
@@ -11,6 +12,7 @@ then
     cd $REPOSITORY_HOME/InvisibleBattlefields && $HOME/play-$PLAY_VERSION/play -DcoreServer=registry -Dpidfile.path=$pidfile -Dhttp.port=9000 $@
 elif [[ "$1" == "ibf" ]]
 then
+    shift
     pidfile="$REPOSITORY_HOME/InvisibleBattlefields/ibf.pid"
     pkill -f "DcoreServer=ibf"
     sleep 2
