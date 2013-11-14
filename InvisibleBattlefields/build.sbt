@@ -1,6 +1,6 @@
 import play.Project._
 
-name := "Registry"
+name := "InvisibleBattlefields"
 
 version := "1.0"
 

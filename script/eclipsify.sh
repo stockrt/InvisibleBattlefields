@@ -19,7 +19,7 @@ wget -c http://downloads.typesafe.com/play/$PLAY_VERSION/play-${PLAY_VERSION}.zi
 echo A | unzip play-${PLAY_VERSION}.zip
 popd
 
-pushd ../Registry
+pushd ../InvisibleBattlefields
 echo
 echo "- Command java version:"
 java -version

@@ -13,7 +13,7 @@ fi
 # Home
 export COREDX_HOME="/opt/coredx/coredx-$CORE_VERSION-Evaluation"
 export JAVA_HOME="/opt/java"
-export LIBRARY_PATH="$COREDX_HOME/target/$CORE_TARGET_ARCH/lib:$REPOSITORY_HOME/provision/$LIB_ARCH:$REPOSITORY_HOME/Registry/lib"
+export LIBRARY_PATH="$COREDX_HOME/target/$CORE_TARGET_ARCH/lib:$REPOSITORY_HOME/provision/$LIB_ARCH:$REPOSITORY_HOME/InvisibleBattlefields/lib"
 export PATH="$JAVA_HOME/bin:$PATH"
 
 # Play

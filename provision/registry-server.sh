@@ -3,5 +3,5 @@
 source /config.sh
 pkill -f "$HOME/play-$PLAY_VERSION"
 sleep 2
-rm -f $REPOSITORY_HOME/Registry/RUNNING_PID
-cd $REPOSITORY_HOME/Registry && $HOME/play-$PLAY_VERSION/play $@
+rm -f $REPOSITORY_HOME/InvisibleBattlefields/RUNNING_PID
+cd $REPOSITORY_HOME/InvisibleBattlefields && $HOME/play-$PLAY_VERSION/play $@

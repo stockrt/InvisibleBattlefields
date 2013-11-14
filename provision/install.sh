@@ -122,7 +122,7 @@ echo -n "- Executing rc.local..."
 echo
 echo "- Please wait until we run:
     - Gateway
-    - Registry (Core Server and Web Server)
+    - Core and Web Servers
     - Database evolutions/migrations
 Then try to access: http://ibf.vm"
 
