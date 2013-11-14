@@ -118,7 +118,7 @@ echo "- Done!"
 
 # Message
 echo
-echo "- Please wait until we run:
+echo "- Please wait while we run:
     - Gateway
     - Core and Web Servers
     - Database evolutions/migrations
