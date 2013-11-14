@@ -26,6 +26,7 @@ target
 .idea
 .idea_modules
 *.iml
+*.pid
 logs
 RUNNING_PID
 
