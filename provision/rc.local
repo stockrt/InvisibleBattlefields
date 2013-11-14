@@ -64,8 +64,10 @@ fi
 echo "- Done!"
 sleep 2
 
+echo
+echo "- Cleaning app dir..."
 su - $USER_APP -c "bash $REPOSITORY_HOME/provision/core-server.sh clean-all"
-sleep 2
+echo "- Done!"
 su - $USER_APP -c "bash $REPOSITORY_HOME/provision/gateway.sh &"
 wbtimeout "Gateway" 5500
 su - $USER_APP -c "bash $REPOSITORY_HOME/provision/core-server.sh registry -DapplyEvolutions.default=true start &"

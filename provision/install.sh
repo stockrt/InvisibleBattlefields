@@ -79,7 +79,6 @@ echo "- Done!"
 # CoreDX
 echo
 echo "- Installing CoreDX..."
-echo "$COREDX_PKG"
 mkdir -p /opt/coredx
 tar xzf $REPOSITORY_HOME/provision/coredx/$COREDX_PKG -C /opt/coredx/
 echo "- Done!"
