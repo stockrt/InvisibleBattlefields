@@ -17,7 +17,7 @@ export LIBRARY_PATH="$COREDX_HOME/target/$CORE_TARGET_ARCH/lib:$REPOSITORY_HOME/
 export PATH="$JAVA_HOME/bin:$PATH"
 
 # Play
-export PLAY_OPTS="-Xms256m -Xmx256m -Djava.library.path=$LIBRARY_PATH"
+export PLAY_OPTS="-Xms64m -Xmx256m -Djava.library.path=$LIBRARY_PATH"
 
 # Core
 if [[ -d "$REPOSITORY_HOME/provision" ]]
