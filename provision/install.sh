@@ -116,11 +116,6 @@ cat $REPOSITORY_HOME/provision/rc.local > /etc/rc.local
 chmod 755 /etc/rc.local
 echo "- Done!"
 
-# rc.local run
-echo
-echo -n "- Executing rc.local..."
-/etc/rc.local
-
 # Message
 echo
 echo "- Please wait until we run:
@@ -128,6 +123,11 @@ echo "- Please wait until we run:
     - Core and Web Servers
     - Database evolutions/migrations
 Then try to access: http://ibf.vm"
+
+# rc.local run
+echo
+echo -n "- Executing rc.local..."
+/etc/rc.local
 
 # Wait bind or timeout
 timeout=15
