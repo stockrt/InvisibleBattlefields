@@ -129,7 +129,7 @@ echo -n "- Executing rc.local..."
 /etc/rc.local
 
 # Wait bind or timeout
-timeout=15
+timeout=300
 wtime=0
 echo
 echo "- Waiting daemons to start up for at most $timeout seconds..."
