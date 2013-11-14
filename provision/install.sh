@@ -130,7 +130,7 @@ echo "- Please wait until we run:
 Then try to access: http://ibf.vm"
 
 # Wait bind or timeout
-timeout=300
+timeout=15
 wtime=0
 echo
 echo "- Waiting daemons to start up for at most $timeout seconds..."
@@ -148,7 +148,6 @@ do
 done
 
 # Done
-sleep 5 # Wait a few seconds due to bind process
 echo
 if [[ $flag_ok -eq 1 ]]
 then
