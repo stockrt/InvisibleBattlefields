@@ -16,7 +16,7 @@ fi
 echo
 echo "- Configuring..."
 CORE_VERSION="3.5.16"
-PLAY_VERSION="2.2.0"
+PLAY_VERSION="2.2.1"
 REPOSITORY_HOME=${REPOSITORY_HOME:-"/vagrant"}
 USER_APP=${USER_APP:-"vagrant"}
 USER_HOME=${USER_HOME:-"/home/$USER_APP"}

@@ -12,7 +12,7 @@ then
     exit 1
 fi
 
-PLAY_VERSION="2.2.0"
+PLAY_VERSION="2.2.1"
 
 pushd $HOME
 wget -c http://downloads.typesafe.com/play/$PLAY_VERSION/play-${PLAY_VERSION}.zip
