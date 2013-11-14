@@ -4,20 +4,21 @@ source /config.sh
 
 if [[ "$1" == "registry" ]]
 then
-    coreserver="$1"
     port=9000
-    shift
 elif [[ "$1" == "ibf" ]]
 then
-    coreserver="$1"
     port=9001
-    shift
 else
-    cd $REPOSITORY_HOME/InvisibleBattlefields && $HOME/play-$PLAY_VERSION/play $@
+    # Comando simples
+    cd "$REPOSITORY_HOME/InvisibleBattlefields" && "$HOME/play-$PLAY_VERSION/play" $@
     exit
 fi
 
+# Core Server
+coreserver="$1"
 pidfile="$REPOSITORY_HOME/InvisibleBattlefields/${coreserver}.pid"
+shift
+
 pkill -f "DcoreServer=$coreserver"
 sleep 2
 rm -f "$pidfile"

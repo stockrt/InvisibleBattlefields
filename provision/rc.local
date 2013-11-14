@@ -41,9 +41,12 @@ fi
 echo "- Done!"
 sleep 2
 
-su - $USER_APP -c "bash $REPOSITORY_HOME/provision/gateway.sh &"
 su - $USER_APP -c "bash $REPOSITORY_HOME/provision/core-server.sh clean-all"
+sleep 2
+su - $USER_APP -c "bash $REPOSITORY_HOME/provision/gateway.sh &"
+sleep 2
 su - $USER_APP -c "bash $REPOSITORY_HOME/provision/core-server.sh registry -DapplyEvolutions.default=true start &"
+sleep 2
 su - $USER_APP -c "bash $REPOSITORY_HOME/provision/core-server.sh ibf start &"
 
 exit 0
