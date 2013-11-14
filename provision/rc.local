@@ -30,6 +30,8 @@ wbtimeout() {
         sleep 1
         wtime=$((wtime+1))
     done
+
+    echo "- Done!"
 }
 
 # Make sure eth0 is working. This works around Vagrant issue #391
