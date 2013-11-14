@@ -27,3 +27,15 @@ then
     mac="$(grep "$LIC_GREP" "$TLM_LICENSE" | egrep -o 'HOSTID=[[:alnum:]]* ' | cut -d = -f 2)"
     export MAC_ADDRESS="${mac:0:2}:${mac:2:2}:${mac:4:2}:${mac:6:2}:${mac:8:2}:${mac:10:2}"
 fi
+
+# Play
+alias play='$HOME/play-$PLAY_VERSION/play'
+
+# Gateway
+alias gateway='bash $REPOSITORY_HOME/provision/gateway.sh'
+
+# Core Servers
+alias registry-server-dev='bash $REPOSITORY_HOME/provision/core-server.sh registry run'
+alias registry-server='bash $REPOSITORY_HOME/provision/core-server.sh registry start'
+alias ibf-server-dev='bash $REPOSITORY_HOME/provision/core-server.sh ibf run'
+alias ibf-server='bash $REPOSITORY_HOME/provision/core-server.sh ibf start'

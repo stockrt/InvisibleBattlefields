@@ -103,7 +103,10 @@ echo "- Done!"
 # Aliases
 echo
 echo "- Installing Aliases..."
-cat $REPOSITORY_HOME/provision/bashrc > $USER_HOME/.bashrc
+grep -q "source /config.sh" $USER_HOME/.bashrc >/dev/null 2>&1 || \
+echo "
+# Config
+source /config.sh" >> $USER_HOME/.bashrc
 echo "- Done!"
 
 # rc.local set

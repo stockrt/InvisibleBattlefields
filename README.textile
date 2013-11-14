@@ -40,6 +40,8 @@ As a shared directory for files exchange between the host and the VM remember th
     gateway
     registry-server-dev
     registry-server
+    ibf-server-dev
+    ibf-server
 </pre>
 
 - The Registry Web Console interface will be accessible at:
