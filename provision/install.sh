@@ -129,7 +129,7 @@ echo "- Please wait until we run:
     - Database evolutions/migrations
 Then try to access: http://ibf.vm"
 
-# Wait
+# Wait bind or timeout
 timeout=300
 wtime=0
 echo
@@ -139,6 +139,7 @@ do
     flag_ok=1
     netstat -anl | grep -q :5500 || flag_ok=0
     netstat -anl | grep -q :9000 || flag_ok=0
+    netstat -anl | grep -q :9001 || flag_ok=0
 
     if [[ $flag_ok -eq 1 ]]; then break; fi
 

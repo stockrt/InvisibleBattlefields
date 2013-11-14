@@ -11,6 +11,27 @@
 #
 # By default this script does nothing.
 
+# Wait bind or timeout
+wbtimeout() {
+    timeout=300
+    wtime=0
+    daemon="$1"
+    port="$2"
+
+    echo
+    echo "- Waiting daemon $daemon to start up and bind at port $port for at most $timeout seconds..."
+    while [[ $wtime -lt $timeout ]]
+    do
+        flag_ok=1
+        netstat -anl | grep -q :$port || flag_ok=0
+
+        if [[ $flag_ok -eq 1 ]]; then break; fi
+
+        sleep 1
+        wtime=$((wtime+1))
+    done
+}
+
 # Make sure eth0 is working. This works around Vagrant issue #391
 dhclient eth0 >/dev/null 2>&1 &
 
@@ -44,9 +65,10 @@ sleep 2
 su - $USER_APP -c "bash $REPOSITORY_HOME/provision/core-server.sh clean-all"
 sleep 2
 su - $USER_APP -c "bash $REPOSITORY_HOME/provision/gateway.sh &"
-sleep 2
+wbtimeout Gateway 5500
 su - $USER_APP -c "bash $REPOSITORY_HOME/provision/core-server.sh registry -DapplyEvolutions.default=true start &"
-sleep 2
+wbtimeout Registry 9000
 su - $USER_APP -c "bash $REPOSITORY_HOME/provision/core-server.sh ibf start &"
+wbtimeout InvisibleBattlefields 9001
 
 exit 0
