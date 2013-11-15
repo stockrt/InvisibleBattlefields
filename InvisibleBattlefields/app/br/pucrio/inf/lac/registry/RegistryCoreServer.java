@@ -9,6 +9,9 @@ import play.libs.Json;
 
 import crublib.CrudLib;
 
+import modellibrary.RequestInfo;
+import modellibrary.ResponseInfo;
+
 import lac.cnclib.sddl.message.ApplicationMessage;
 import lac.cnclib.sddl.serialization.Serialization;
 import lac.cnet.sddl.objects.ApplicationObject;
@@ -17,8 +20,6 @@ import lac.cnet.sddl.objects.PrivateMessage;
 import lac.cnet.sddl.udi.core.SddlLayer;
 import lac.cnet.sddl.udi.core.UniversalDDSLayerFactory;
 import lac.cnet.sddl.udi.core.listener.UDIDataReaderListener;
-import modellibrary.RequestInfo;
-import modellibrary.ResponseInfo;
 
 public class RegistryCoreServer implements
 		UDIDataReaderListener<ApplicationObject> {

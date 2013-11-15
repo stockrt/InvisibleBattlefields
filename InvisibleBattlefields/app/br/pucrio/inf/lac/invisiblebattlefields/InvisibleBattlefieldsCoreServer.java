@@ -9,6 +9,9 @@ import play.libs.Json;
 
 import crublib.CrudLib;
 
+import modellibrary.RequestInfo;
+import modellibrary.ResponseInfo;
+
 import lac.cnclib.sddl.message.ApplicationMessage;
 import lac.cnclib.sddl.serialization.Serialization;
 import lac.cnet.sddl.objects.ApplicationObject;
@@ -17,8 +20,6 @@ import lac.cnet.sddl.objects.PrivateMessage;
 import lac.cnet.sddl.udi.core.SddlLayer;
 import lac.cnet.sddl.udi.core.UniversalDDSLayerFactory;
 import lac.cnet.sddl.udi.core.listener.UDIDataReaderListener;
-import modellibrary.RequestInfo;
-import modellibrary.ResponseInfo;
 
 public class InvisibleBattlefieldsCoreServer implements
 		UDIDataReaderListener<ApplicationObject> {
@@ -56,25 +57,11 @@ public class InvisibleBattlefieldsCoreServer implements
 		JsonNode result_json = Json.newObject();
 
 		switch (requestMessage.getType()) {
-		case "addNode":
-			result_json = CrudLib.addNode(Json.parse(requestMessage
-					.getPayload()));
-			break;
 		case "getNode":
 			result_json = CrudLib.getNode(requestMessage.getPayload());
 			break;
 		case "lstNodes":
 			result_json = CrudLib.lstNodes();
-			break;
-		case "srchNodes":
-			result_json = CrudLib.srchNodes(requestMessage.getPayload());
-			break;
-		case "updNode":
-			result_json = CrudLib.updNode(requestMessage.getPayload(),
-					Json.parse(requestMessage.getPayload()));
-			break;
-		case "delNode":
-			result_json = CrudLib.delNode(requestMessage.getPayload());
 			break;
 		default:
 			System.out
