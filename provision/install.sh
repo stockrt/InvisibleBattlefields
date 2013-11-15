@@ -132,7 +132,7 @@ echo -n "- Executing rc.local..."
 timeout=300
 wtime=0
 echo
-echo "- Waiting daemons to start up for at most $timeout seconds..."
+echo "- Waiting for daemons to start up for at most $timeout seconds..."
 while [[ $wtime -lt $timeout ]]
 do
     flag_ok=1

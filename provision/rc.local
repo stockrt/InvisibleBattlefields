@@ -19,7 +19,7 @@ wbtimeout() {
     port=$2
 
     echo
-    echo "- Waiting daemon $daemon to start up and bind at port $port for at most $timeout seconds..."
+    echo "- Waiting for daemon $daemon to start up and bind at port $port for at most $timeout seconds..."
     while [[ $wtime -lt $timeout ]]
     do
         flag_ok=1
