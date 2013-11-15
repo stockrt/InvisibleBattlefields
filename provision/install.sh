@@ -30,8 +30,10 @@ echo "USER_HOME=\"$USER_HOME\""
 if [[ "$(uname -m)" == "x86_64" ]]
 then
     COREDX_PKG="coredx-$CORE_VERSION-Linux_2.6_x86_64_gcc43-Evaluation.tgz"
+    echo "* 64 bits"
 else
     COREDX_PKG="coredx-$CORE_VERSION-Linux_2.6_x86_gcc43-Evaluation.tgz"
+    echo "* 32 bits"
 fi
 
 if [[ ! -d "$REPOSITORY_HOME" ]]
