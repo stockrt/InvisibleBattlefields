@@ -94,6 +94,7 @@ echo "- Done!"
 echo
 echo "- Installing Play..."
 cd $USER_HOME
+test ! -f play-${PLAY_VERSION}.zip && \
 wget -q -c http://downloads.typesafe.com/play/$PLAY_VERSION/play-${PLAY_VERSION}.zip
 echo A | unzip -q play-${PLAY_VERSION}.zip >/dev/null 2>&1
 chown -R ${USER_APP}: play*
