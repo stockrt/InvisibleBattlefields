@@ -46,7 +46,7 @@ then
     exit
 fi
 
-echo "# Config" > /config.sh
+echo "# InvisibleBattlefields Config" > /config.sh
 echo "export CORE_VERSION=\"$CORE_VERSION\"" >> /config.sh
 echo "export PLAY_VERSION=\"$PLAY_VERSION\"" >> /config.sh
 echo "export REPOSITORY_HOME=\"$REPOSITORY_HOME\"" >> /config.sh
@@ -105,7 +105,7 @@ echo
 echo "- Installing Aliases..."
 grep -q "source /config.sh" $USER_HOME/.bashrc >/dev/null 2>&1 || \
 echo "
-# Config
+# InvisibleBattlefields Config
 source /config.sh" >> $USER_HOME/.bashrc
 echo "- Done!"
 
