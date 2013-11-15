@@ -75,4 +75,6 @@ wbtimeout "Registry" 9000
 su - $USER_APP -c "bash $REPOSITORY_HOME/provision/core-server.sh ibf start &"
 wbtimeout "InvisibleBattlefields" 9001
 
+sleep 5 # user feedback time
+
 exit 0
