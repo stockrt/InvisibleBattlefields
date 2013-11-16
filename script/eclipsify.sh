@@ -15,6 +15,8 @@ fi
 PLAY_VERSION="2.2.1"
 
 pushd $HOME
+echo
+echo "- Installing Play..."
 test ! -f play-${PLAY_VERSION}.zip && \
 wget -c http://downloads.typesafe.com/play/$PLAY_VERSION/play-${PLAY_VERSION}.zip
 echo A | unzip play-${PLAY_VERSION}.zip
