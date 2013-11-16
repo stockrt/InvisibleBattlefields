@@ -30,7 +30,7 @@ echo
 echo "- Command javac version:"
 javac -version
 echo
-echo "- Preparing project to import into Eclipse."
+echo "- Preparing project to import into Eclipse..."
 echo "play clean-all"
 $HOME/play-$PLAY_VERSION/play clean-all
 echo "play eclipse"
