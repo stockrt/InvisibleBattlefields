@@ -1,0 +1,85 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".AuthScreen" >
+
+    <LinearLayout android:id="@+id/lyt_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.13"
+            android:text="@string/login" />
+
+        <EditText android:id="@+id/et_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textEmailAddress" >
+
+            <requestFocus />
+        </EditText>
+        
+    </LinearLayout>
+
+	<Space android:id="@+id/space"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_below="@+id/lyt_login" />
+    
+    <LinearLayout android:id="@+id/lyt_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/space"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.13"
+            android:text="@string/pass" />
+
+        <EditText
+            android:id="@+id/et_pass"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
+    </LinearLayout>
+
+    <LinearLayout 
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"       
+        android:layout_below="@+id/lyt_pass"
+        android:gravity="center"
+        android:layout_marginTop="96dp">
+        
+	    <Button
+	        android:id="@+id/btn_login"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:onClick="AuthRoutine"
+	        android:text="@string/entrar" />
+	    
+	    <Button
+	        android:id="@+id/btn_register"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:onClick="RegisterRoutine"
+	        android:text="@string/cadastro" />
+	        
+    </LinearLayout>
+      
+</RelativeLayout>

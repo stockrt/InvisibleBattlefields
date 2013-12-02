@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">InvisibleBattlefields_concept</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    
+    <!-- Login Screen -->
+    <string name="login">Email</string>
+    <string name="pass">Password</string>
+    <string name="entrar">Entrar!</string>
+    <string name="cadastro">Cadastrar!</string>
+    
+    <!-- Main Menu Screen -->
+    <string name="char_img_description">Character Image</string>
+    <string name="placeholder_name">Name!</string>
+    <string name="placeholder_level">Lvl: 5</string>
+    <string name="placeholder_winstreak">Won 8 battles</string>
+
+</resources>
