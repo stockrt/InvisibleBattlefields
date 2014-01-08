@@ -52,24 +52,28 @@ hosts_entry = "#{hosts_ip} #{hosts_domain_name}"
 hosts_regex = Regexp.new(Regexp.escape(hosts_entry))
 execute_hook_list = %w(up reload provision)
 
-if execute_hook_list.any? { |entry| entry == ARGV.first }
-  if File.readlines(hosts_file).any? { |line| line =~ hosts_regex }
-    cputs "Local DNS record already set: \"#{hosts_entry}\"", :green
-  else
-    cputs "Configuring #{hosts_file} local DNS record: \"#{hosts_entry}\"", :green
-    begin
-      if os.eql?(:windows)
-        File.open(hosts_file, 'a') do |file|
-          file << "\n\n#{hosts_entry}\n"
+# Por enquanto não funciona em todos os Windows, por isto pula a edição de
+# arquivo de hosts se o OS for Windows.
+unless os.eql?(:windows)
+  if execute_hook_list.any? { |entry| entry == ARGV.first }
+    if File.readlines(hosts_file).any? { |line| line =~ hosts_regex }
+      cputs "Local DNS record already set: \"#{hosts_entry}\"", :green
+    else
+      cputs "Configuring #{hosts_file} local DNS record: \"#{hosts_entry}\"", :green
+      begin
+        if os.eql?(:windows)
+          File.open(hosts_file, 'a') do |file|
+            file << "\n\n#{hosts_entry}\n"
+          end
+        else
+          cputs 'You may need to type your sudo password.', :green
+          system("sudo bash -c 'echo \"\n#{hosts_entry}\" >> #{hosts_file}'")
         end
-      else
-        cputs 'You may need to type your sudo password.', :green
-        system("sudo bash -c 'echo \"\n#{hosts_entry}\" >> #{hosts_file}'")
+        cputs 'Done!', :green
+      rescue
+        cputs "Couldn't edit #{hosts_file} for DNS record: \"#{hosts_entry}\"", :red
+        cputs "Please do it manually.", :red
       end
-      cputs 'Done!', :green
-    rescue
-      cputs "Couldn't edit #{hosts_file} for DNS record: \"#{hosts_entry}\"", :red
-      cputs "Please do it manually.", :red
     end
   end
 end
