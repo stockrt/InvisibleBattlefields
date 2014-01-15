@@ -18,11 +18,11 @@ public class AuthScreen extends Activity {
 	
 	public void AuthRoutine(View v) {
 
-		Toast.makeText(getBaseContext(), "Opa", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getBaseContext(), "Login", Toast.LENGTH_SHORT).show();
 		
 		//TODO Mandar objeto de autenticação, setar serviço de conexão e serviço do jogo (que fica checando localidades)
 		
-		boolean firstTimer = true; //um dos outputs da autenticação aceita
+		boolean firstTimer = false; //um dos outputs da autenticação aceita
 		
 		if(firstTimer)
 		{
@@ -34,6 +34,12 @@ public class AuthScreen extends Activity {
 		    Intent i = new Intent(AuthScreen.this, MainMenuScreen.class);
 			startActivity(i);
 		}
+	}
+	
+	public void RegisterRoutine(View v) {
+		Toast.makeText(getBaseContext(), "Cadastro!", Toast.LENGTH_SHORT).show();
+	    Intent i = new Intent(AuthScreen.this, RegistrationScreen.class);
+		startActivity(i);
 	}
 
 	/* Temporário */

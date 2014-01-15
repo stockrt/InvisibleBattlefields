@@ -3,5 +3,14 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="textAndEditW">260dp</dimen>
+    <dimen name="bigBtnW">140dp</dimen>
+    <dimen name="bigBtnH">120dp</dimen>
+    <dimen name="hugeBtnW">190dp</dimen>
+    <dimen name="smallBtnW">110dp</dimen>
+    <dimen name="smallBtnH">60dp</dimen>
+    <dimen name="tabFragmentPaddingT">1dp</dimen>
+    <dimen name="textAndEditPaddingB">20dp</dimen>
+    <dimen name="textAndEditPaddingR">8dp</dimen>
 
 </resources>

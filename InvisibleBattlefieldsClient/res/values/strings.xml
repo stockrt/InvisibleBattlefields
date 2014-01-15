@@ -7,7 +7,7 @@
     
     <!-- Login Screen -->
     <string name="login">Email</string>
-    <string name="pass">Password</string>
+    <string name="pass_login">Password</string>
     <string name="entrar">Entrar!</string>
     <string name="cadastro">Cadastrar!</string>
     
@@ -16,5 +16,24 @@
     <string name="placeholder_name">Name!</string>
     <string name="placeholder_level">Lvl: 5</string>
     <string name="placeholder_winstreak">Won 8 battles</string>
+    
+    <!-- Registration Screen -->
+    <string name="register">Register!</string>
+    <string name="email">Email: </string>
+    <string name="pass_registry">Password</string>
+    <string name="char_name">Character Name: </string>
+    <string name="clan">Choose your clan: </string>
 
+    <!-- Clan Data -->
+    <string-array name="clan_name_array">
+        <item>The Union</item>
+        <item>The Mercenaries</item>
+        <item>The Berserkers</item>
+    </string-array>
+    
+    <string-array name="clan_description_array">
+        <item>The Conglomerate of Warriors have served the government as a main striking force against rebels for centuries. You are a warrior from The Union, the most prestigious class of combatents of the Conglomerate, fighting to maintain peace on the Colonies against rebel and barbarian strikes. </item>
+        <item>A rebel force to be reckoned with. The Mercenaries started long ago as, well, a guild of mercenaries, but since the Great Purge, they work as a common force against the conservative government. You, as a free fighter, battle to regain your lost territory, and your freedom.</item>
+        <item>The Berserkers have lived on the Invisible Plains for milenia. They battle only for themselves and won\'t bow to none. You\'re an honored Berserker, fighting to maintain your lands against people who will do whatever they can to take it from you.</item>
+    </string-array>
 </resources>

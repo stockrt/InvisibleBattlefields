@@ -25,7 +25,11 @@
         </activity>
         <activity 
             android:name="lac.puc.ubi.invbat.concept.activities.MainMenuScreen"
-            android:label="IB - Menu"/>
+            android:label="IB - Menu Principal"/>
+        
+        <activity 
+            android:name="lac.puc.ubi.invbat.concept.activities.RegistrationScreen"
+            android:label="IB - Cadastro de Novo Usuário"/>
     </application>
 
 </manifest>

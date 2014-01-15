@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".RegistrationScreen" >
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="@dimen/hugeBtnW"
+        android:layout_height="@dimen/smallBtnH"
+        android:layout_alignParentBottom="true"
+        android:text="@string/register" />
+    
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btnRegister" >
+
+        <LinearLayout
+            android:id="@+id/lytLinear"
+            android:layout_width="@dimen/textAndEditW"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/textAndEditPaddingR"
+                android:text="@string/email" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/textAndEditPaddingR"
+                android:text="@string/char_name" />
+
+            <EditText
+                android:id="@+id/etCharName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/textAndEditPaddingR"
+                android:text="@string/clan" />
+
+           <Spinner 
+               android:id="@+id/spClans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/textAndEditPaddingR"
+                android:text="@string/pass_registry" />
+
+            <EditText
+                android:id="@+id/etPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
