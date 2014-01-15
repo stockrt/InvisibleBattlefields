@@ -15,6 +15,8 @@ public class CharacterData implements Serializable {
 	public int exp_points;
 	public int level;
 
+	public int clanId;
+	
 	private int base_stren;
 	private int base_intel;
 	private int base_agili;
@@ -27,6 +29,8 @@ public class CharacterData implements Serializable {
 		exp_points = _loaded.exp_points;
 		level = _loaded.level;
 		num_victories = _loaded.num_victories;
+		
+		clanId = _loaded.clanId;
 
 		base_stren = _loaded.base_stren;
 		base_intel = _loaded.base_intel;
@@ -38,12 +42,14 @@ public class CharacterData implements Serializable {
 	}
 	
 	//New Character
-	public CharacterData(String _name) {
+	public CharacterData(String _name, int _id) {
 		int stats[];
 		
 		exp_points = 0;
 		level = 1;
 		num_victories = 0;
+		
+		clanId = _id;
 
 		stats = generateRandomBaseStats();
 		
@@ -147,6 +153,7 @@ public class CharacterData implements Serializable {
 			charinfo.put("victories", num_victories);
 			charinfo.put("exp", exp_points);	
 			charinfo.put("level", level);
+			charinfo.put("clanid", clanId);
 			charinfo.put("base_stren", base_stren);
 			charinfo.put("base_intel", base_intel);	
 			charinfo.put("base_agili", base_agili);

@@ -6,8 +6,8 @@ import java.util.UUID;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UserDataRequest implements Serializable{
-
+public class RegistrationRequest implements Serializable {
+	
 	/**
 	 * Default Java serial version UID
 	 **/
@@ -18,15 +18,18 @@ public class UserDataRequest implements Serializable{
 
 	/** Authentication Info */
 	private String email;
-	private String password; //not stored
+	private String password;
+
+	private CharacterData charData;
 	
 	/**
 	 * Constructor.
 	 **/
-	public UserDataRequest(UUID _id, String _name, String _pass) {
+	public RegistrationRequest(UUID _id, String _email, String _charName, String _pass, int _clanId) {
 		uuid = _id;
-		email = _name;
+		email = _email;
 		password = _pass;
+		charData = new CharacterData(_charName, _clanId);
 	}
 	
 	public UUID getUuid() {
@@ -40,15 +43,27 @@ public class UserDataRequest implements Serializable{
 	public String getEmail() {
 		return email;
 	}
-	
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getPassword() {
 		return password;
 	}
-	
-	public String getTypeName() {
-		return "authNode";
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	
+
+	public CharacterData getCharData() {
+		return charData;
+	}
+
+	public void setCharData(CharacterData charData) {
+		this.charData = charData;
+	}
+
 	/**
      * {@inheritDoc}
      **/
@@ -63,6 +78,7 @@ public class UserDataRequest implements Serializable{
 			result.put("name", email);
 
 			info.put("password", password);
+			info.put("chardata", charData.toString());
 			
 			result.put("info", info.toString());
 			
@@ -73,6 +89,4 @@ public class UserDataRequest implements Serializable{
 		
 		return result.toString();
 	}
-    
-	
 }

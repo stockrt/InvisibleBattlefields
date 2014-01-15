@@ -6,8 +6,8 @@ import java.util.UUID;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UserDataRequest implements Serializable{
-
+public class UserDataResponse implements Serializable {
+	
 	/**
 	 * Default Java serial version UID
 	 **/
@@ -16,17 +16,16 @@ public class UserDataRequest implements Serializable{
 	/** Client UUID */
 	private UUID uuid;
 
-	/** Authentication Info */
-	private String email;
-	private String password; //not stored
+	private Boolean authAnswer;
+	private CharacterData chardata;
 	
 	/**
 	 * Constructor.
 	 **/
-	public UserDataRequest(UUID _id, String _name, String _pass) {
+	public UserDataResponse(UUID _id, Boolean _answer, CharacterData _data) {
 		uuid = _id;
-		email = _name;
-		password = _pass;
+		authAnswer = _answer;
+		chardata = _data;
 	}
 	
 	public UUID getUuid() {
@@ -36,17 +35,21 @@ public class UserDataRequest implements Serializable{
 	public void setUuid(UUID uuid) {
 		this.uuid = uuid;
 	}
+	
+	public Boolean getAuthAnswer() {
+		return authAnswer;
+	}
 
-	public String getEmail() {
-		return email;
+	public void setAuthAnswer(Boolean authAnswer) {
+		this.authAnswer = authAnswer;
 	}
-	
-	public String getPassword() {
-		return password;
+
+	public CharacterData getChardata() {
+		return chardata;
 	}
-	
-	public String getTypeName() {
-		return "authNode";
+
+	public void setChardata(CharacterData chardata) {
+		this.chardata = chardata;
 	}
 	
 	/**
@@ -60,9 +63,9 @@ public class UserDataRequest implements Serializable{
 		
 		try {
 			result.put("uuid", uuid.toString());
-			result.put("name", email);
 
-			info.put("password", password);
+			info.put("authanswer", authAnswer);
+			info.put("chardata", chardata.toString());
 			
 			result.put("info", info.toString());
 			
@@ -73,6 +76,4 @@ public class UserDataRequest implements Serializable{
 		
 		return result.toString();
 	}
-    
-	
 }

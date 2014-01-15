@@ -6,8 +6,8 @@ import java.util.UUID;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UserDataRequest implements Serializable{
-
+public class LocationRequest implements Serializable {
+	
 	/**
 	 * Default Java serial version UID
 	 **/
@@ -15,38 +15,28 @@ public class UserDataRequest implements Serializable{
 
 	/** Client UUID */
 	private UUID uuid;
-
-	/** Authentication Info */
-	private String email;
-	private String password; //not stored
-	
-	/**
-	 * Constructor.
-	 **/
-	public UserDataRequest(UUID _id, String _name, String _pass) {
-		uuid = _id;
-		email = _name;
-		password = _pass;
-	}
+	private double lat;
+	private double lng;
 	
 	public UUID getUuid() {
 		return uuid;
 	}
-
 	public void setUuid(UUID uuid) {
 		this.uuid = uuid;
 	}
-
-	public String getEmail() {
-		return email;
+	
+	public double getLatitude() {
+		return lat;
+	}
+	public void setLatitude(double lat) {
+		this.lat = lat;
 	}
 	
-	public String getPassword() {
-		return password;
+	public double getLongitude() {
+		return lng;
 	}
-	
-	public String getTypeName() {
-		return "authNode";
+	public void setLongitude(double lng) {
+		this.lng = lng;
 	}
 	
 	/**
@@ -60,9 +50,9 @@ public class UserDataRequest implements Serializable{
 		
 		try {
 			result.put("uuid", uuid.toString());
-			result.put("name", email);
 
-			info.put("password", password);
+			info.put("latitude", lat);
+			info.put("longitude", lng);
 			
 			result.put("info", info.toString());
 			
@@ -73,6 +63,4 @@ public class UserDataRequest implements Serializable{
 		
 		return result.toString();
 	}
-    
-	
 }
