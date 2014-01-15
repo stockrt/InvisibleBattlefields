@@ -39,16 +39,18 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f090015;
+        public static final int action_settings=0x7f090017;
+        public static final int btnClanDescription=0x7f090015;
         public static final int btnRegister=0x7f09000e;
         public static final int btn_login=0x7f090005;
         public static final int btn_register=0x7f090006;
         public static final int etCharName=0x7f090012;
         public static final int etEmail=0x7f090011;
-        public static final int etPass=0x7f090014;
+        public static final int etPass=0x7f090016;
         public static final int et_login=0x7f090001;
         public static final int et_pass=0x7f090004;
         public static final int img_btn_char=0x7f090008;
+        public static final int lblSpinner=0x7f090013;
         public static final int listview_menu=0x7f09000d;
         public static final int lytLinear=0x7f090010;
         public static final int lyt_char_data=0x7f090009;
@@ -56,7 +58,7 @@ public final class R {
         public static final int lyt_pass=0x7f090003;
         public static final int lyt_profile=0x7f090007;
         public static final int scrollView1=0x7f09000f;
-        public static final int spClans=0x7f090013;
+        public static final int spClans=0x7f090014;
         public static final int space=0x7f090002;
         public static final int txt_charname=0x7f09000a;
         public static final int txt_level=0x7f09000b;
@@ -72,27 +74,30 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
+        /**  General App Stuff
+         */
         public static final int app_name=0x7f050000;
-        public static final int cadastro=0x7f050006;
+        public static final int cadastro=0x7f050007;
         /**  Main Menu Screen 
          */
-        public static final int char_img_description=0x7f050007;
-        public static final int char_name=0x7f05000e;
-        public static final int clan=0x7f05000f;
-        public static final int email=0x7f05000c;
-        public static final int entrar=0x7f050005;
+        public static final int char_img_description=0x7f050008;
+        public static final int char_name=0x7f05000f;
+        public static final int clan=0x7f050010;
+        public static final int email=0x7f05000d;
+        public static final int entrar=0x7f050006;
         public static final int hello_world=0x7f050002;
         /**  Login Screen 
          */
-        public static final int login=0x7f050003;
-        public static final int pass_login=0x7f050004;
-        public static final int pass_registry=0x7f05000d;
-        public static final int placeholder_level=0x7f050009;
-        public static final int placeholder_name=0x7f050008;
-        public static final int placeholder_winstreak=0x7f05000a;
+        public static final int login=0x7f050004;
+        public static final int ok=0x7f050003;
+        public static final int pass_login=0x7f050005;
+        public static final int pass_registry=0x7f05000e;
+        public static final int placeholder_level=0x7f05000a;
+        public static final int placeholder_name=0x7f050009;
+        public static final int placeholder_winstreak=0x7f05000b;
         /**  Registration Screen 
          */
-        public static final int register=0x7f05000b;
+        public static final int register=0x7f05000c;
     }
     public static final class style {
         /** 
