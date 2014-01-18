@@ -1,4 +1,4 @@
-package lac.puc.ubi.invbat.concept.model;
+package lac.puc.ubi.invbat.concept.comm;
 
 import java.io.Serializable;
 import java.util.UUID;

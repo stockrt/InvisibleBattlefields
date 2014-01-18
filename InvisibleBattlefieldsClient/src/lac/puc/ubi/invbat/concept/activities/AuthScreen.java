@@ -10,10 +10,14 @@ import android.widget.Toast;
 
 public class AuthScreen extends Activity {
 
+	private InvBatApplication ap;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_auth);
+		
+		ap = (InvBatApplication) getApplication();
 	}
 	
 	public void AuthRoutine(View v) {
@@ -30,7 +34,7 @@ public class AuthScreen extends Activity {
 		}
 		else
 		{
-			fetchPlayerData(); //esse método provavelmente será um 'postExecute(true)' da autenticação
+			ap.validateCharData(); //esse método provavelmente será um 'postExecute(true)' da autenticação
 		    Intent i = new Intent(AuthScreen.this, MainMenuScreen.class);
 			startActivity(i);
 		}
@@ -40,10 +44,5 @@ public class AuthScreen extends Activity {
 		Toast.makeText(getBaseContext(), "Cadastro!", Toast.LENGTH_SHORT).show();
 	    Intent i = new Intent(AuthScreen.this, RegistrationScreen.class);
 		startActivity(i);
-	}
-
-	/* Temporário */
-	private void fetchPlayerData() {
-		InvBatApplication ap = (InvBatApplication) getApplication();
 	}
 }

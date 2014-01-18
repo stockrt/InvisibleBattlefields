@@ -36,19 +36,19 @@
 	        <TextView android:id="@+id/txt_charname"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="@string/placeholder_name"
+	            android:text="@string/prefix_name"
 	            android:textAppearance="?android:attr/textAppearanceMedium" />
 		       
 	        <TextView android:id="@+id/txt_level"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="@string/placeholder_level"
+	            android:text="@string/prefix_level"
 	            android:textAppearance="?android:attr/textAppearanceListItem" />
 		       
 	        <TextView android:id="@+id/txt_winstreak"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="@string/placeholder_winstreak"
+	            android:text="@string/prefix_winstreak"
 	            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 	    </LinearLayout>
 
