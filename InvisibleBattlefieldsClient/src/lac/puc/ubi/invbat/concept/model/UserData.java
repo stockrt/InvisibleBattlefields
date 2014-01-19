@@ -10,6 +10,12 @@ public class UserData implements Serializable {
 	private String password;
 	private CharacterData charData;
 
+	public UserData(String _email, String _pass) {
+		this.email = _email;
+		this.password = _pass;
+		charData = null;
+	}
+	
 	public UserData(String _email, String _pass, CharacterData _charData) {
 		this.email = _email;
 		this.password = _pass;
@@ -26,5 +32,9 @@ public class UserData implements Serializable {
 
 	public CharacterData getCharData() {
 		return charData;
+	}
+
+	public void setCharData(CharacterData charData) {
+		this.charData = charData;
 	}
 }

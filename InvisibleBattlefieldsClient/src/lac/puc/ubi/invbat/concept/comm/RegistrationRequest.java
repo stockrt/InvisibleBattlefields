@@ -16,7 +16,7 @@ public class RegistrationRequest implements Serializable {
 	/** Client UUID */
 	private UUID uuid;
 
-	/** Authentication Info */
+	/** User Info for Registration */
 	private UserData userData;
 	
 	/** 
@@ -35,7 +35,7 @@ public class RegistrationRequest implements Serializable {
 		this.uuid = uuid;
 	}
 
-	public UserData setUserData(UserData userData) {
+	public void setUserData(UserData userData) {
 		this.userData = userData;
 	}
 	

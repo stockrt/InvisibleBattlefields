@@ -14,6 +14,8 @@ public class FightRequest implements Serializable {
 
 	/** Client UUID */
 	private UUID uuid;
+	
+	/** Battle Information for the Client **/
 	private BattleData battle;
 
 	public FightRequest(UUID _uuid, BattleData _battle)
@@ -34,6 +36,4 @@ public class FightRequest implements Serializable {
 	public void setBattle(BattleData battle) {
 		this.battle = battle;
 	}
-	
-	
 }

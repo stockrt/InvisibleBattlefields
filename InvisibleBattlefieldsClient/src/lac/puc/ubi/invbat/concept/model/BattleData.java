@@ -16,7 +16,6 @@ public class BattleData implements Serializable{
 	
 	private int timeFrameID;
 	private Date date;
-	
 	private RegionData regionData;
 
 	public BattleData(UUID _uuid, int _timeID, Date _date, RegionData _rData)

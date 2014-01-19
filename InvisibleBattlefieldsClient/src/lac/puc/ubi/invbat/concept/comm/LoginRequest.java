@@ -3,13 +3,10 @@ package lac.puc.ubi.invbat.concept.comm;
 import java.io.Serializable;
 import java.util.UUID;
 
-import lac.puc.ubi.invbat.concept.model.CharacterData;
+import lac.puc.ubi.invbat.concept.model.UserData;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+public class LoginRequest implements Serializable{
 
-public class UserDataResponse implements Serializable {
-	
 	/**
 	 * Default Java serial version UID
 	 **/
@@ -18,16 +15,15 @@ public class UserDataResponse implements Serializable {
 	/** Client UUID */
 	private UUID uuid;
 
-	private Boolean authAnswer;
-	private CharacterData chardata;
-	
+	/** User Info for Login */
+	private UserData userData;
+
 	/**
 	 * Constructor.
 	 **/
-	public UserDataResponse(UUID _id, Boolean _answer, CharacterData _data) {
+	public LoginRequest(UUID _id, String _email, String _pass) {
 		uuid = _id;
-		authAnswer = _answer;
-		chardata = _data;
+		userData = new UserData(_email, _pass);
 	}
 	
 	public UUID getUuid() {
@@ -38,26 +34,18 @@ public class UserDataResponse implements Serializable {
 		this.uuid = uuid;
 	}
 	
-	public Boolean getAuthAnswer() {
-		return authAnswer;
+	public UserData getUserData() {
+		return userData;
 	}
 
-	public void setAuthAnswer(Boolean authAnswer) {
-		this.authAnswer = authAnswer;
-	}
-
-	public CharacterData getChardata() {
-		return chardata;
-	}
-
-	public void setChardata(CharacterData chardata) {
-		this.chardata = chardata;
+	public void setUserData(UserData userData) {
+		this.userData = userData;
 	}
 	
 	/**
      * {@inheritDoc}
      **/
-    @Override
+    /*@Override
     public String toString() {
 
     	JSONObject result = new JSONObject();
@@ -66,8 +54,7 @@ public class UserDataResponse implements Serializable {
 		try {
 			result.put("uuid", uuid.toString());
 
-			info.put("authanswer", authAnswer);
-			info.put("chardata", chardata.toString());
+			info.put("userdata", userData.toString());
 			
 			result.put("info", info.toString());
 			
@@ -77,5 +64,5 @@ public class UserDataResponse implements Serializable {
 		}
 		
 		return result.toString();
-	}
+	}*/
 }

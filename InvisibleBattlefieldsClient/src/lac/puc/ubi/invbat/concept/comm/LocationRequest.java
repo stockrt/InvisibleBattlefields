@@ -3,9 +3,6 @@ package lac.puc.ubi.invbat.concept.comm;
 import java.io.Serializable;
 import java.util.UUID;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class LocationRequest implements Serializable {
 	
 	/**
@@ -15,6 +12,8 @@ public class LocationRequest implements Serializable {
 
 	/** Client UUID */
 	private UUID uuid;
+	
+	/** Location coordinates */
 	private double lat;
 	private double lng;
 	
@@ -42,7 +41,7 @@ public class LocationRequest implements Serializable {
 	/**
      * {@inheritDoc}
      **/
-    @Override
+    /*@Override
     public String toString() {
 
     	JSONObject result = new JSONObject();
@@ -62,5 +61,5 @@ public class LocationRequest implements Serializable {
 		}
 		
 		return result.toString();
-	}
+	}*/
 }

@@ -7,10 +7,16 @@ public class FightResponse implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	/** Client UUID */
 	private UUID uuid;
+	
+	/** Battle UUID for the Server */
 	private UUID battleID;
 
+	/** Answer of the Battle */
 	private Boolean battleAnswer;
+	
+	/** If the answer is true, the attacking clan ID */
 	private int attackingClanID;
 	
 	public UUID getUuid() {

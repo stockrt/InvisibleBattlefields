@@ -26,7 +26,6 @@ public class RegistrationScreen extends FragmentActivity {
 	public void RegistrationRoutine(View v)
 	{
 		
-		
 	}
 	
 	public void ShowClanDescriptionPopUp(View v)
