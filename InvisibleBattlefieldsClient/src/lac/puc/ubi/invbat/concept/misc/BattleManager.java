@@ -11,13 +11,15 @@ import lac.puc.ubi.invbat.concept.model.RegionData;
 
 public class BattleManager {
 
-	public List<BattleData> pendingBattleList;
-	private Queue<BattleData> removalQueueIndex;
+	private List<BattleData> pendingBattleList;
+	private Queue<BattleData> removalQueue;
+	private Queue<BattleData> aditionQueue;
 	
 	public BattleManager()
 	{
 		pendingBattleList = new ArrayList<BattleData>();
-		removalQueueIndex = new LinkedList<BattleData>();
+		removalQueue = new LinkedList<BattleData>();
+		aditionQueue = new LinkedList<BattleData>();
 	}
 	
 	
@@ -36,34 +38,55 @@ public class BattleManager {
 		
 		return ret;
 	}
-
-	public List<BattleData> refreshBattleValues() {
-		//TODO: faz request das pending battle
-		
+	
+	public List<BattleData> retrieveBattleList()
+	{
+		/*
 		pendingBattleList.add(new BattleData(100, 0, new Date(), new RegionData(201, "Planicie")));
 		pendingBattleList.add(new BattleData(101, 2, new Date(), new RegionData(202, "Montanha")));
 		pendingBattleList.add(new BattleData(102, 1, new Date(), new RegionData(203, "Ilha")));
 		pendingBattleList.add(new BattleData(103, 0, new Date(), new RegionData(204, "Floresta")));
+		*/
 		
 		return pendingBattleList;
 	}
 	
 	private void queueToRemove(BattleData battle)
 	{
-		removalQueueIndex.add(battle);
+		removalQueue.add(battle);
 	}
-	
+
+	private void queueToAdd(BattleData battle)
+	{
+		aditionQueue.add(battle);
+	}
+
 	public void removePendingBattles()
 	{
-		for(BattleData item : removalQueueIndex)
+		for(BattleData item : removalQueue)
 		{
 			removePendingBattle(item);
 		}
 		
-		removalQueueIndex.clear();
+		removalQueue.clear();
+	}
+	
+	public void addPendingBattles()
+	{
+		for(BattleData item : aditionQueue)
+		{
+			pendingBattleList.add(item);
+		}
+		
+		aditionQueue.clear();
 	}
 
 	public void removePendingBattle(BattleData thisBattle) {
 		pendingBattleList.remove(thisBattle);
+	}
+
+	public void newPendingBattle(BattleData battle) 
+	{
+		queueToAdd(battle);
 	}	
 }

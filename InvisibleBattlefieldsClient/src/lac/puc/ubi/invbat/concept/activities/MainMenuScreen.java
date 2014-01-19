@@ -35,7 +35,7 @@ public class MainMenuScreen extends Activity {
 
 		ap = (InvBatApplication) getApplication();
 		mRunnableHandler = new Handler();
-		mRunnableHandler.post(mCheckPendingBattlesExpiration);
+		mRunnableHandler.post(mCheckPendingBattlesState);
 		
 		m_charName = (TextView) findViewById(R.id.txt_charname);
 		m_level = (TextView) findViewById(R.id.txt_level);
@@ -45,7 +45,7 @@ public class MainMenuScreen extends Activity {
 		
 		refreshCharValues();
 		
-		battleList = ap.m_battleManager.refreshBattleValues();
+		battleList = ap.m_battleManager.retrieveBattleList();
 		refreshPendingBattleValues();
 		
 		adapter = new BattleArrayAdapter(this, battleList, ap);
@@ -65,9 +65,11 @@ public class MainMenuScreen extends Activity {
 		String battleRemovalResult = ap.m_battleManager.removeOldBattles();
 		if(!battleRemovalResult.equals(""))
 			Toast.makeText(getBaseContext(), battleRemovalResult, Toast.LENGTH_LONG).show();
+		
+		ap.m_battleManager.addPendingBattles();
 	}
 	
-	private Runnable mCheckPendingBattlesExpiration = new Runnable() {
+	private Runnable mCheckPendingBattlesState = new Runnable() {
 
 		public void run() {
 			refreshPendingBattleValues();

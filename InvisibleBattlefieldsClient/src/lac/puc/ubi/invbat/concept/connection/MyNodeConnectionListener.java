@@ -7,8 +7,9 @@ import java.util.List;
 import lac.cnclib.net.NodeConnection;
 import lac.cnclib.net.NodeConnectionListener;
 import lac.cnclib.sddl.serialization.Serialization;
-import modellibrary.RequestInfo;
-import modellibrary.ResponseInfo;
+import lac.puc.ubi.invbat.concept.app.InvBatApplication;
+import lac.puc.ubi.invbat.concept.comm.FightRequest;
+import lac.puc.ubi.invbat.concept.comm.LoginResponse;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,9 +24,13 @@ import android.os.Message;
 public class MyNodeConnectionListener implements NodeConnectionListener {
 
 	private Handler handler;
-
-	public MyNodeConnectionListener(Handler handler) {
-		this.handler = handler;
+	private InvBatApplication ap;
+	
+	public MyNodeConnectionListener(Handler _handler, InvBatApplication _ap) 
+	{
+		//TODO: criar o handler no InvBatApplication
+		this.handler = _handler;
+		this.ap = _ap;
 	}
 
 	public void setHandler(Handler handler) {
@@ -50,24 +55,14 @@ public class MyNodeConnectionListener implements NodeConnectionListener {
 		handler.sendMessage(msg);
 	}
 
-	private void handleNewResponse(ResponseInfo obj) {
-		Bundle bund = new Bundle();
-		bund.putString("status", "response");
-		bund.putString("type", obj.getType());
-		bund.putString("data", obj.getPayload());
-		Message msg = new Message();
-		msg.setData(bund);
-		handler.sendMessage(msg);
+	private void handleNewPendingFight(FightRequest obj) 
+	{
+		ap.handleBattleData(obj.getBattle());
 	}
 	
-	private void handleNewRequest(RequestInfo obj) {
-		Bundle bund = new Bundle();
-		bund.putString("status", "request");
-		bund.putString("type", obj.getType());
-		bund.putString("data", obj.getPayload());
-		Message msg = new Message();
-		msg.setData(bund);
-		handler.sendMessage(msg);
+	private void handleLoginAuthorization(LoginResponse obj) 
+	{
+		ap.handleLoginAuthorization(obj.getAuthAnswer(), obj.getChardata());
 	}
 
 	public void connected(NodeConnection remoteCon) {
@@ -90,10 +85,10 @@ public class MyNodeConnectionListener implements NodeConnectionListener {
 		Serializable s = Serialization.fromJavaByteStream(message.getContent());
 		if (className != null) 
 		{
-			if (className.equals(RequestInfo.class.getCanonicalName())) 
-				handleNewRequest((RequestInfo) s);
-			else if(className.equals(ResponseInfo.class.getCanonicalName()))
-				handleNewResponse((ResponseInfo) s);
+			if (className.equals(FightRequest.class.getCanonicalName())) 
+				handleNewPendingFight((FightRequest) s);
+			else if(className.equals(LoginResponse.class.getCanonicalName()))
+				handleLoginAuthorization((LoginResponse) s);
 		}
 		else 
 		{
