@@ -22,6 +22,8 @@ public class MainMenuScreen extends Activity {
 	private TextView m_winStreak;
 	private ListView m_listView;
 	
+	private BattleArrayAdapter adapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -39,7 +41,7 @@ public class MainMenuScreen extends Activity {
 		refreshCharValues();
 		
 		final List<BattleData> list = refreshPendingBattleValues();
-		final BattleArrayAdapter adapter = new BattleArrayAdapter(this, list, ap);
+		adapter = new BattleArrayAdapter(this, list, ap);
 		m_listView.setAdapter(adapter);
 	}
 
@@ -53,8 +55,8 @@ public class MainMenuScreen extends Activity {
 	
 	private List<BattleData> refreshPendingBattleValues() 
 	{
-		List<BattleData> battleList = ap.refreshBattleValues();
-		Toast.makeText(getBaseContext(), ap.removeOldBattles(), Toast.LENGTH_SHORT).show();
+		List<BattleData> battleList = ap.m_battleManager.refreshBattleValues();
+		Toast.makeText(getBaseContext(), ap.m_battleManager.removeOldBattles(), Toast.LENGTH_SHORT).show();
 		
 		return battleList;
 	}

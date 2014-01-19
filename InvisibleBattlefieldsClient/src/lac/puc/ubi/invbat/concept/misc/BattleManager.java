@@ -1,5 +1,51 @@
 package lac.puc.ubi.invbat.concept.misc;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+import lac.puc.ubi.invbat.concept.model.BattleData;
+import lac.puc.ubi.invbat.concept.model.RegionData;
+
 public class BattleManager {
 
+	public List<BattleData> pendingBattleList;
+	
+	public BattleManager()
+	{
+		pendingBattleList = new ArrayList<BattleData>();
+	}
+	
+	
+	public String removeOldBattles() {
+		String ret = "";
+		
+		for (BattleData item : pendingBattleList) 
+		{
+            if(DateHelper.isItToday(item.getDate(), new Date()) && DateHelper.checkTimeFrame(item.getTimeFrameID()))
+            {
+            	ret.concat("Batalha em " + item.getRegionData().getRegionName() + "ja aconteceu!\n" );
+            	removePendingBattle(item);
+            }
+        }
+		
+		return ret;
+	}
+
+	public List<BattleData> refreshBattleValues() {
+		//TODO: faz request das pending battle
+		
+		pendingBattleList.add(new BattleData(new UUID(2,1), 0, new Date(), new RegionData(new UUID(3,1), "Planicie")));
+		pendingBattleList.add(new BattleData(new UUID(2,2), 2, new Date(), new RegionData(new UUID(3,2), "Montanha")));
+		pendingBattleList.add(new BattleData(new UUID(2,3), 1, new Date(), new RegionData(new UUID(3,3), "Ilha")));
+		pendingBattleList.add(new BattleData(new UUID(2,3), 0, new Date(), new RegionData(new UUID(3,4), "Floresta")));
+		
+		return pendingBattleList;
+	}
+
+
+	public void removePendingBattle(BattleData thisBattle) {
+		pendingBattleList.remove(thisBattle);
+	}	
 }

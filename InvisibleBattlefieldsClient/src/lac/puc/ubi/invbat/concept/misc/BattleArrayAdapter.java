@@ -13,12 +13,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BattleArrayAdapter extends ArrayAdapter<BattleData> {
 
 	private InvBatApplication ap;
 	private final Context context;
 	private final List<BattleData> values;
+	private BattleData thisBattle;
 	
 	public BattleArrayAdapter(Context context, List<BattleData> values, InvBatApplication ap) 
 	{
@@ -30,9 +32,10 @@ public class BattleArrayAdapter extends ArrayAdapter<BattleData> {
 	}
 	
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) 
+	public View getView(final int position, View convertView, ViewGroup parent) 
 	{
-		BattleData thisBattle = values.get(position);
+		thisBattle = values.get(position);
+		
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
 		View rowView = inflater.inflate(R.layout.layout_pendingbattle, parent, false);
@@ -64,7 +67,9 @@ public class BattleArrayAdapter extends ArrayAdapter<BattleData> {
 			
 			@Override
 			public void onClick(View v) {
-				ap.m_battleManager.removePendingBattle(thisBattle);
+				ap.m_battleManager.removePendingBattle(values.get(position));
+				notifyDataSetChanged();
+				Toast.makeText(getContext(), "Batalha removida!", Toast.LENGTH_SHORT).show();
 			}
 		});
 		
