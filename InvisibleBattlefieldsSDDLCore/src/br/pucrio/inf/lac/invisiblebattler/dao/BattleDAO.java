@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import br.pucrio.inf.lac.invisiblebattler.model.Battle;
-import br.pucrio.inf.lac.invisiblebattler.model.Region;
 
 public class BattleDAO extends BaseDAO {
 
@@ -20,6 +19,15 @@ public class BattleDAO extends BaseDAO {
 		}
 	}
 
+	private Battle setBattle(ResultSet rs) throws SQLException {
+		Battle temp = new Battle();
+		temp.setId(rs.getInt("id"));
+		temp.setDate(rs.getDate("date"));
+		temp.setTimeFrameID(rs.getInt("timeFrameID"));
+		temp.setRegion(rs.getInt("Region_id"));
+		return temp;
+	}
+
 	public Vector<Battle> buscarTodos() {
 		conectar();
 		Vector<Battle> resultados = new Vector<Battle>();
@@ -27,14 +35,7 @@ public class BattleDAO extends BaseDAO {
 		try {
 			rs = comando.executeQuery("SELECT * FROM Battle");
 			while (rs.next()) {
-				Battle temp = new Battle();
-				// pega todos os atributos da Battle
-				temp.setId(rs.getInt("id"));
-				temp.setDate(rs.getDate("date"));
-				temp.setTimeFrameID(rs.getInt("timeFrameID"));
-				RegionDAO dao = new RegionDAO();
-				Region region = dao.buscar(rs.getInt("Region_id"));
-				temp.setRegion(region);
+				Battle temp = setBattle(rs);
 				resultados.add(temp);
 			}
 			return resultados;
@@ -63,24 +64,20 @@ public class BattleDAO extends BaseDAO {
 		}
 	}
 
-	public Vector<Battle> buscar(Integer id) {
+	public Battle buscar(Integer id) {
 		conectar();
 		Vector<Battle> resultados = new Vector<Battle>();
 		ResultSet rs;
+		Battle battle = null;
 		try {
-			rs = comando.executeQuery("SELECT * FROM Battle WHERE id LIKE '"
-					+ id + "%';");
+			rs = comando.executeQuery("SELECT * FROM Battle WHERE id = " + id
+					+ ";");
 			while (rs.next()) {
-				Battle temp = new Battle();
-				// pega todos os atributos da Battle
-				temp.setId(rs.getInt("id"));
-				temp.setDate(rs.getDate("nome"));
-
-				// temp.setRegion(new Region((rs.getInt("Region_id")));
-				temp.setTimeFrameID(rs.getInt("timeFrameID"));
+				Battle temp = setBattle(rs);
 				resultados.add(temp);
+				return temp;
 			}
-			return resultados;
+			return battle;
 		} catch (SQLException e) {
 			imprimeErro("Erro ao buscar Battle", e.getMessage());
 			return null;

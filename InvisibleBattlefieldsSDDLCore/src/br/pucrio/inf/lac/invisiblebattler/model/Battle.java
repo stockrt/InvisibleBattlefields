@@ -2,6 +2,8 @@ package br.pucrio.inf.lac.invisiblebattler.model;
 
 import java.util.Date;
 
+import br.pucrio.inf.lac.invisiblebattler.dao.RegionDAO;
+
 public class Battle {
 	private int id;
 	private int timeFrameID;
@@ -40,10 +42,15 @@ public class Battle {
 		this.region = region;
 	}
 
+	public void setRegion(Integer Region_id) {
+		RegionDAO dao = new RegionDAO();
+		region = dao.buscar(Region_id);
+	}
+
 	public String toString() {
-		String str = "\nid: " + id + "\ntimeFrameID: " + timeFrameID
+		String str = "Battle \nid: " + id + "\ntimeFrameID: " + timeFrameID
 				+ "\ndate: " + date.toString() + "\nregion: "
-				+ region.toString();
+				+ region.toString() + "\n---------";
 		return str;
 	}
 }

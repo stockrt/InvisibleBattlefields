@@ -7,7 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class UserDataResponse implements Serializable {
-	
+
 	/**
 	 * Default Java serial version UID
 	 **/
@@ -18,7 +18,7 @@ public class UserDataResponse implements Serializable {
 
 	private Boolean authAnswer;
 	private CharacterData chardata;
-	
+
 	/**
 	 * Constructor.
 	 **/
@@ -27,7 +27,7 @@ public class UserDataResponse implements Serializable {
 		authAnswer = _answer;
 		chardata = _data;
 	}
-	
+
 	public UUID getUuid() {
 		return uuid;
 	}
@@ -35,7 +35,7 @@ public class UserDataResponse implements Serializable {
 	public void setUuid(UUID uuid) {
 		this.uuid = uuid;
 	}
-	
+
 	public Boolean getAuthAnswer() {
 		return authAnswer;
 	}
@@ -51,29 +51,34 @@ public class UserDataResponse implements Serializable {
 	public void setChardata(CharacterData chardata) {
 		this.chardata = chardata;
 	}
-	
-	/**
-     * {@inheritDoc}
-     **/
-    @Override
-    public String toString() {
 
-    	JSONObject result = new JSONObject();
-    	JSONObject info = new JSONObject();
-		
+	/**
+	 * {@inheritDoc}
+	 **/
+	@Override
+	public String toString() {
+
+		JSONObject result = new JSONObject();
+		JSONObject info = new JSONObject();
+
 		try {
 			result.put("uuid", uuid.toString());
 
 			info.put("authanswer", authAnswer);
-			info.put("chardata", chardata.toString());
-			
+			if (chardata != null) {
+				info.put("chardata", chardata.toString());
+			}
+			else {
+				info.put("chardata", "null");
+			}
+
 			result.put("info", info.toString());
-			
-			} catch (JSONException e) {
-			
+
+		} catch (JSONException e) {
+
 			e.printStackTrace();
 		}
-		
+
 		return result.toString();
 	}
 }

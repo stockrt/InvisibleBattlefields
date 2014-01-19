@@ -20,6 +20,25 @@ public class UserDAO extends BaseDAO {
 		}
 	}
 
+	private User setUser(ResultSet rs) throws SQLException {
+		User temp = new User();
+		temp.setId(rs.getInt("id"));
+		temp.setClan(rs.getInt("Clan_id"));
+		temp.setEmail(rs.getString("email"));
+		temp.setPassword(rs.getString("password"));
+		temp.setName(rs.getString("name"));
+		temp.setNum_victories(rs.getInt("num_victories"));
+		temp.setExp_points(rs.getInt("exp_points"));
+		temp.setLevel(rs.getInt("level"));
+		temp.setBase_agili(rs.getInt("base_agili"));
+		temp.setBase_intel(rs.getInt("base_intel"));
+		temp.setBase_stren(rs.getInt("base_stren"));
+		temp.setMod_agili(rs.getInt("mod_agili"));
+		temp.setMod_intel(rs.getInt("mod_intel"));
+		temp.setMod_stren(rs.getInt("mod_stren"));
+		return temp;
+	}
+
 	public Vector<User> buscarTodos() {
 		conectar();
 		Vector<User> resultados = new Vector<User>();
@@ -27,24 +46,7 @@ public class UserDAO extends BaseDAO {
 		try {
 			rs = comando.executeQuery("SELECT * FROM User");
 			while (rs.next()) {
-				User temp = new User();
-				// pega todos os atributos da User
-				temp.setId(rs.getInt("id"));
-				temp.setEmail(rs.getString("email"));
-				temp.setPassword(rs.getString("password"));
-				temp.setName(rs.getString("name"));
-				temp.setNum_victories(rs.getInt("num_victories"));
-				temp.setExp_points(rs.getInt("exp_points"));
-				temp.setLevel(rs.getInt("level"));
-				temp.setBase_agili(rs.getInt("base_agili"));
-				temp.setBase_intel(rs.getInt("base_intel"));
-				temp.setBase_stren(rs.getInt("base_stren"));
-				temp.setMod_agili(rs.getInt("mod_agili"));
-				temp.setMod_intel(rs.getInt("mod_intel"));
-				temp.setMod_stren(rs.getInt("mod_stren"));
-				ClanDAO dao = new ClanDAO();
-				Clan clan = dao.buscar(rs.getInt("Clan_id"));
-				temp.setClan(clan);
+				User temp = setUser(rs);
 				resultados.add(temp);
 			}
 			return resultados;
@@ -84,8 +86,28 @@ public class UserDAO extends BaseDAO {
 		ResultSet rs;
 		User temp = null;
 		try {
-			rs = comando.executeQuery("SELECT * FROM User WHERE id LIKE '" + id
-					+ "%';");
+			rs = comando.executeQuery("SELECT * FROM User WHERE id =" + id
+					+ ";");
+			while (rs.next()) {
+				temp = setUser(rs);
+				resultados.add(temp);
+			}
+			return temp;
+		} catch (SQLException e) {
+			imprimeErro("Erro ao buscar User", e.getMessage());
+			return null;
+		}
+
+	}
+
+	public User buscar(String _email, String _pass) {
+		conectar();
+		Vector<User> resultados = new Vector<User>();
+		ResultSet rs;
+		User temp = null;
+		try {
+			rs = comando.executeQuery("SELECT * FROM User WHERE email ='"
+					+ _email + "'and password = '" + _pass + "';");
 			while (rs.next()) {
 				temp = new User();
 				// pega todos os atributos da User
@@ -123,7 +145,8 @@ public class UserDAO extends BaseDAO {
 					+ ",`name` ,`num_victories` ,`exp_points` ,`level` "
 					+ ",`base_stren` ,`base_intel` ,`base_agili` ,`mod_stren` "
 					+ ",`mod_intel` ,`mod_agili`)" + "VALUES (NULL ,"
-					+ user.getClan().getId()
+					+ ((user.getClan() == null) ? "NULL" : user.getClan()
+							.getId())
 					+ ",  '"
 					+ user.getEmail()
 					+ "',  '"
@@ -147,7 +170,8 @@ public class UserDAO extends BaseDAO {
 					+ ",  "
 					+ user.getMod_intel()
 					+ ",  "
-					+ user.getMod_agili() + ")";
+					+ user.getMod_agili()
+					+ ")";
 			comando.executeUpdate(sql);
 			System.out.println("Inserida!");
 		} catch (SQLException e) {

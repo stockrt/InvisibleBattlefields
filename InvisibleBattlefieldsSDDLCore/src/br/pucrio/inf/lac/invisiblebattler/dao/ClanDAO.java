@@ -58,15 +58,17 @@ public class ClanDAO extends BaseDAO {
 		Vector<Clan> resultados = new Vector<Clan>();
 		ResultSet rs;
 		Clan temp = null;
+		String sql = "";
 		try {
-			rs = comando.executeQuery("SELECT * FROM Clan WHERE id = " + id
-					+ ";");
+			sql = "SELECT * FROM Clan WHERE id = " + id + ";";
+			rs = comando.executeQuery(sql);
 			while (rs.next()) {
 				temp = new Clan();
 				// pega todos os atributos da Clan
 				temp.setId(rs.getInt("id"));
 				temp.setName(rs.getString("name"));
 				resultados.add(temp);
+//				System.out.println(sql);
 			}
 			return temp;
 		} catch (SQLException e) {
@@ -89,7 +91,7 @@ public class ClanDAO extends BaseDAO {
 		}
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		Clan clan = new Clan("ivan");
 		ClanDAO dao = new ClanDAO();
 		dao.insere(clan);

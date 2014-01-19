@@ -1,7 +1,8 @@
 package lac.puc.ubi.invbat.concept.model;
 
 import java.io.Serializable;
-import java.util.UUID;
+
+import br.pucrio.inf.lac.invisiblebattler.model.User;
 
 public class FightRequest implements Serializable {
 	
@@ -11,19 +12,19 @@ public class FightRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/** Client UUID */
-	private UUID uuid;
+	private User uuid;
 	private BattleData battle;
 
-	public FightRequest(UUID _uuid, BattleData _battle)
+	public FightRequest(User _uuid, BattleData _battle)
 	{
 		uuid = _uuid;
 		battle = _battle;
 	}
 	
-	public UUID getUuid() {
+	public User getUuid() {
 		return uuid;
 	}
-	public void setUuid(UUID uuid) {
+	public void setUuid(User uuid) {
 		this.uuid = uuid;
 	}
 	public BattleData getBattle() {

@@ -6,6 +6,8 @@ import java.util.Random;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import br.pucrio.inf.lac.invisiblebattler.model.User;
+
 public class CharacterData implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -41,6 +43,13 @@ public class CharacterData implements Serializable {
 		name = _loaded.name;
 	}
 	
+	public CharacterData(User user) {
+		
+		initAttributes();
+		
+		setByUser(user);
+
+	}
 	//New Character
 	public CharacterData(String _name, int _id) {
 		int stats[];
@@ -123,9 +132,33 @@ public class CharacterData implements Serializable {
 		return (int) (base_agili * Math.floor(mod_agili * level));
 	}
 	
+	public double getMod_stren() {
+		return mod_stren;
+	}
+
+	public void setMod_stren(double mod_stren) {
+		this.mod_stren = mod_stren;
+	}
+
+	public double getMod_intel() {
+		return mod_intel;
+	}
+
+	public void setMod_intel(double mod_intel) {
+		this.mod_intel = mod_intel;
+	}
+
+	public double getMod_agili() {
+		return mod_agili;
+	}
+
+	public void setMod_agili(double mod_agili) {
+		this.mod_agili = mod_agili;
+	}
+
 	public boolean checkLevelUp() {
 		
-		//Exp necessária para lvl n + 1 = Ceil[(n^(2.25) + 12*n)*raiz(n*10)]
+		//Exp necessï¿½ria para lvl n + 1 = Ceil[(n^(2.25) + 12*n)*raiz(n*10)]
 		boolean leveled = false;
 		double needed_exp = expToNextLevel();
 		
@@ -168,5 +201,21 @@ public class CharacterData implements Serializable {
 		}
 		
 		return charinfo.toString();
+	}
+
+	public void setByUser(User user) {
+		name = user.getName();
+		num_victories = user.getNum_victories();
+		exp_points = user.getExp_points();
+		level = user.getLevel();
+
+		clanId = user.getClan().getId();
+		
+		base_stren = user.getBase_stren();
+		base_intel = user.getBase_intel();
+		base_agili = user.getBase_agili();
+		mod_stren = user.getMod_stren();
+		mod_intel = user.getMod_intel();
+		mod_agili = user.getMod_agili();
 	}
 }

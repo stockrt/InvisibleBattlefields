@@ -2,7 +2,8 @@ package lac.puc.ubi.invbat.concept.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
+
+import br.pucrio.inf.lac.invisiblebattler.model.Battle;
 
 public class BattleData implements Serializable{
 
@@ -12,14 +13,21 @@ public class BattleData implements Serializable{
 	0:  00h <--> 08h
 	1:  8h <--> 16h
 	2:  16h <--> 00h*/
-	private UUID battleID;
+	private int battleID;
 	
 	private int timeFrameID;
 	private Date date;
 	
 	private RegionData regionData;
 
-	public BattleData(UUID _uuid, int _timeID, Date _date, RegionData _rData)
+	public BattleData(Battle _battle) {
+		battleID = _battle.getId();
+		timeFrameID = _battle.getTimeFrameID();
+		date = _battle.getDate();
+		
+				
+	}
+	public BattleData(int _uuid, int _timeID, Date _date, RegionData _rData)
 	{
 		battleID = _uuid;
 		timeFrameID = _timeID;
@@ -27,11 +35,11 @@ public class BattleData implements Serializable{
 		regionData = _rData;
 	}
 	
-	public UUID getBattleID() {
+	public int getBattleID() {
 		return battleID;
 	}
 
-	public void setBattleID(UUID battleID) {
+	public void setBattleID(int battleID) {
 		this.battleID = battleID;
 	}
 

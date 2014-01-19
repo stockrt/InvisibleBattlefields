@@ -7,29 +7,26 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
-public class TextDialogFragment extends DialogFragment {
+public class ConfirmationDialogFragment extends DialogFragment {
 	
-	private int clanId = -1;
-	private String clanName= "clan";
-	private String clanDescription = "description";
+	String message = "message";
 	
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
     	Bundle arguments = getArguments();
-    	clanId = arguments.getInt("clanid");
+    	message = arguments.getString("message");
     	
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         
-        if(clanId != -1)
-        {
-        	clanName = getResources().getStringArray(R.array.clan_name_array)[clanId];
-        	clanDescription = getResources().getStringArray(R.array.clan_description_array)[clanId];
-        }
-        
-        builder.setMessage(clanDescription)
-        	   .setTitle(clanName)
+        builder.setMessage(message)
+        	   .setTitle("Atenção!")
                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialog, int id) {
+                       dismiss();
+                   }
+               })
+        	   .setNegativeButton(R.string.ok, new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
                        dismiss();
                    }

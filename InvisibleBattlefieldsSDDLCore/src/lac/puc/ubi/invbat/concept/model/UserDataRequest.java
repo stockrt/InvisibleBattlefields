@@ -23,9 +23,9 @@ public class UserDataRequest implements Serializable{
 	/**
 	 * Constructor.
 	 **/
-	public UserDataRequest(UUID _id, String _name, String _pass) {
+	public UserDataRequest(UUID _id, String _email, String _pass) {
 		uuid = _id;
-		email = _name;
+		email = _email;
 		password = _pass;
 	}
 	
@@ -56,15 +56,16 @@ public class UserDataRequest implements Serializable{
     public String toString() {
 
     	JSONObject result = new JSONObject();
-    	JSONObject info = new JSONObject();
+//    	JSONObject info = new JSONObject();
 		
 		try {
 			result.put("uuid", uuid.toString());
 			result.put("name", email);
+			result.put("pass", password);
 
-			info.put("password", password);
+//			info.put("password", password);
 			
-			result.put("info", info.toString());
+//			result.put("info", info.toString());
 			
 			} catch (JSONException e) {
 			

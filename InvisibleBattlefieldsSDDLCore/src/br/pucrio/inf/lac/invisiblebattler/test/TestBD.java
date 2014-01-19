@@ -7,22 +7,69 @@ import br.pucrio.inf.lac.invisiblebattler.dao.BaseDAO;
 import br.pucrio.inf.lac.invisiblebattler.dao.BattleDAO;
 import br.pucrio.inf.lac.invisiblebattler.dao.ClanDAO;
 import br.pucrio.inf.lac.invisiblebattler.dao.RegionDAO;
+import br.pucrio.inf.lac.invisiblebattler.dao.UserBattleDAO;
 import br.pucrio.inf.lac.invisiblebattler.dao.UserDAO;
 import br.pucrio.inf.lac.invisiblebattler.model.Battle;
 import br.pucrio.inf.lac.invisiblebattler.model.Clan;
 import br.pucrio.inf.lac.invisiblebattler.model.Region;
 import br.pucrio.inf.lac.invisiblebattler.model.User;
+import br.pucrio.inf.lac.invisiblebattler.model.UserBattle;
 
 public class TestBD {
 
 	public static void main(String[] args) {
-		TestBD test = new TestBD();
-		test.user();
+//		TestBD test = new TestBD();
+//		test.userBattle();
+//		test.user();
 //		test.clan();
 //		test.battle();
 //		test.openClose();
 	}
 	
+	public void userBattle() {
+//		userBattleInsere();
+//		userBattleBusca();
+//		userBattleAtualiza();
+		userBattleRemove();
+	}
+	
+	private void userBattleRemove() {
+		UserBattleDAO dao = new UserBattleDAO();
+		dao.apagar(1);
+	}
+
+	private void userBattleAtualiza() {
+		UserBattleDAO dao = new UserBattleDAO();
+		UserBattle userBattle = dao.buscar(1);
+		userBattle.setExp_points(1);
+		userBattle.setSten(2);
+		userBattle.setIntel(3);
+		userBattle.setAgili(4);
+		userBattle.setUserFrom(24);
+		userBattle.setUserTo(2);
+		dao.atualizar(userBattle);
+	}
+
+	private void userBattleBusca() {
+		UserBattleDAO dao = new UserBattleDAO();
+		Vector<UserBattle> vet = dao.buscarTodos();
+		for (UserBattle userBattle : vet) {
+			System.out.println(userBattle.toString());
+		}
+	}
+
+	private void userBattleInsere() {
+		UserBattleDAO dao = new UserBattleDAO();
+
+		UserBattle userBattle = new UserBattle();
+		userBattle.setUserFrom(3);
+		userBattle.setUserTo(24);
+		userBattle.setBattle(3);
+		userBattle.setDate(new Date());
+
+		dao.insere(userBattle);
+	}
+
 	public void user() {
 //		userInsere();
 		userBusca();

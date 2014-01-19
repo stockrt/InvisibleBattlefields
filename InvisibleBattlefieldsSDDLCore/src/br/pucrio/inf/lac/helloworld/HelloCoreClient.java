@@ -1,18 +1,27 @@
 package br.pucrio.inf.lac.helloworld;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import br.pucrio.inf.lac.invisiblebattler.dao.BattleDAO;
+import br.pucrio.inf.lac.invisiblebattler.model.Battle;
 
 import lac.cnclib.net.NodeConnection;
 import lac.cnclib.net.NodeConnectionListener;
 import lac.cnclib.net.mrudp.MrUdpNodeConnection;
 import lac.cnclib.sddl.message.ApplicationMessage;
 import lac.cnclib.sddl.message.Message;
-import br.pucrio.inf.lac.invisiblebattler.Area;
+import lac.cnclib.sddl.serialization.Serialization;
+import lac.puc.ubi.invbat.concept.model.BattleData;
+import lac.puc.ubi.invbat.concept.model.FightRequest;
+import lac.puc.ubi.invbat.concept.model.UserDataRequest;
+import lac.puc.ubi.invbat.concept.model.UserDataResponse;
 
 public class HelloCoreClient implements NodeConnectionListener {
 
@@ -41,11 +50,32 @@ public class HelloCoreClient implements NodeConnectionListener {
 	@Override
 	public void connected(NodeConnection remoteCon) {
 		ApplicationMessage message = new ApplicationMessage();
-//		String serializableContent = "Hello World";
-		Area area = new Area();
-		
-		message.setContentObject(area);
+		// String serializableContent = "Hello World";
 
+		java.util.UUID _id = remoteCon.getUuid();
+		String _email = "ilima@inf.puc-rio.br";
+		String _pass = "1234";
+		// String _charName = "xvan";
+		// int _clanId = 2;
+
+		// Criando Usuário
+		// RegistrationRequest registrationRequest = new
+		// RegistrationRequest(_id,
+		// _email, _charName, _pass, _clanId);
+		// message.setContentObject(registrationRequest);
+
+		// // autenticando
+//		UserDataRequest userDataRequest = new UserDataRequest(_id, _email,
+//				_pass);
+//		message.setContentObject(userDataRequest);
+		
+		// Lutando
+		BattleDAO dao = new BattleDAO();
+		Vector<Battle> vet = dao.buscarTodos();
+		Battle _battle = vet.elementAt(0); 
+		
+		FightRequest fightRequest = new FightRequest(_id, new BattleData(_battle));
+		message.setContentObject(fightRequest);
 		try {
 			remoteCon.sendMessage(message);
 		} catch (IOException e) {
@@ -56,6 +86,32 @@ public class HelloCoreClient implements NodeConnectionListener {
 	@Override
 	public void newMessageReceived(NodeConnection remoteCon, Message message) {
 		System.out.println(message.getContentObject());
+		// Message message = (Message) topicSample;
+		Serializable serializable = Serialization.fromJavaByteStream(message
+				.getContent());
+		String className = serializable.getClass().getCanonicalName();
+		String uuid = message.getSenderID().toString();
+
+		System.out.println("[] Mensagem recebida do servidor: "
+				+ Serialization.fromJavaByteStream(message.getContent())
+				+ "| className:" + className + " | uuid:" + uuid);
+
+		if (className != null) {
+			if (className.equals(UserDataResponse.class.getCanonicalName())) {
+				UserDataResponse response = (UserDataResponse) Serialization
+						.fromJavaByteStream(message.getContent());
+				System.out.println("Answer: " + response.getAuthAnswer());
+				if (response.getAuthAnswer()) {
+					System.out.println("Char: "
+							+ response.getChardata().toString());
+				}
+			}
+			// if
+			// (className.equals(UserRegistrationResponse.class.getCanonicalName()))
+			// {
+
+			// }
+		}
 	}
 
 	// other methods

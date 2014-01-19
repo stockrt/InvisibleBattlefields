@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import lac.puc.ubi.invbat.concept.model.CharacterData;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import lac.puc.ubi.invbat.concept.model.UserData;
 
 public class RegistrationRequest implements Serializable {
 	
@@ -19,19 +17,14 @@ public class RegistrationRequest implements Serializable {
 	private UUID uuid;
 
 	/** Authentication Info */
-	private String email;
-	private String password;
-
-	private CharacterData charData;
+	private UserData userData;
 	
 	/** 
 	 * Constructor
 	 **/
 	public RegistrationRequest(UUID _id, String _email, String _charName, String _pass, int _clanId) {
 		uuid = _id;
-		email = _email;
-		password = _pass;
-		charData = new CharacterData(_charName, _clanId);
+		userData = new UserData(_email, _pass, new CharacterData(_charName, _clanId));
 	}
 	
 	public UUID getUuid() {
@@ -42,34 +35,18 @@ public class RegistrationRequest implements Serializable {
 		this.uuid = uuid;
 	}
 
-	public String getEmail() {
-		return email;
+	public UserData setUserData(UserData userData) {
+		this.userData = userData;
 	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public CharacterData getCharData() {
-		return charData;
-	}
-
-	public void setCharData(CharacterData charData) {
-		this.charData = charData;
+	
+	public UserData getUserData() {
+		return userData;
 	}
 
 	/**
      * {@inheritDoc}
      **/
-    @Override
+    /*@Override
     public String toString() {
 
     	JSONObject result = new JSONObject();
@@ -77,10 +54,8 @@ public class RegistrationRequest implements Serializable {
 		
 		try {
 			result.put("uuid", uuid.toString());
-			result.put("name", email);
-
-			info.put("password", password);
-			info.put("chardata", charData.toString());
+			
+			info.put("userdata", userData.toString());
 			
 			result.put("info", info.toString());
 			
@@ -90,5 +65,5 @@ public class RegistrationRequest implements Serializable {
 		}
 		
 		return result.toString();
-	}
+	}*/
 }

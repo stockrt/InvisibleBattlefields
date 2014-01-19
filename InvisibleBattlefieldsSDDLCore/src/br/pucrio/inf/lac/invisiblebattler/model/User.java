@@ -1,6 +1,15 @@
 package br.pucrio.inf.lac.invisiblebattler.model;
 
-public class User {
+import java.io.Serializable;
+
+import br.pucrio.inf.lac.invisiblebattler.dao.ClanDAO;
+
+public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6276363735045040778L;
+	
 	private int id;
 	private Clan clan;
 	private String email;
@@ -12,9 +21,9 @@ public class User {
 	private int base_stren;
 	private int base_intel;
 	private int base_agili;
-	private int mod_stren;
-	private int mod_intel;
-	private int mod_agili;
+	private double mod_stren;
+	private double mod_intel;
+	private double mod_agili;
 
 	public User() {
 		name = "";
@@ -37,6 +46,12 @@ public class User {
 	}
 
 	public void setClan(Clan clan) {
+		this.clan = clan;
+	}
+
+	public void setClan(Integer clanId) {
+		ClanDAO daoClan = new ClanDAO();
+		Clan clan = daoClan.buscar(clanId);
 		this.clan = clan;
 	}
 
@@ -112,38 +127,39 @@ public class User {
 		this.base_agili = base_agili;
 	}
 
-	public int getMod_stren() {
+
+	public double getMod_stren() {
 		return mod_stren;
 	}
 
-	public void setMod_stren(int mod_stren) {
+	public void setMod_stren(double mod_stren) {
 		this.mod_stren = mod_stren;
 	}
 
-	public int getMod_intel() {
+	public double getMod_intel() {
 		return mod_intel;
 	}
 
-	public void setMod_intel(int mod_intel) {
+	public void setMod_intel(double mod_intel) {
 		this.mod_intel = mod_intel;
 	}
 
-	public int getMod_agili() {
+	public double getMod_agili() {
 		return mod_agili;
 	}
 
-	public void setMod_agili(int mod_agili) {
+	public void setMod_agili(double mod_agili) {
 		this.mod_agili = mod_agili;
 	}
 
 	public String toString() {
-		String str = "\nid: " + id + "\nclan: " + clan.toString() + "\nemail: "
-				+ email + "\npassword: " + password + "\nname: " + name
-				+ "\nnum_victories: " + num_victories + "\nexp_points: "
-				+ exp_points + "\nlevel: " + level + "\nbase_stren: " + base_stren
-				+ "\nbase_intel: " + base_intel + "\nbase_agili" + base_agili
-				+ "\nmod_stren: " + mod_stren + "\nmod_intel: " + mod_intel
-				+ "\nmod_agili: " + mod_agili;
+		String str = "User \nid: " + id + "\nclan: " + clan.toString()
+				+ "\nemail: " + email + "\npassword: " + password + "\nname: "
+				+ name + "\nnum_victories: " + num_victories + "\nexp_points: "
+				+ exp_points + "\nlevel: " + level + "\nbase_stren: "
+				+ base_stren + "\nbase_intel: " + base_intel + "\nbase_agili"
+				+ base_agili + "\nmod_stren: " + mod_stren + "\nmod_intel: "
+				+ mod_intel + "\nmod_agili: " + mod_agili + "\n---------";
 		return str;
 	}
 }
