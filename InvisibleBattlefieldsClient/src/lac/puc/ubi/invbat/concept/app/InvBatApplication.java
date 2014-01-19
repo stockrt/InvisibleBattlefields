@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import lac.puc.ubi.invbat.concept.misc.BattleManager;
 import lac.puc.ubi.invbat.concept.misc.DateHelper;
 import lac.puc.ubi.invbat.concept.model.BattleData;
 import lac.puc.ubi.invbat.concept.model.CharacterData;
@@ -14,14 +15,15 @@ import android.app.Application;
 /* Like a Registry game class */
 public class InvBatApplication extends Application {
 
-	public CharacterData player;
+	public CharacterData m_player;
+	public BattleManager m_battleManager;
 	public List<BattleData> pendingBattleList = new ArrayList<BattleData>();
 	
 	/* Temp */
 	public void validateCharData() {
 		//TODO: faz request da character data
 		
-		player = new CharacterData("Tobias the Great", 0);
+		m_player = new CharacterData("Tobias the Great", 0);
 	}
 
 	public String removeOldBattles() {
@@ -32,15 +34,16 @@ public class InvBatApplication extends Application {
             if(DateHelper.isItToday(item.getDate(), new Date()) && DateHelper.checkTimeFrame(item.getTimeFrameID()))
             {
             	ret.concat("Batalha em " + item.getRegionData().getRegionName() + "ja aconteceu!\n" );
+            	pendingBattleList.remove(item);
             }
         }
 		
 		return ret;
 	}
 
-	public List refreshBattleValues() {
-		//TODO: faz request das pending battles
-
+	public List<BattleData> refreshBattleValues() {
+		//TODO: faz request das pending battle
+		
 		pendingBattleList.add(new BattleData(new UUID(2,1), 0, new Date(), new RegionData(new UUID(3,1), "Planicie")));
 		pendingBattleList.add(new BattleData(new UUID(2,2), 2, new Date(), new RegionData(new UUID(3,2), "Montanha")));
 		pendingBattleList.add(new BattleData(new UUID(2,3), 1, new Date(), new RegionData(new UUID(3,3), "Ilha")));

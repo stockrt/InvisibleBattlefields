@@ -24,8 +24,8 @@ public class RegistrationRequest implements Serializable {
 
 	private CharacterData charData;
 	
-	/**
-	 * Constructor.
+	/** 
+	 * Constructor
 	 **/
 	public RegistrationRequest(UUID _id, String _email, String _charName, String _pass, int _clanId) {
 		uuid = _id;

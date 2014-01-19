@@ -3,9 +3,6 @@ package lac.puc.ubi.invbat.concept.model;
 import java.io.Serializable;
 import java.util.Random;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class CharacterData implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -140,10 +137,34 @@ public class CharacterData implements Serializable {
 		return Math.ceil((Math.pow(level, 2.25) + 12*level)*Math.sqrt(level*10));
 	}
 	
+	public int getBase_stren() {
+		return base_stren;
+	}
+
+	public int getBase_intel() {
+		return base_intel;
+	}
+
+	public int getBase_agili() {
+		return base_agili;
+	}
+
+	public double getMod_stren() {
+		return mod_stren;
+	}
+
+	public double getMod_intel() {
+		return mod_intel;
+	}
+
+	public double getMod_agili() {
+		return mod_agili;
+	}
+	
 	/**
      * {@inheritDoc}
      **/
-    @Override
+    /*@Override
     public String toString() {
 
     	JSONObject charinfo = new JSONObject();
@@ -168,5 +189,5 @@ public class CharacterData implements Serializable {
 		}
 		
 		return charinfo.toString();
-	}
+	}*/
 }

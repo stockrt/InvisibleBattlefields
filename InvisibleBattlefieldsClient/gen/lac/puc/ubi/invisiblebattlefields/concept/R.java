@@ -223,7 +223,7 @@ containing a value of this type.
         public static final int ic_plusone_tall_off_client=0x7f02001c;
     }
     public static final class id {
-        public static final int action_settings=0x7f05001c;
+        public static final int action_settings=0x7f050022;
         public static final int btnClanDescription=0x7f05001a;
         public static final int btnRegister=0x7f050013;
         public static final int btn_login=0x7f05000a;
@@ -235,9 +235,15 @@ containing a value of this type.
         public static final int et_pass=0x7f050009;
         public static final int hybrid=0x7f050004;
         public static final int img_btn_char=0x7f05000d;
+        public static final int imgbtnNo=0x7f050021;
+        public static final int imgbtnYes=0x7f050020;
+        public static final int lblRegionName=0x7f05001d;
+        public static final int lblRemainingTime=0x7f05001e;
         public static final int lblSpinner=0x7f050018;
         public static final int listview_menu=0x7f050012;
+        public static final int lytLeft=0x7f05001c;
         public static final int lytLinear=0x7f050015;
+        public static final int lytRight=0x7f05001f;
         public static final int lyt_char_data=0x7f05000e;
         public static final int lyt_login=0x7f050005;
         public static final int lyt_pass=0x7f050008;
@@ -260,6 +266,7 @@ containing a value of this type.
         public static final int activity_auth=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int activity_registry=0x7f030002;
+        public static final int layout_pendingbattle=0x7f030003;
     }
     public static final class menu {
         public static final int main_screen=0x7f0b0000;

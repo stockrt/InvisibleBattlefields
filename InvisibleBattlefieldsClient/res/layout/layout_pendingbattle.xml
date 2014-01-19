@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="8dp">
+	
+	<RelativeLayout android:id="@+id/lytLeft"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center_vertical" >
+    
+	    <TextView android:id="@+id/lblRegionName"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true" 
+	        android:text="Região"
+	        android:textSize="20sp"
+	        android:textStyle="bold" />
+	
+	    <LinearLayout 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@id/lblRegionName"
+	        android:orientation="horizontal"
+	    	android:layout_margin="3dp" >
+	    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Expires on: " />
+		    
+		    <TextView android:id="@+id/lblRemainingTime"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="8:00h"
+		        android:textStyle="bold" 
+		        android:textSize="16sp"
+		        android:textColor="@color/common_signin_btn_light_text_focused" />
+	
+	    </LinearLayout>
+    </RelativeLayout>
+    
+	<LinearLayout android:id="@+id/lytRight"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content" 
+	    android:layout_alignParentRight="true" >
+	    
+	    <ImageButton android:id="@+id/imgbtnYes"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@android:drawable/ic_input_add"
+	        android:text="Yes" />
+	    
+	    <ImageButton android:id="@+id/imgbtnNo"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@android:drawable/ic_delete"
+	        android:text="No" />
+	    
+	</LinearLayout>
+	
+</RelativeLayout>
