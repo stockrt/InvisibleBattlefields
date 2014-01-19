@@ -17,7 +17,7 @@ public class DateHelper {
 		boolean ret = false;
 		Date current = new Date();
 
-		Date frame00_1 = current;
+		Date frame00_1 = new Date();
 		frame00_1.setHours(0);
 		frame00_1.setMinutes(0);
 		frame00_1.setSeconds(0);
@@ -49,16 +49,16 @@ public class DateHelper {
 		
 		switch(timeFrameID)
 		{
-			case 0: //from 00h to 07:59h
-				if(current.after(frame00_1) && current.before(frame00_2))
+			case 0: //until 07:59h
+				if(current.before(frame00_2))
 					ret = true;
 				break;
-			case 1: //from 08h to 15:59h
-				if(current.after(frame01_1) && current.before(frame01_2))
+			case 1: //until 15:59h
+				if(current.before(frame01_2))
 					ret = true;
 				break;
-			case 2: //from 16h to 23:59h
-				if(current.after(frame02_1) && current.before(frame02_2))
+			case 2: //until 23:59h
+				if(current.before(frame02_2))
 					ret = true;
 				break;
 				
@@ -71,18 +71,18 @@ public class DateHelper {
 
 	public static String getTimeLimitFromTimeframeID(int timeFrameID)
 	{
-		String ret = "00:00";
+		String ret = "00h:00m";
 
 		switch(timeFrameID)
 		{
 			case 0: //from 00h to 07:59h
-				ret = "07:59";
+				ret = "07h:59m";
 				break;
 			case 1: //from 08h to 15:59h
-				ret = "15:59";
+				ret = "15h:59m";
 				break;
 			case 2: //from 16h to 23:59h
-				ret = "23:59";
+				ret = "23h:59m";
 				break;
 				
 			default:
