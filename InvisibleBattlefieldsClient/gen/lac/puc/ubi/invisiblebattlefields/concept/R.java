@@ -231,11 +231,11 @@ containing a value of this type.
         public static final int btnRegister=0x7f050019;
         public static final int btn_login=0x7f05000a;
         public static final int btn_register=0x7f05000b;
-        public static final int etCharName=0x7f05001d;
-        public static final int etEmail=0x7f05001c;
-        public static final int etPass=0x7f050021;
-        public static final int et_login=0x7f050006;
-        public static final int et_pass=0x7f050009;
+        public static final int etxt_email=0x7f050006;
+        public static final int etxt_pass=0x7f050009;
+        public static final int etxt_regcharname=0x7f05001d;
+        public static final int etxt_regemail=0x7f05001c;
+        public static final int etxt_regpass=0x7f050021;
         public static final int hybrid=0x7f050004;
         public static final int img_btn_char=0x7f050013;
         public static final int imgbtnNo=0x7f050027;

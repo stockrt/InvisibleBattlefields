@@ -6,6 +6,7 @@ import lac.puc.ubi.invbat.concept.model.BattleData;
 import lac.puc.ubi.invbat.concept.model.CharacterData;
 import android.app.Application;
 import android.content.Intent;
+import android.os.Handler;
 import android.widget.Toast;
 
 /* Like a Registry game class */
@@ -13,6 +14,9 @@ public class InvBatApplication extends Application {
 
 	public CharacterData m_player;
 	public BattleManager m_battleManager = new BattleManager();
+	static private Handler m_messageHandler = new Handler(){
+		
+	};
 
 	public void handleBattleData(BattleData battle) {
 		m_battleManager.newPendingBattle(battle);
@@ -38,5 +42,9 @@ public class InvBatApplication extends Application {
 			m_player = new CharacterData("Tobias the Great", 0);
 		else
 			m_player = charData;
+	}
+
+	public Handler getMessageHandler() {
+		return m_messageHandler ;
 	}
 }

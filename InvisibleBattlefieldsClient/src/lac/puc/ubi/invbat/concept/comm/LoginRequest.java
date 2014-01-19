@@ -1,7 +1,6 @@
 package lac.puc.ubi.invbat.concept.comm;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 import lac.puc.ubi.invbat.concept.model.UserData;
 
@@ -12,26 +11,14 @@ public class LoginRequest implements Serializable{
 	 **/
 	private static final long serialVersionUID = 1L;
 
-	/** Client UUID */
-	private UUID uuid;
-
 	/** User Info for Login */
 	private UserData userData;
 
 	/**
 	 * Constructor.
 	 **/
-	public LoginRequest(UUID _id, String _email, String _pass) {
-		uuid = _id;
+	public LoginRequest(String _email, String _pass) {
 		userData = new UserData(_email, _pass);
-	}
-	
-	public UUID getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(UUID uuid) {
-		this.uuid = uuid;
 	}
 	
 	public UserData getUserData() {
