@@ -6,6 +6,8 @@ public class UserData implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private int userID;
+
 	private String email;
 	private String password;
 	private CharacterData charData;
@@ -20,6 +22,14 @@ public class UserData implements Serializable {
 		this.email = _email;
 		this.password = _pass;
 		this.charData = _charData;
+	}
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 	
 	public String getEmail() {

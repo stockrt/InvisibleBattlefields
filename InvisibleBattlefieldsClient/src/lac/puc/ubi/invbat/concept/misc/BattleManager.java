@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.UUID;
 
 import lac.puc.ubi.invbat.concept.model.BattleData;
 import lac.puc.ubi.invbat.concept.model.RegionData;
@@ -41,10 +40,10 @@ public class BattleManager {
 	public List<BattleData> refreshBattleValues() {
 		//TODO: faz request das pending battle
 		
-		pendingBattleList.add(new BattleData(new UUID(2,1), 0, new Date(), new RegionData(new UUID(3,1), "Planicie")));
-		pendingBattleList.add(new BattleData(new UUID(2,2), 2, new Date(), new RegionData(new UUID(3,2), "Montanha")));
-		pendingBattleList.add(new BattleData(new UUID(2,3), 1, new Date(), new RegionData(new UUID(3,3), "Ilha")));
-		pendingBattleList.add(new BattleData(new UUID(2,3), 0, new Date(), new RegionData(new UUID(3,4), "Floresta")));
+		pendingBattleList.add(new BattleData(100, 0, new Date(), new RegionData(201, "Planicie")));
+		pendingBattleList.add(new BattleData(101, 2, new Date(), new RegionData(202, "Montanha")));
+		pendingBattleList.add(new BattleData(102, 1, new Date(), new RegionData(203, "Ilha")));
+		pendingBattleList.add(new BattleData(103, 0, new Date(), new RegionData(204, "Floresta")));
 		
 		return pendingBattleList;
 	}

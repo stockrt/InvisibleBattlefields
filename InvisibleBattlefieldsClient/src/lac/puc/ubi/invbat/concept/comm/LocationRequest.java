@@ -20,6 +20,7 @@ public class LocationRequest implements Serializable {
 	public UUID getUuid() {
 		return uuid;
 	}
+	
 	public void setUuid(UUID uuid) {
 		this.uuid = uuid;
 	}
@@ -27,6 +28,7 @@ public class LocationRequest implements Serializable {
 	public double getLatitude() {
 		return lat;
 	}
+	
 	public void setLatitude(double lat) {
 		this.lat = lat;
 	}
@@ -34,6 +36,7 @@ public class LocationRequest implements Serializable {
 	public double getLongitude() {
 		return lng;
 	}
+	
 	public void setLongitude(double lng) {
 		this.lng = lng;
 	}

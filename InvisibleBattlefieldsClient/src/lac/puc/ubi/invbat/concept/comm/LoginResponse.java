@@ -21,8 +21,6 @@ public class LoginResponse implements Serializable {
 	/** Retrieved character data for the client */
 	private CharacterData chardata;
 	
-	//TODO: falta lista de batalhas pendentes salvas, retornar aqui, depois, ou lidar somente client side?
-	
 	/**
 	 * Constructor.
 	 **/
