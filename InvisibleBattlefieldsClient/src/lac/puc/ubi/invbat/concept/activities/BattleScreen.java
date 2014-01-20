@@ -48,8 +48,8 @@ public class BattleScreen extends Activity {
 				Toast.makeText(getBaseContext(), "Attack Union!", Toast.LENGTH_SHORT).show();
 			    ap.m_battleManager.newAcceptedBattle(thisbattle);
 			    
-			    //CommunicationTask task = new CommunicationTask(ap.getMessageHandler(), ap, "fight", new FightResponse(myClanID, myClanID, myClanID, null));
-				//task.execute();
+			    CommunicationTask task = new CommunicationTask(ap.getMessageHandler(), ap, "fight", new FightResponse(0, myClanID, thisbattle.getBattleID(), true));
+				task.execute();
 			    
 				finish();
 			}
@@ -62,6 +62,10 @@ public class BattleScreen extends Activity {
 			{
 				Toast.makeText(getBaseContext(), "Attack Mercenaries!", Toast.LENGTH_SHORT).show();
 			    ap.m_battleManager.newAcceptedBattle(thisbattle);
+			    
+			    CommunicationTask task = new CommunicationTask(ap.getMessageHandler(), ap, "fight", new FightResponse(0, myClanID, thisbattle.getBattleID(), true));
+				task.execute();
+			    
 			    finish();
 			}
 		};
@@ -72,6 +76,10 @@ public class BattleScreen extends Activity {
 			public void onClick(View v) {
 				Toast.makeText(getBaseContext(), "Attack Berserkers!", Toast.LENGTH_SHORT).show();
 			    ap.m_battleManager.newAcceptedBattle(thisbattle);
+
+			    CommunicationTask task = new CommunicationTask(ap.getMessageHandler(), ap, "fight", new FightResponse(0, myClanID, thisbattle.getBattleID(), true));
+				task.execute();
+			    
 			    finish();
 			}
 		};
