@@ -3,17 +3,18 @@ package br.pucrio.inf.lac.invisiblebattler.test;
 import java.util.Date;
 import java.util.Vector;
 
-import br.pucrio.inf.lac.invisiblebattler.dao.BaseDAO;
-import br.pucrio.inf.lac.invisiblebattler.dao.BattleDAO;
-import br.pucrio.inf.lac.invisiblebattler.dao.ClanDAO;
-import br.pucrio.inf.lac.invisiblebattler.dao.RegionDAO;
-import br.pucrio.inf.lac.invisiblebattler.dao.UserBattleDAO;
-import br.pucrio.inf.lac.invisiblebattler.dao.UserDAO;
+import lac.puc.ubi.invbat.concept.dao.BaseDAO;
+import lac.puc.ubi.invbat.concept.dao.BattleDAO;
+import lac.puc.ubi.invbat.concept.dao.BattleResultDAO;
+import lac.puc.ubi.invbat.concept.dao.CharacterDAO;
+import lac.puc.ubi.invbat.concept.dao.ClanDAO;
+import lac.puc.ubi.invbat.concept.dao.RegionDAO;
+import lac.puc.ubi.invbat.concept.model.BattleResultData;
 import br.pucrio.inf.lac.invisiblebattler.model.Battle;
 import br.pucrio.inf.lac.invisiblebattler.model.Clan;
-import br.pucrio.inf.lac.invisiblebattler.model.Region;
+import br.pucrio.inf.lac.invisiblebattler.model.RegionData;
 import br.pucrio.inf.lac.invisiblebattler.model.User;
-import br.pucrio.inf.lac.invisiblebattler.model.UserBattle;
+import br.pucrio.inf.lac.invisiblebattler.model.UserBattleData;
 
 public class TestBD {
 
@@ -34,34 +35,34 @@ public class TestBD {
 	}
 	
 	private void userBattleRemove() {
-		UserBattleDAO dao = new UserBattleDAO();
+		BattleResultDAO dao = new BattleResultDAO();
 		dao.apagar(1);
 	}
 
 	private void userBattleAtualiza() {
-		UserBattleDAO dao = new UserBattleDAO();
-		UserBattle userBattle = dao.buscar(1);
+		BattleResultDAO dao = new BattleResultDAO();
+		BattleResultData userBattle = dao.buscar(1);
 		userBattle.setExp_points(1);
 		userBattle.setSten(2);
 		userBattle.setIntel(3);
 		userBattle.setAgili(4);
-		userBattle.setUserFrom(24);
-		userBattle.setUserTo(2);
+		userBattle.setCharFromId(24);
+		userBattle.setCharToId(2);
 		dao.atualizar(userBattle);
 	}
 
 	private void userBattleBusca() {
-		UserBattleDAO dao = new UserBattleDAO();
-		Vector<UserBattle> vet = dao.buscarTodos();
-		for (UserBattle userBattle : vet) {
+		BattleResultDAO dao = new BattleResultDAO();
+		Vector<UserBattleData> vet = dao.buscarTodos();
+		for (UserBattleData userBattle : vet) {
 			System.out.println(userBattle.toString());
 		}
 	}
 
 	private void userBattleInsere() {
-		UserBattleDAO dao = new UserBattleDAO();
+		BattleResultDAO dao = new BattleResultDAO();
 
-		UserBattle userBattle = new UserBattle();
+		UserBattleData userBattle = new UserBattleData();
 		userBattle.setUserFrom(3);
 		userBattle.setUserTo(24);
 		userBattle.setBattle(3);
@@ -97,7 +98,7 @@ public class TestBD {
 
 	public void regionInsere() {
 		RegionDAO dao = new RegionDAO();
-		Region region = new Region();
+		RegionData region = new RegionData();
 		region.setName("A");
 		region.setPoints("1;2I3;4I4;1");
 		dao.insere(region);
@@ -106,8 +107,8 @@ public class TestBD {
 	public void regionBusca() {
 		RegionDAO dao = new RegionDAO();
 
-		Vector<Region> vet = dao.buscarTodos();
-		for (Region region : vet) {
+		Vector<RegionData> vet = dao.buscarTodos();
+		for (RegionData region : vet) {
 			System.out.println(region.toString());
 			;
 		}
@@ -120,7 +121,7 @@ public class TestBD {
 
 	public void regionAtualiza() {
 		RegionDAO dao = new RegionDAO();
-		Region region = new Region();
+		RegionData region = new RegionData();
 		region.setId(2);
 		region.setName("A");
 		region.setPoints("2;2I3;4I4;1");
@@ -134,8 +135,8 @@ public class TestBD {
 		battle.setDate(new Date());
 
 		RegionDAO daoReg = new RegionDAO();
-		Vector<Region> vet = daoReg.buscarTodos();
-		Region region = vet.elementAt(0);
+		Vector<RegionData> vet = daoReg.buscarTodos();
+		RegionData region = vet.elementAt(0);
 
 		battle.setRegion(region);
 		battle.setTimeFrameID(0);
@@ -157,8 +158,8 @@ public class TestBD {
 		battle.setId(1);
 		
 		RegionDAO daoReg = new RegionDAO();
-		Vector<Region> vet = daoReg.buscarTodos();
-		Region region = vet.elementAt(0);
+		Vector<RegionData> vet = daoReg.buscarTodos();
+		RegionData region = vet.elementAt(0);
 
 		battle.setRegion(region);
 		battle.setTimeFrameID(1);
@@ -206,7 +207,7 @@ public class TestBD {
 		dao.fechar();
 	}
 	public void userInsere() {
-		UserDAO dao = new UserDAO();
+		CharacterDAO dao = new CharacterDAO();
 
 		User user = new User();
 
@@ -231,7 +232,7 @@ public class TestBD {
 		dao.insere(user);
 	}
 	public void userBusca() {
-		UserDAO dao = new UserDAO();
+		CharacterDAO dao = new CharacterDAO();
 
 		Vector<User> vet = dao.buscarTodos();
 		for (User user : vet) {
@@ -246,8 +247,8 @@ public class TestBD {
 		battle.setId(1);
 		
 		RegionDAO daoReg = new RegionDAO();
-		Vector<Region> vet = daoReg.buscarTodos();
-		Region region = vet.elementAt(0);
+		Vector<RegionData> vet = daoReg.buscarTodos();
+		RegionData region = vet.elementAt(0);
 
 		battle.setRegion(region);
 		battle.setTimeFrameID(1);
@@ -256,7 +257,7 @@ public class TestBD {
 	}
 
 	public void userRemove() {
-		UserDAO dao = new UserDAO();
+		CharacterDAO dao = new CharacterDAO();
 		dao.apagar(1);
 	}
 

@@ -1,4 +1,4 @@
-package br.pucrio.inf.lac.invisiblebattler.dao;
+package lac.puc.ubi.invbat.concept.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;

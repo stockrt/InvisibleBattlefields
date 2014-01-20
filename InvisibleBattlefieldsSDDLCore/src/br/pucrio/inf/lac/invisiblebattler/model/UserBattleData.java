@@ -1,11 +1,18 @@
 package br.pucrio.inf.lac.invisiblebattler.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import br.pucrio.inf.lac.invisiblebattler.dao.BattleDAO;
-import br.pucrio.inf.lac.invisiblebattler.dao.UserDAO;
 
-public class UserBattle {
+import lac.puc.ubi.invbat.concept.dao.BattleDAO;
+import lac.puc.ubi.invbat.concept.dao.CharacterDAO;
+
+
+public class UserBattleData implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1357803405314899693L;
 	private int id;
 	private Battle battle;
 	private User userFrom;
@@ -46,7 +53,7 @@ public class UserBattle {
 		this.userFrom = userFrom;
 	}
 	public void setUserFrom(int userFrom) {
-		UserDAO dao = new UserDAO();
+		CharacterDAO dao = new CharacterDAO();
 		this.userFrom = dao.buscar(userFrom);
 	}
 
@@ -59,7 +66,7 @@ public class UserBattle {
 	}
 
 	public void setUserTo(int userTo) {
-		UserDAO dao = new UserDAO();
+		CharacterDAO dao = new CharacterDAO();
 		this.userTo = dao.buscar(userTo);
 	}
 	public Date getDate() {

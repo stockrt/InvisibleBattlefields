@@ -3,22 +3,27 @@ package lac.puc.ubi.invbat.concept.model;
 import java.io.Serializable;
 import java.util.Random;
 
+import lac.puc.ubi.invbat.concept.dao.ClanDAO;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.pucrio.inf.lac.invisiblebattler.model.User;
 
 public class CharacterData implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	public String name;
-	public int num_victories;
-	public int exp_points;
-	public int level;
-
-	public int clanId;
+	private int id;
 	
+	private int clanId;
+	private ClanData clan;
+
+	private String name;
+	private String email;
+	private String password;
+	private int num_victories;
+	private int exp_points;
+	private int level;
 	private int base_stren;
 	private int base_intel;
 	private int base_agili;
@@ -27,38 +32,33 @@ public class CharacterData implements Serializable {
 	private double mod_agili;
 	
 	//Loaded Character
-	public CharacterData(CharacterData _loaded) {
-		exp_points = _loaded.exp_points;
-		level = _loaded.level;
-		num_victories = _loaded.num_victories;
+	public CharacterData(CharacterData _loaded) {		
+		exp_points = _loaded.getExp_points();
+		level = _loaded.getLevel();
+		num_victories = _loaded.getNum_victories();
 		
-		clanId = _loaded.clanId;
+		clanId = _loaded.getClanId();
 
-		base_stren = _loaded.base_stren;
-		base_intel = _loaded.base_intel;
-		base_agili = _loaded.base_agili;
+		base_stren = _loaded.getBase_stren();
+		base_intel = _loaded.getBase_intel();
+		base_agili = _loaded.getBase_agili();
 		
 		initAttributes();
 		
-		name = _loaded.name;
+		name = _loaded.getName();
+		password = _loaded.getPassword();
 	}
 	
-	public CharacterData(User user) {
-		
-		initAttributes();
-		
-		setByUser(user);
-
-	}
 	//New Character
-	public CharacterData(String _name, int _id) {
+	public CharacterData(String _name, int _clanId) {
 		int stats[];
 		
 		exp_points = 0;
 		level = 1;
 		num_victories = 0;
 		
-		clanId = _id;
+		clanId = _clanId;
+		clan = null;
 
 		stats = generateRandomBaseStats();
 		
@@ -69,6 +69,28 @@ public class CharacterData implements Serializable {
 		initAttributes();
 		
 		name = _name;
+	}
+
+	public CharacterData() {
+		int stats[];
+		
+		exp_points = 0;
+		level = 1;
+		num_victories = 0;
+		
+		clanId = 0;
+		clan = null;
+
+		stats = generateRandomBaseStats();
+		
+		base_stren = stats[0];
+		base_intel = stats[1];
+		base_agili = stats[2];
+		
+		initAttributes();
+		
+		name = "";
+		
 	}
 
 	private int[] generateRandomBaseStats()
@@ -203,19 +225,106 @@ public class CharacterData implements Serializable {
 		return charinfo.toString();
 	}
 
-	public void setByUser(User user) {
-		name = user.getName();
-		num_victories = user.getNum_victories();
-		exp_points = user.getExp_points();
-		level = user.getLevel();
-
-		clanId = user.getClan().getId();
-		
-		base_stren = user.getBase_stren();
-		base_intel = user.getBase_intel();
-		base_agili = user.getBase_agili();
-		mod_stren = user.getMod_stren();
-		mod_intel = user.getMod_intel();
-		mod_agili = user.getMod_agili();
+	public int getId() {
+		return id;
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getClanId() {
+		return clanId;
+	}
+
+	public void setClanId(int clanId) {
+		this.clanId = clanId;
+	}
+
+	public ClanData getClan() {
+		if (clan == null) {
+			ClanDAO dao = new ClanDAO();
+			clan = dao.buscar(clanId); 
+		}
+			
+		return clan;
+	}
+
+	public void setClan(ClanData clan) {
+		this.clan = clan;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getNum_victories() {
+		return num_victories;
+	}
+
+	public void setNum_victories(int num_victories) {
+		this.num_victories = num_victories;
+	}
+
+	public int getExp_points() {
+		return exp_points;
+	}
+
+	public void setExp_points(int exp_points) {
+		this.exp_points = exp_points;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public int getBase_stren() {
+		return base_stren;
+	}
+
+	public void setBase_stren(int base_stren) {
+		this.base_stren = base_stren;
+	}
+
+	public int getBase_intel() {
+		return base_intel;
+	}
+
+	public void setBase_intel(int base_intel) {
+		this.base_intel = base_intel;
+	}
+
+	public int getBase_agili() {
+		return base_agili;
+	}
+
+	public void setBase_agili(int base_agili) {
+		this.base_agili = base_agili;
+	}
+	
+	
 }

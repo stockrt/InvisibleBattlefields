@@ -1,20 +1,18 @@
-package lac.puc.ubi.invbat.concept.model;
+package lac.puc.ubi.invbat.concept.comm;
 
 import java.io.Serializable;
-import java.util.UUID;
+
+import lac.puc.ubi.invbat.concept.model.CharacterData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UserDataResponse implements Serializable {
+public class LoginResponse implements Serializable {
 
 	/**
 	 * Default Java serial version UID
 	 **/
 	private static final long serialVersionUID = 1L;
-
-	/** Client UUID */
-	private UUID uuid;
 
 	private Boolean authAnswer;
 	private CharacterData chardata;
@@ -22,18 +20,9 @@ public class UserDataResponse implements Serializable {
 	/**
 	 * Constructor.
 	 **/
-	public UserDataResponse(UUID _id, Boolean _answer, CharacterData _data) {
-		uuid = _id;
+	public LoginResponse(Boolean _answer, CharacterData _data) {
 		authAnswer = _answer;
 		chardata = _data;
-	}
-
-	public UUID getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(UUID uuid) {
-		this.uuid = uuid;
 	}
 
 	public Boolean getAuthAnswer() {
@@ -59,23 +48,17 @@ public class UserDataResponse implements Serializable {
 	public String toString() {
 
 		JSONObject result = new JSONObject();
-		JSONObject info = new JSONObject();
 
 		try {
-			result.put("uuid", uuid.toString());
 
-			info.put("authanswer", authAnswer);
+			result.put("authanswer", authAnswer);
 			if (chardata != null) {
-				info.put("chardata", chardata.toString());
+				result.put("chardata", chardata.toString());
+			} else {
+				result.put("chardata", "null");
 			}
-			else {
-				info.put("chardata", "null");
-			}
-
-			result.put("info", info.toString());
 
 		} catch (JSONException e) {
-
 			e.printStackTrace();
 		}
 

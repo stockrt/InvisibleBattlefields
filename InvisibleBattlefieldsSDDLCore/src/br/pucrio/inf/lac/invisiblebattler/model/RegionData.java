@@ -2,19 +2,19 @@ package br.pucrio.inf.lac.invisiblebattler.model;
 
 import java.util.Vector;
 
-public class Region {
+public class RegionData {
 	private int id;
 	private String name;
 	private String strPoints;
 	private Vector<Point> points;
 
-	public Region() {
+	public RegionData() {
 		id = 0;
 		name = strPoints = "";
 		points = new Vector<Point>();
 	}
 
-	public Region(int _id, String _name, String _points) {
+	public RegionData(int _id, String _name, String _points) {
 		id = _id;
 		name = _name;
 		setPoints(_points);

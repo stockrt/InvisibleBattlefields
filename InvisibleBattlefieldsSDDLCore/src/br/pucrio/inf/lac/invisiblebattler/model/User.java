@@ -2,7 +2,8 @@ package br.pucrio.inf.lac.invisiblebattler.model;
 
 import java.io.Serializable;
 
-import br.pucrio.inf.lac.invisiblebattler.dao.ClanDAO;
+import lac.puc.ubi.invbat.concept.dao.ClanDAO;
+
 
 public class User implements Serializable{
 	/**

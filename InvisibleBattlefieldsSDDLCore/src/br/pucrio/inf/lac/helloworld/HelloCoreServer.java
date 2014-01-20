@@ -1,7 +1,6 @@
 package br.pucrio.inf.lac.helloworld;
 
 import java.io.Serializable;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,14 +12,13 @@ import lac.cnet.sddl.objects.PrivateMessage;
 import lac.cnet.sddl.udi.core.SddlLayer;
 import lac.cnet.sddl.udi.core.UniversalDDSLayerFactory;
 import lac.cnet.sddl.udi.core.listener.UDIDataReaderListener;
+import lac.puc.ubi.invbat.concept.comm.FightRequest;
+import lac.puc.ubi.invbat.concept.comm.LocationRequest;
+import lac.puc.ubi.invbat.concept.comm.LoginRequest;
+import lac.puc.ubi.invbat.concept.comm.LoginResponse;
+import lac.puc.ubi.invbat.concept.comm.RegistrationRequest;
+import lac.puc.ubi.invbat.concept.dao.CharacterDAO;
 import lac.puc.ubi.invbat.concept.model.CharacterData;
-import lac.puc.ubi.invbat.concept.model.FightRequest;
-import lac.puc.ubi.invbat.concept.model.LocationRequest;
-import lac.puc.ubi.invbat.concept.model.RegistrationRequest;
-import lac.puc.ubi.invbat.concept.model.UserDataRequest;
-import lac.puc.ubi.invbat.concept.model.UserDataResponse;
-import br.pucrio.inf.lac.invisiblebattler.dao.UserDAO;
-import br.pucrio.inf.lac.invisiblebattler.model.User;
 
 public class HelloCoreServer implements
 		UDIDataReaderListener<ApplicationObject> {
@@ -72,10 +70,10 @@ public class HelloCoreServer implements
 				+ "| \nclassName:" + className + " | uuid:" + uuid);
 
 		if (className != null) {
-			if (className.equals(UserDataRequest.class.getCanonicalName())) {
+			if (className.equals(LoginRequest.class.getCanonicalName())) {
 				// envia login (autenticação) (cliente-server)
 				// retornando o UserDataResponse
-				appMsg = processUserData(message);
+				appMsg = processLogin(message);
 			} else if (className.equals(RegistrationRequest.class
 					.getCanonicalName())) {
 				// criar usuário (cliente-server) retornar UserDataResponse
@@ -107,28 +105,26 @@ public class HelloCoreServer implements
 		core.writeTopic(PrivateMessage.class.getSimpleName(), privateMessage);
 	}
 
-	private ApplicationMessage processUserData(Message message) {
-		UserDataRequest requestMessage = (UserDataRequest) Serialization
-				.fromJavaByteStream(message.getContent());
-		System.out.println("[UserDataRequest]: " + requestMessage.toString());
-		UserDataRequest request = (UserDataRequest) Serialization
+	private ApplicationMessage processLogin(Message message) {
+		System.out.println("[LoginRequest]: " + message.toString());
+		LoginRequest request = (LoginRequest) Serialization
 				.fromJavaByteStream(message.getContent());
 		ApplicationMessage appMsg = new ApplicationMessage();
-		UserDataResponse response = null;
-		UUID uuid = message.getSenderId();
+		LoginResponse response = null;
+//		UUID uuid = message.getSenderId();
 		try {
-			UserDAO dao = new UserDAO();
-			User user = dao.buscar(request.getEmail(), request.getPassword());
-			if (user != null) {
-				CharacterData data = new CharacterData(user);
-				response = new UserDataResponse(uuid, true, data);
+			CharacterDAO dao = new CharacterDAO();
+			CharacterData charData = dao.buscar(request.getEmail(), request.getPassword());
+			if (charData != null) {
+				CharacterData data = new CharacterData(charData);
+				response = new LoginResponse(true, data);
 				appMsg.setContentObject(response);
 			} else {
-				response = new UserDataResponse(uuid, false, null);
+				response = new LoginResponse(false, null);
 				appMsg.setContentObject(response);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 		return appMsg;
 	}
@@ -141,28 +137,15 @@ public class HelloCoreServer implements
 		RegistrationRequest request = (RegistrationRequest) Serialization
 				.fromJavaByteStream(message.getContent());
 		ApplicationMessage appMsg = new ApplicationMessage();
-		UserDataResponse response = null;
-		UUID uuid = message.getSenderId();
+		LoginResponse response = null;
+//		UUID uuid = message.getSenderId();
 		try {
-			UserDAO dao = new UserDAO();
-			User user = new User();
-			user.setClan(request.getCharData().clanId);
-			user.setEmail(request.getEmail());
-			user.setPassword(request.getPassword());
-			user.setName(request.getCharData().name);
-			user.setNum_victories(request.getCharData().num_victories);
-			user.setExp_points(request.getCharData().exp_points);
-			user.setLevel(request.getCharData().level);
-			user.setBase_stren(request.getCharData().getAttributeStrength());
-			user.setBase_intel(request.getCharData().getAttributeIntelligence());
-			user.setBase_agili(request.getCharData().getAttributeAgility());
-			user.setMod_stren(request.getCharData().getMod_stren());
-			user.setMod_intel(request.getCharData().getMod_intel());
-			user.setMod_agili(request.getCharData().getMod_agili());
-			dao.insere(user);
+			CharacterDAO dao = new CharacterDAO();
+			CharacterData charData = new CharacterData(request.getCharData());
+			dao.insere(charData);
 
 			CharacterData data = new CharacterData(request.getCharData());
-			response = new UserDataResponse(uuid, true, data);
+			response = new LoginResponse(true, data);
 			appMsg.setContentObject(response);
 		} catch (Exception e) {
 			appMsg.setContentObject("erro");

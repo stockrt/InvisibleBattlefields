@@ -5,12 +5,8 @@ import java.io.Serializable;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import br.pucrio.inf.lac.invisiblebattler.dao.BattleDAO;
-import br.pucrio.inf.lac.invisiblebattler.model.Battle;
 
 import lac.cnclib.net.NodeConnection;
 import lac.cnclib.net.NodeConnectionListener;
@@ -18,10 +14,12 @@ import lac.cnclib.net.mrudp.MrUdpNodeConnection;
 import lac.cnclib.sddl.message.ApplicationMessage;
 import lac.cnclib.sddl.message.Message;
 import lac.cnclib.sddl.serialization.Serialization;
+import lac.puc.ubi.invbat.concept.comm.FightRequest;
+import lac.puc.ubi.invbat.concept.comm.LoginResponse;
+import lac.puc.ubi.invbat.concept.dao.BattleDAO;
+import lac.puc.ubi.invbat.concept.dao.CharacterDAO;
 import lac.puc.ubi.invbat.concept.model.BattleData;
-import lac.puc.ubi.invbat.concept.model.FightRequest;
-import lac.puc.ubi.invbat.concept.model.UserDataRequest;
-import lac.puc.ubi.invbat.concept.model.UserDataResponse;
+import lac.puc.ubi.invbat.concept.model.CharacterData;
 
 public class HelloCoreClient implements NodeConnectionListener {
 
@@ -52,9 +50,9 @@ public class HelloCoreClient implements NodeConnectionListener {
 		ApplicationMessage message = new ApplicationMessage();
 		// String serializableContent = "Hello World";
 
-		java.util.UUID _id = remoteCon.getUuid();
-		String _email = "ilima@inf.puc-rio.br";
-		String _pass = "1234";
+//		java.util.UUID _id = remoteCon.getUuid();
+//		String _email = "ilima@inf.puc-rio.br";
+//		String _pass = "1234";
 		// String _charName = "xvan";
 		// int _clanId = 2;
 
@@ -71,10 +69,12 @@ public class HelloCoreClient implements NodeConnectionListener {
 		
 		// Lutando
 		BattleDAO dao = new BattleDAO();
-		Vector<Battle> vet = dao.buscarTodos();
-		Battle _battle = vet.elementAt(0); 
+		BattleData battle = dao.buscar(3);
 		
-		FightRequest fightRequest = new FightRequest(_id, new BattleData(_battle));
+		CharacterDAO daoChar = new CharacterDAO();
+		CharacterData charData = daoChar.buscar(3);
+		
+		FightRequest fightRequest = new FightRequest(battle,charData);
 		message.setContentObject(fightRequest);
 		try {
 			remoteCon.sendMessage(message);
@@ -97,8 +97,8 @@ public class HelloCoreClient implements NodeConnectionListener {
 				+ "| className:" + className + " | uuid:" + uuid);
 
 		if (className != null) {
-			if (className.equals(UserDataResponse.class.getCanonicalName())) {
-				UserDataResponse response = (UserDataResponse) Serialization
+			if (className.equals(LoginResponse.class.getCanonicalName())) {
+				LoginResponse response = (LoginResponse) Serialization
 						.fromJavaByteStream(message.getContent());
 				System.out.println("Answer: " + response.getAuthAnswer());
 				if (response.getAuthAnswer()) {

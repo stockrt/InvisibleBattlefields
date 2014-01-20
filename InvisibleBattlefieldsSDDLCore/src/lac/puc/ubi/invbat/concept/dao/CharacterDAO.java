@@ -1,29 +1,28 @@
-package br.pucrio.inf.lac.invisiblebattler.dao;
+package lac.puc.ubi.invbat.concept.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import br.pucrio.inf.lac.invisiblebattler.model.Clan;
-import br.pucrio.inf.lac.invisiblebattler.model.User;
+import lac.puc.ubi.invbat.concept.model.CharacterData;
 
-public class UserDAO extends BaseDAO {
+public class CharacterDAO extends BaseDAO {
 
 	public void apagar(Integer id) {
 		conectar();
 		try {
-			comando.executeUpdate("DELETE FROM User WHERE id = " + id + ";");
+			comando.executeUpdate("DELETE FROM Character WHERE id = " + id + ";");
 		} catch (SQLException e) {
-			imprimeErro("Erro ao apagar Users", e.getMessage());
+			imprimeErro("Erro ao apagar Characters", e.getMessage());
 		} finally {
 			fechar();
 		}
 	}
 
-	private User setUser(ResultSet rs) throws SQLException {
-		User temp = new User();
+	private CharacterData setChar(ResultSet rs) throws SQLException {
+		CharacterData temp = new CharacterData();
 		temp.setId(rs.getInt("id"));
-		temp.setClan(rs.getInt("Clan_id"));
+		temp.setClanId(rs.getInt("Clan_id"));
 		temp.setEmail(rs.getString("email"));
 		temp.setPassword(rs.getString("password"));
 		temp.setName(rs.getString("name"));
@@ -39,26 +38,26 @@ public class UserDAO extends BaseDAO {
 		return temp;
 	}
 
-	public Vector<User> buscarTodos() {
+	public Vector<CharacterData> buscarTodos() {
 		conectar();
-		Vector<User> resultados = new Vector<User>();
+		Vector<CharacterData> resultados = new Vector<CharacterData>();
 		ResultSet rs;
 		try {
-			rs = comando.executeQuery("SELECT * FROM User");
+			rs = comando.executeQuery("SELECT * FROM Character");
 			while (rs.next()) {
-				User temp = setUser(rs);
+				CharacterData temp = setChar(rs);
 				resultados.add(temp);
 			}
 			return resultados;
 		} catch (SQLException e) {
-			imprimeErro("Erro ao buscar Users", e.getMessage());
+			imprimeErro("Erro ao buscar CharacterDatas", e.getMessage());
 			return null;
 		}
 	}
 
-	public void atualizar(User user) {
+	public void atualizar(CharacterData user) {
 		conectar();
-		String com = "UPDATE User SET Clan_ID = '" + user.getClan().getId()
+		String com = "UPDATE Character SET Clan_ID = '" + user.getClan().getId()
 				+ "', email ='" + user.getEmail() + "', password = '"
 				+ user.getPassword() + "', name = '" + user.getName()
 				+ "', password = '" + user.getPassword() + ", num_victories = "
@@ -80,68 +79,51 @@ public class UserDAO extends BaseDAO {
 		}
 	}
 
-	public User buscar(Integer id) {
+	public CharacterData buscar(int id) {
 		conectar();
-		Vector<User> resultados = new Vector<User>();
+		Vector<CharacterData> resultados = new Vector<CharacterData>();
 		ResultSet rs;
-		User temp = null;
+		CharacterData temp = null;
 		try {
-			rs = comando.executeQuery("SELECT * FROM User WHERE id =" + id
+			rs = comando.executeQuery("SELECT * FROM Character WHERE id =" + id
 					+ ";");
 			while (rs.next()) {
-				temp = setUser(rs);
+				temp = setChar(rs);
 				resultados.add(temp);
 			}
 			return temp;
 		} catch (SQLException e) {
-			imprimeErro("Erro ao buscar User", e.getMessage());
+			imprimeErro("Erro ao buscar Character", e.getMessage());
 			return null;
 		}
 
 	}
 
-	public User buscar(String _email, String _pass) {
+	public CharacterData buscar(String _email, String _pass) {
 		conectar();
-		Vector<User> resultados = new Vector<User>();
+		Vector<CharacterData> resultados = new Vector<CharacterData>();
 		ResultSet rs;
-		User temp = null;
+		CharacterData temp = null;
 		try {
-			rs = comando.executeQuery("SELECT * FROM User WHERE email ='"
+			rs = comando.executeQuery("SELECT * FROM Character WHERE email ='"
 					+ _email + "'and password = '" + _pass + "';");
 			while (rs.next()) {
-				temp = new User();
-				// pega todos os atributos da User
-				temp.setId(rs.getInt("id"));
-				ClanDAO dao = new ClanDAO();
-				Clan clan = dao.buscar(rs.getInt("Clan_id"));
-				temp.setClan(clan);
-				temp.setEmail(rs.getString("email"));
-				temp.setPassword(rs.getString("password"));
-				temp.setName(rs.getString("name"));
-				temp.setNum_victories(rs.getInt("num_victories"));
-				temp.setExp_points(rs.getInt("exp_points"));
-				temp.setLevel(rs.getInt("level"));
-				temp.setBase_agili(rs.getInt("base_agili"));
-				temp.setBase_intel(rs.getInt("base_intel"));
-				temp.setBase_stren(rs.getInt("base_stren"));
-				temp.setMod_agili(rs.getInt("mod_agili"));
-				temp.setMod_intel(rs.getInt("mod_intel"));
-				temp.setMod_stren(rs.getInt("mod_stren"));
+				temp = setChar(rs);
 				resultados.add(temp);
 			}
 			return temp;
 		} catch (SQLException e) {
-			imprimeErro("Erro ao buscar User", e.getMessage());
+			imprimeErro("Erro ao buscar Character", e.getMessage());
 			return null;
 		}
 
 	}
 
-	public void insere(User user) {
+	public void insere(CharacterData user) {
 		conectar();
 		String sql = "";
 		try {
-			sql = "INSERT INTO  User (`id` ,`Clan_id` ,`email` ,`password` "
+			sql = "INSERT INTO  Character (`id` ,`Clan_id` ,`email` ,`password` "
 					+ ",`name` ,`num_victories` ,`exp_points` ,`level` "
 					+ ",`base_stren` ,`base_intel` ,`base_agili` ,`mod_stren` "
 					+ ",`mod_intel` ,`mod_agili`)" + "VALUES (NULL ,"
@@ -176,7 +158,7 @@ public class UserDAO extends BaseDAO {
 			System.out.println("Inserida!");
 		} catch (SQLException e) {
 			System.out.println("sql: " + sql);
-			imprimeErro("Erro ao inserir User", e.getMessage());
+			imprimeErro("Erro ao inserir Character", e.getMessage());
 		} finally {
 			fechar();
 		}

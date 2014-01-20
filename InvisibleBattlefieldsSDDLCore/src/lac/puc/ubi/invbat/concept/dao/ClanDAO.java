@@ -1,10 +1,10 @@
-package br.pucrio.inf.lac.invisiblebattler.dao;
+package lac.puc.ubi.invbat.concept.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import br.pucrio.inf.lac.invisiblebattler.model.Clan;
+import lac.puc.ubi.invbat.concept.model.ClanData;
 
 public class ClanDAO extends BaseDAO {
 
@@ -19,15 +19,15 @@ public class ClanDAO extends BaseDAO {
 		}
 	}
 
-	public Vector<Clan> buscarTodos() {
+	public Vector<ClanData> buscarTodos() {
 		conectar();
-		Vector<Clan> resultados = new Vector<Clan>();
+		Vector<ClanData> resultados = new Vector<ClanData>();
 		ResultSet rs;
 		try {
 			rs = comando.executeQuery("SELECT * FROM Clan");
 			while (rs.next()) {
-				Clan temp = new Clan();
-				// pega todos os atributos da Clan
+				ClanData temp = new ClanData();
+				// pega todos os atributos da ClanData
 				temp.setId(rs.getInt("id"));
 				temp.setName(rs.getString("name"));
 				resultados.add(temp);
@@ -39,7 +39,7 @@ public class ClanDAO extends BaseDAO {
 		}
 	}
 
-	public void atualizar(Clan clan) {
+	public void atualizar(ClanData clan) {
 		conectar();
 		String com = "UPDATE Clan SET name = '" + clan.getName()
 				+ "' WHERE  id = '" + clan.getId() + "';";
@@ -53,17 +53,17 @@ public class ClanDAO extends BaseDAO {
 		}
 	}
 
-	public Clan buscar(Integer id) {
+	public ClanData buscar(Integer id) {
 		conectar();
-		Vector<Clan> resultados = new Vector<Clan>();
+		Vector<ClanData> resultados = new Vector<ClanData>();
 		ResultSet rs;
-		Clan temp = null;
+		ClanData temp = null;
 		String sql = "";
 		try {
 			sql = "SELECT * FROM Clan WHERE id = " + id + ";";
 			rs = comando.executeQuery(sql);
 			while (rs.next()) {
-				temp = new Clan();
+				temp = new ClanData();
 				// pega todos os atributos da Clan
 				temp.setId(rs.getInt("id"));
 				temp.setName(rs.getString("name"));
@@ -72,13 +72,13 @@ public class ClanDAO extends BaseDAO {
 			}
 			return temp;
 		} catch (SQLException e) {
-			imprimeErro("Erro ao buscar Clan", e.getMessage());
+			imprimeErro("Erro ao buscar ClanData", e.getMessage());
 			return null;
 		}
 
 	}
 
-	public void insere(Clan clan) {
+	public void insere(ClanData clan) {
 		conectar();
 		try {
 			comando.executeUpdate("INSERT INTO Clan VALUES(null , '"
@@ -92,7 +92,7 @@ public class ClanDAO extends BaseDAO {
 	}
 
 	public static void main(String[] args) {
-		Clan clan = new Clan("ivan");
+		ClanData clan = new ClanData("ivan");
 		ClanDAO dao = new ClanDAO();
 		dao.insere(clan);
 	}

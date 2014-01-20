@@ -2,13 +2,16 @@ package br.pucrio.inf.lac.invisiblebattler.model;
 
 import java.util.Date;
 
-import br.pucrio.inf.lac.invisiblebattler.dao.RegionDAO;
+import org.json.JSONObject;
+
+import lac.puc.ubi.invbat.concept.dao.RegionDAO;
+import lac.puc.ubi.invbat.concept.model.RegionData;
 
 public class Battle {
 	private int id;
-	private int timeFrameID;
+	private int timeFrameId;
 	private Date date;
-	private Region region;
+	private RegionData region;
 
 	public int getId() {
 		return id;
@@ -34,11 +37,11 @@ public class Battle {
 		this.date = date;
 	}
 
-	public Region getRegion() {
+	public RegionData getRegion() {
 		return region;
 	}
 
-	public void setRegion(Region region) {
+	public void setRegion(RegionData region) {
 		this.region = region;
 	}
 
@@ -48,6 +51,8 @@ public class Battle {
 	}
 
 	public String toString() {
+		JSONObject result = new JSONObject();
+		result.put("timeFrameID", timeFrameID);
 		String str = "Battle \nid: " + id + "\ntimeFrameID: " + timeFrameID
 				+ "\ndate: " + date.toString() + "\nregion: "
 				+ region.toString() + "\n---------";

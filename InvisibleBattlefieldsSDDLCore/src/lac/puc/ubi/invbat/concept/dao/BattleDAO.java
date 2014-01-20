@@ -1,10 +1,10 @@
-package br.pucrio.inf.lac.invisiblebattler.dao;
+package lac.puc.ubi.invbat.concept.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import br.pucrio.inf.lac.invisiblebattler.model.Battle;
+import lac.puc.ubi.invbat.concept.model.BattleData;
 
 public class BattleDAO extends BaseDAO {
 
@@ -19,23 +19,23 @@ public class BattleDAO extends BaseDAO {
 		}
 	}
 
-	private Battle setBattle(ResultSet rs) throws SQLException {
-		Battle temp = new Battle();
+	private BattleData setBattle(ResultSet rs) throws SQLException {
+		BattleData temp = new BattleData();
 		temp.setId(rs.getInt("id"));
 		temp.setDate(rs.getDate("date"));
-		temp.setTimeFrameID(rs.getInt("timeFrameID"));
-		temp.setRegion(rs.getInt("Region_id"));
+		temp.setTimeFrameId(rs.getInt("timeFrameId"));
+		temp.setRegionId(rs.getInt("Region_id"));
 		return temp;
 	}
 
-	public Vector<Battle> buscarTodos() {
+	public Vector<BattleData> buscarTodos() {
 		conectar();
-		Vector<Battle> resultados = new Vector<Battle>();
+		Vector<BattleData> resultados = new Vector<BattleData>();
 		ResultSet rs;
 		try {
 			rs = comando.executeQuery("SELECT * FROM Battle");
 			while (rs.next()) {
-				Battle temp = setBattle(rs);
+				BattleData temp = setBattle(rs);
 				resultados.add(temp);
 			}
 			return resultados;
@@ -45,14 +45,14 @@ public class BattleDAO extends BaseDAO {
 		}
 	}
 
-	public void atualizar(Battle Battle) {
+	public void atualizar(BattleData battle) {
 		conectar();
-		long mili = Battle.getDate().getTime();
+		long mili = battle.getDate().getTime();
 		java.sql.Date dataSQL = new java.sql.Date(mili);
-		String com = "UPDATE Battle SET timeFrameID = '"
-				+ Battle.getTimeFrameID() + "', date ='" + dataSQL.toString()
-				+ "', Region_id = '" + Battle.getRegion().getId()
-				+ "' WHERE  id = '" + Battle.getId() + "';";
+		String com = "UPDATE Battle SET timeFrameId = '"
+				+ battle.getTimeFrameId() + "', date ='" + dataSQL.toString()
+				+ "', Region_id = '" + battle.getRegionId()
+				+ "' WHERE  id = '" + battle.getId() + "';";
 		System.out.println("Atualizada!");
 		try {
 			comando.executeUpdate(com);
@@ -64,16 +64,16 @@ public class BattleDAO extends BaseDAO {
 		}
 	}
 
-	public Battle buscar(Integer id) {
+	public BattleData buscar(Integer id) {
 		conectar();
-		Vector<Battle> resultados = new Vector<Battle>();
+		Vector<BattleData> resultados = new Vector<BattleData>();
 		ResultSet rs;
-		Battle battle = null;
+		BattleData battle = null;
 		try {
 			rs = comando.executeQuery("SELECT * FROM Battle WHERE id = " + id
 					+ ";");
 			while (rs.next()) {
-				Battle temp = setBattle(rs);
+				BattleData temp = setBattle(rs);
 				resultados.add(temp);
 				return temp;
 			}
@@ -85,15 +85,15 @@ public class BattleDAO extends BaseDAO {
 
 	}
 
-	public void insere(Battle Battle) {
+	public void insere(BattleData battle) {
 		conectar();
-		long mili = Battle.getDate().getTime();
+		long mili = battle.getDate().getTime();
 		java.sql.Date dataSQL = new java.sql.Date(mili);
 		String sql = "";
 		try {
 			sql = "INSERT INTO Battle VALUES(null" + " , "
-					+ Battle.getRegion().getId() + " ,'"
-					+ Battle.getTimeFrameID() + "','" + dataSQL.toString()
+					+ battle.getRegionId() + " ,'"
+					+ battle.getTimeFrameId() + "','" + dataSQL.toString()
 					+ "')";
 			comando.executeUpdate(sql);
 			System.out.println("Inserida!");

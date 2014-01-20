@@ -1,10 +1,10 @@
-package br.pucrio.inf.lac.invisiblebattler.dao;
+package lac.puc.ubi.invbat.concept.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import br.pucrio.inf.lac.invisiblebattler.model.Region;
+import lac.puc.ubi.invbat.concept.model.RegionData;
 
 public class RegionDAO extends BaseDAO {
 
@@ -19,14 +19,14 @@ public class RegionDAO extends BaseDAO {
 		}
 	}
 
-	public Vector<Region> buscarTodos() {
+	public Vector<RegionData> buscarTodos() {
 		conectar();
-		Vector<Region> resultados = new Vector<Region>();
+		Vector<RegionData> resultados = new Vector<RegionData>();
 		ResultSet rs;
 		try {
 			rs = comando.executeQuery("SELECT * FROM Region");
 			while (rs.next()) {
-				Region temp = new Region();
+				RegionData temp = new RegionData();
 				// pega todos os atributos da Region
 				temp.setId(rs.getInt("id"));
 				temp.setName(rs.getString("name"));
@@ -40,7 +40,7 @@ public class RegionDAO extends BaseDAO {
 		}
 	}
 
-	public void atualizar(Region region) {
+	public void atualizar(RegionData region) {
 		conectar();
 		String com = "UPDATE Region SET name = '" + region.getName()
 				+ "', points ='" + region.getStrPoints()
@@ -55,17 +55,17 @@ public class RegionDAO extends BaseDAO {
 		}
 	}
 
-	public Region buscar(Integer id) {
+	public RegionData buscar(Integer id) {
 		conectar();
-		Vector<Region> resultados = new Vector<Region>();
+		Vector<RegionData> resultados = new Vector<RegionData>();
 		ResultSet rs;
 		String sql = "";
-		Region temp = null;
+		RegionData temp = null;
 		try {
 			sql = "SELECT * FROM Region WHERE id = " + id + ";";
 			rs = comando.executeQuery(sql);
 			while (rs.next()) {
-				temp = new Region();
+				temp = new RegionData();
 				// pega todos os atributos da Region
 				temp.setId(rs.getInt("id"));
 				temp.setName(rs.getString("name"));
@@ -81,7 +81,7 @@ public class RegionDAO extends BaseDAO {
 
 	}
 
-	public void insere(Region region) {
+	public void insere(RegionData region) {
 		conectar();
 		String sql = "";
 		try {

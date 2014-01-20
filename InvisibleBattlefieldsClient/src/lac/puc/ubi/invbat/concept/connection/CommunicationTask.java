@@ -29,6 +29,7 @@ public class CommunicationTask extends AsyncTask<Void, byte[], Boolean> {
 	 * Which ip and port to attempt a connection.
 	 */
 	private String ipAddress = "192.168.1.135";
+	
 	private static final int DEFAULT_SDDL_PORT = 5500;
 	private UUID clientUUID = new UUID(1, 1);
 	
