@@ -2,54 +2,55 @@ package lac.puc.ubi.invbat.concept.comm;
 
 import java.io.Serializable;
 
-import lac.puc.ubi.invbat.concept.model.UserData;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class LoginRequest implements Serializable{
+public class LoginRequest implements Serializable {
 
 	/**
 	 * Default Java serial version UID
 	 **/
 	private static final long serialVersionUID = 1L;
 
-	/** User Info for Login */
-	private UserData userData;
+	/** Authentication Info */
+	private String email;
+	private String password; // not stored
 
 	/**
 	 * Constructor.
 	 **/
 	public LoginRequest(String _email, String _pass) {
-		userData = new UserData(_email, _pass);
-	}
-	
-	public UserData getUserData() {
-		return userData;
+		email = _email;
+		password = _pass;
 	}
 
-	public void setUserData(UserData userData) {
-		this.userData = userData;
+	public String getEmail() {
+		return email;
 	}
-	
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getTypeName() {
+		return "authNode";
+	}
+
 	/**
-     * {@inheritDoc}
-     **/
-    /*@Override
-    public String toString() {
+	 * {@inheritDoc}
+	 **/
+	@Override
+	public String toString() {
 
-    	JSONObject result = new JSONObject();
-    	JSONObject info = new JSONObject();
-		
+		JSONObject result = new JSONObject();
 		try {
-			result.put("uuid", uuid.toString());
-
-			info.put("userdata", userData.toString());
-			
-			result.put("info", info.toString());
-			
-			} catch (JSONException e) {
-			
+			result.put("name", email);
+			result.put("pass", password);
+		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
+
 		return result.toString();
-	}*/
+	}
+
 }

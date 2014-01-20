@@ -24,10 +24,19 @@ public class BattleManager {
 		aditionQueue = new LinkedList<BattleData>();
 		
 		/** DEBUG, idealmente seria pego e gravado em preferences */
-		pendingBattleList.add(new BattleData(100, 0, new Date(), new RegionData(201, "Planicie")));
-		pendingBattleList.add(new BattleData(101, 2, new Date(), new RegionData(202, "Montanha")));
-		pendingBattleList.add(new BattleData(102, 1, new Date(), new RegionData(203, "Ilha")));
-		pendingBattleList.add(new BattleData(103, 0, new Date(), new RegionData(204, "Floresta")));
+		BattleData b1, b2, b3, b4;
+		b1 = new BattleData(0, new Date(), 201);
+		b1.setRegionData(new RegionData(201, "Planicie"));
+		b2 = new BattleData(2, new Date(), 202);
+		b2.setRegionData(new RegionData(202, "Montanha"));
+		b3 = new BattleData(1, new Date(), 203);
+		b3.setRegionData(new RegionData(203, "Ilha"));
+		b4 = new BattleData(0, new Date(), 204);
+		b4.setRegionData(new RegionData(204, "Floresta"));
+		pendingBattleList.add(b1);
+		pendingBattleList.add(b2);
+		pendingBattleList.add(b3);
+		pendingBattleList.add(b4);
 	}
 	
 	
@@ -36,9 +45,9 @@ public class BattleManager {
 		
 		for (BattleData item : pendingBattleList) 
 		{
-            if(!DateHelper.isItToday(item.getDate(), new Date()) || !DateHelper.checkTimeFrame(item.getTimeFrameID()))
+            if(!DateHelper.isItToday(item.getDate(), new Date()) || !DateHelper.checkTimeFrame(item.getTimeFrameId()))
             {
-            	ret += "Batalha em \"" + item.getRegionData().getRegionName() + "\" expirou às " + DateHelper.getTimeLimitFromTimeframeID(item.getTimeFrameID()) + "!\n";
+            	ret += "Batalha em \"" + item.getRegionData().getName() + "\" expirou às " + DateHelper.getTimeLimitFromTimeframeID(item.getTimeFrameId()) + "!\n";
             	queueToRemove(pendingBattleList.get(pendingBattleList.indexOf(item)));
             }
         }
@@ -117,7 +126,7 @@ public class BattleManager {
 	{
 		for(BattleData item : pendingBattleList)
 		{
-			if(item.getBattleID() == battleID)
+			if(item.getId() == battleID)
 			{
 				queueToRemove(item);
 				break;

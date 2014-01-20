@@ -44,8 +44,8 @@ public class AcceptedBattleArrayAdapter extends ArrayAdapter<BattleData> {
 		ImageView imgClanIcon = (ImageView) rowView.findViewById(R.id.imgClanIcon);
 		ImageButton imgbtnInfo = (ImageButton) rowView.findViewById(R.id.imgbtn_info);
 
-		tv_RegionName.setText(thisBattle.getRegionData().getRegionName());
-		tv_RemainingTime.setText(DateHelper.getTimeLimitFromTimeframeID(thisBattle.getTimeFrameID()));
+		tv_RegionName.setText(thisBattle.getRegionData().getName());
+		tv_RemainingTime.setText(DateHelper.getTimeLimitFromTimeframeID(thisBattle.getTimeFrameId()));
 		
 		//TODO: setar corretamente o imgClanIcon
 		

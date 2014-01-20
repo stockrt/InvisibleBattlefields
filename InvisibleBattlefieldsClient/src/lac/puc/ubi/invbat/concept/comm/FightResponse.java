@@ -2,52 +2,81 @@ package lac.puc.ubi.invbat.concept.comm;
 
 import java.io.Serializable;
 
-public class FightResponse implements Serializable{
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class FightResponse implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	/** ID de usuário */
-	private int userID;
 
-	/** If the answer is true, the attacking clan ID */
-	private int attackingClanID;
-	
-	/** Battle UUID for the Server */
-	private int battleID;
+	private int charId;
+	private int battleId;
 
-	/** Answer of the Battle */
 	private Boolean battleAnswer;
+	/** If the answer is true, the attacking clan ID */
+	private int attackingClanId;
+
 	
-	public FightResponse(int _userID, int _attackingClanID, int _battleID, Boolean _battleAnswer)
-	{
-		this.userID = _userID;
-		this.attackingClanID = _attackingClanID;
-		this.battleID = _battleID;
-		this.battleAnswer = _battleAnswer;
-	}
 	
-	public int getBattleID() {
-		return battleID;
+	public FightResponse(int charId, int battleId, Boolean battleAnswer,
+			int attackingClanId) {
+		super();
+		this.charId = charId;
+		this.battleId = battleId;
+		this.battleAnswer = battleAnswer;
+		this.attackingClanId = attackingClanId;
 	}
-	public void setBattleID(int battleID) {
-		this.battleID = battleID;
+
+	public int getCharId() {
+		return charId;
 	}
+
+	public void setCharId(int userId) {
+		this.charId = userId;
+	}
+
+	public int getBattleId() {
+		return battleId;
+	}
+
+	public void setBattleId(int battleId) {
+		this.battleId = battleId;
+	}
+
 	public Boolean getBattleAnswer() {
 		return battleAnswer;
 	}
+
 	public void setBattleAnswer(Boolean battleAnswer) {
 		this.battleAnswer = battleAnswer;
 	}
-	public int getAttackingClanID() {
-		return attackingClanID;
+
+	public int getAttackingClanId() {
+		return attackingClanId;
 	}
-	public void setAttackingClanID(int attackingClanID) {
-		this.attackingClanID = attackingClanID;
+
+	public void setAttackingClanId(int attackingClanId) {
+		this.attackingClanId = attackingClanId;
 	}
-	public int getUserID() {
-		return userID;
+
+	/**
+	 * {@inheritDoc}
+	 **/
+	@Override
+	public String toString() {
+
+		JSONObject result = new JSONObject();
+
+		try {
+			result.put("charId", charId);
+			result.put("battleId", battleId);
+			result.put("battleAnswer", battleAnswer);
+			result.put("attackingClanId", attackingClanId);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		return result.toString();
 	}
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
+
 }

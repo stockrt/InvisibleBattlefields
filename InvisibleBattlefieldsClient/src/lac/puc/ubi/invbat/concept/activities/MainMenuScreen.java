@@ -74,9 +74,9 @@ public class MainMenuScreen extends Activity {
 
 	private void refreshCharValues() 
 	{
-		m_charName.append(" " + ap.m_player.name + " ");
-		m_level.append(" " + ap.m_player.level + " ");
-		m_winStreak.append(" " + ap.m_player.num_victories + " ");
+		m_charName.append(" " + ap.m_player.getName() + " ");
+		m_level.append(" " + ap.m_player.getLevel()  + " ");
+		m_winStreak.append(" " + ap.m_player.getNum_victories() + " ");
 		m_winStreak.append(getResources().getText(R.string.sufix_winstreak));
 	}
 	
@@ -131,7 +131,7 @@ public class MainMenuScreen extends Activity {
 		BattleData lastAcceptedBattle = ap.m_battleManager.peekLastAcceptedBattle();
 		
 		if(lastAcceptedBattle != null)
-			ap.m_battleManager.removePendingBattleByID(lastAcceptedBattle.getBattleID());
+			ap.m_battleManager.removePendingBattleByID(lastAcceptedBattle.getId());
 		
 		adapter.notifyDataSetChanged();
 	}

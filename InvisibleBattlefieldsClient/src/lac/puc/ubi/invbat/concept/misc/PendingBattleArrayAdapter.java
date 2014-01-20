@@ -46,8 +46,8 @@ public class PendingBattleArrayAdapter extends ArrayAdapter<BattleData> {
 		ImageButton imgbtn_Yes = (ImageButton) rowView.findViewById(R.id.imgbtnYes);
 		ImageButton imgbtn_No = (ImageButton) rowView.findViewById(R.id.imgbtnNo);
 
-		tv_RegionName.setText(thisBattle.getRegionData().getRegionName());
-		tv_RemainingTime.setText(DateHelper.getTimeLimitFromTimeframeID(thisBattle.getTimeFrameID()));
+		tv_RegionName.setText(thisBattle.getRegionData().getName());
+		tv_RemainingTime.setText(DateHelper.getTimeLimitFromTimeframeID(thisBattle.getTimeFrameId()));
 		
 		tv_RegionName.setOnClickListener(new OnClickListener() {
 			
@@ -64,7 +64,7 @@ public class PendingBattleArrayAdapter extends ArrayAdapter<BattleData> {
 			{
 			    Intent i = new Intent(context, BattleScreen.class);
 			    i.putExtra("battledata", values.get(position));
-			    i.putExtra("clanID", ap.m_player.clanId);
+			    i.putExtra("clanID", ap.m_player.getClanId());
 			    context.startActivity(i);
 			}
 		});
