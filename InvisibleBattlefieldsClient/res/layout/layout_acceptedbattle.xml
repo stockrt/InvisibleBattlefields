@@ -39,21 +39,31 @@
 	
 	    </LinearLayout>
     </RelativeLayout>
-    
+
 	<LinearLayout android:id="@+id/lytRight"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content" 
 	    android:layout_alignParentRight="true" >
 	    
-	    <ImageButton android:id="@+id/imgbtnYes"
+	    <ImageButton android:id="@+id/imgbtn_info"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:src="@android:drawable/ic_input_add" />
+	        android:src="@android:drawable/ic_dialog_info" />
 	    
-	    <ImageButton android:id="@+id/imgbtnNo"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:src="@android:drawable/ic_delete" />
+	</LinearLayout>
+	    
+	<LinearLayout android:id="@+id/lytCenter"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_toLeftOf="@id/lytRight" >
+	    
+	    <ImageView android:id="@+id/imgClanIcon"
+		    android:layout_width="45dp"
+		    android:layout_height="45dp"
+		    android:src="@drawable/berserk" />
+	    <Space 
+		    android:layout_width="70dp"
+		    android:layout_height="wrap_content" />
 	    
 	</LinearLayout>
 	

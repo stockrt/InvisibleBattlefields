@@ -226,7 +226,7 @@ containing a value of this type.
         public static final int union=0x7f02001f;
     }
     public static final class id {
-        public static final int action_settings=0x7f050028;
+        public static final int action_settings=0x7f05002b;
         public static final int btnClanDescription=0x7f050020;
         public static final int btnRegister=0x7f050019;
         public static final int btn_login=0x7f05000a;
@@ -237,16 +237,19 @@ containing a value of this type.
         public static final int etxt_regemail=0x7f05001c;
         public static final int etxt_regpass=0x7f050021;
         public static final int hybrid=0x7f050004;
+        public static final int imgClanIcon=0x7f050028;
         public static final int img_btn_char=0x7f050013;
-        public static final int imgbtnNo=0x7f050027;
-        public static final int imgbtnYes=0x7f050026;
+        public static final int imgbtnNo=0x7f05002a;
+        public static final int imgbtnYes=0x7f050029;
         public static final int imgbtn_clan1=0x7f05000f;
         public static final int imgbtn_clan2=0x7f050011;
+        public static final int imgbtn_info=0x7f050026;
         public static final int lblRegionName=0x7f050023;
         public static final int lblRemainingTime=0x7f050024;
         public static final int lblSpinner=0x7f05001e;
         public static final int lbl_chooseattacker=0x7f05000d;
         public static final int listview_menu=0x7f050018;
+        public static final int lytCenter=0x7f050027;
         public static final int lytLeft=0x7f050022;
         public static final int lytLinear=0x7f05001b;
         public static final int lytRight=0x7f050025;
@@ -276,7 +279,8 @@ containing a value of this type.
         public static final int activity_battle=0x7f030001;
         public static final int activity_main=0x7f030002;
         public static final int activity_registry=0x7f030003;
-        public static final int layout_pendingbattle=0x7f030004;
+        public static final int layout_acceptedbattle=0x7f030004;
+        public static final int layout_pendingbattle=0x7f030005;
     }
     public static final class menu {
         public static final int main_menu=0x7f0b0000;

@@ -3,7 +3,7 @@
 
     <!-- General App Stuff-->
     <string name="app_name">InvisibleBattlefields_concept</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Pending/Accepted</string>
     <string name="hello_world">Hello world!</string>
     <string name="ok">OK</string>
     

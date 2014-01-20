@@ -3,19 +3,24 @@ package lac.puc.ubi.invbat.concept.activities;
 import java.util.List;
 
 import lac.puc.ubi.invbat.concept.app.InvBatApplication;
-import lac.puc.ubi.invbat.concept.misc.BattleArrayAdapter;
+import lac.puc.ubi.invbat.concept.misc.AcceptedBattleArrayAdapter;
+import lac.puc.ubi.invbat.concept.misc.PendingBattleArrayAdapter;
 import lac.puc.ubi.invbat.concept.model.BattleData;
 import lac.puc.ubi.invisiblebattlefields.concept.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainMenuScreen extends Activity {
 
+	static private String state;
+	
 	private InvBatApplication ap;
 	private Handler mRunnableHandler;
 	
@@ -24,7 +29,7 @@ public class MainMenuScreen extends Activity {
 	private TextView m_winStreak;
 	private ListView m_listView;
 	
-	private BattleArrayAdapter adapter;
+	private ArrayAdapter<BattleData> adapter;
 	private List<BattleData> battleList;
 	
 	@Override
@@ -33,6 +38,8 @@ public class MainMenuScreen extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		state = "pending";
+		
 		ap = (InvBatApplication) getApplication();
 		mRunnableHandler = new Handler();
 		mRunnableHandler.post(mCheckPendingBattlesState);
@@ -44,12 +51,25 @@ public class MainMenuScreen extends Activity {
 		m_listView = (ListView) findViewById(R.id.listview_menu);
 		
 		refreshCharValues();
+		refreshListValues();
+	}
+
+	private void refreshListValues() 
+	{
+		if(state.equals("pending"))
+		{
+			battleList = ap.m_battleManager.retrievePendingBattleList();
+			refreshPendingBattleValues();
+			adapter = new PendingBattleArrayAdapter(this, battleList, ap);
+			m_listView.setAdapter(adapter);
+		}
+		else if(state.equals("accepted"))
+		{
+			battleList = ap.m_battleManager.retrieveAcceptedBattleList();
+			adapter = new AcceptedBattleArrayAdapter(this, battleList, ap);
+			m_listView.setAdapter(adapter);
+		}
 		
-		battleList = ap.m_battleManager.retrieveBattleList();
-		refreshPendingBattleValues();
-		
-		adapter = new BattleArrayAdapter(this, battleList, ap);
-		m_listView.setAdapter(adapter);
 	}
 
 	private void refreshCharValues() 
@@ -73,7 +93,7 @@ public class MainMenuScreen extends Activity {
 
 		public void run() {
 			refreshPendingBattleValues();
-			mRunnableHandler.postDelayed(this, 1000);
+			mRunnableHandler.postDelayed(this, 5000);
 			adapter.notifyDataSetChanged();
     	}
     };
@@ -82,5 +102,37 @@ public class MainMenuScreen extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+		if(state.equals("pending"))
+		{
+			state = "accepted";
+			refreshListValues();
+			adapter.notifyDataSetChanged();
+		}
+		else if(state.equals("accepted"))
+		{
+			state = "pending";
+			refreshListValues();
+			adapter.notifyDataSetChanged();
+		}
+		
+		return true;
+	}
+	
+	@Override
+	protected void onRestart() 
+	{	
+		super.onRestart();
+		
+		BattleData lastAcceptedBattle = ap.m_battleManager.peekLastAcceptedBattle();
+		
+		if(lastAcceptedBattle != null)
+			ap.m_battleManager.removePendingBattleByID(lastAcceptedBattle.getBattleID());
+		
+		adapter.notifyDataSetChanged();
 	}
 }

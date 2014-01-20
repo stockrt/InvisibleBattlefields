@@ -12,14 +12,22 @@ import lac.puc.ubi.invbat.concept.model.RegionData;
 public class BattleManager {
 
 	private List<BattleData> pendingBattleList;
+	private List<BattleData> acceptedBattleList;
 	private Queue<BattleData> removalQueue;
 	private Queue<BattleData> aditionQueue;
 	
 	public BattleManager()
 	{
 		pendingBattleList = new ArrayList<BattleData>();
+		acceptedBattleList = new ArrayList<BattleData>();
 		removalQueue = new LinkedList<BattleData>();
 		aditionQueue = new LinkedList<BattleData>();
+		
+		/** DEBUG, idealmente seria pego e gravado em preferences */
+		pendingBattleList.add(new BattleData(100, 0, new Date(), new RegionData(201, "Planicie")));
+		pendingBattleList.add(new BattleData(101, 2, new Date(), new RegionData(202, "Montanha")));
+		pendingBattleList.add(new BattleData(102, 1, new Date(), new RegionData(203, "Ilha")));
+		pendingBattleList.add(new BattleData(103, 0, new Date(), new RegionData(204, "Floresta")));
 	}
 	
 	
@@ -39,16 +47,14 @@ public class BattleManager {
 		return ret;
 	}
 	
-	public List<BattleData> retrieveBattleList()
-	{
-		/*
-		pendingBattleList.add(new BattleData(100, 0, new Date(), new RegionData(201, "Planicie")));
-		pendingBattleList.add(new BattleData(101, 2, new Date(), new RegionData(202, "Montanha")));
-		pendingBattleList.add(new BattleData(102, 1, new Date(), new RegionData(203, "Ilha")));
-		pendingBattleList.add(new BattleData(103, 0, new Date(), new RegionData(204, "Floresta")));
-		*/
-		
+	public List<BattleData> retrievePendingBattleList()
+	{		
 		return pendingBattleList;
+	}
+	
+	public List<BattleData> retrieveAcceptedBattleList()
+	{
+		return acceptedBattleList;
 	}
 	
 	private void queueToRemove(BattleData battle)
@@ -88,5 +94,36 @@ public class BattleManager {
 	public void newPendingBattle(BattleData battle) 
 	{
 		queueToAdd(battle);
+	}
+
+	public void newAcceptedBattle(BattleData battle) 
+	{
+		acceptedBattleList.add(battle);
+	}
+
+
+	public BattleData peekLastAcceptedBattle() 
+	{
+		BattleData ret = null;
+		
+		if(!acceptedBattleList.isEmpty())
+			ret = acceptedBattleList.get(acceptedBattleList.size() - 1);
+		
+		return ret;
+	}
+
+
+	public void removePendingBattleByID(int battleID) 
+	{
+		for(BattleData item : pendingBattleList)
+		{
+			if(item.getBattleID() == battleID)
+			{
+				queueToRemove(item);
+				break;
+			}
+		}
+		
+		removePendingBattles();
 	}	
 }

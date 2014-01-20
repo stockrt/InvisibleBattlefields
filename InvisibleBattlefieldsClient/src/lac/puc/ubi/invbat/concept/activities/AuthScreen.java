@@ -32,6 +32,9 @@ public class AuthScreen extends Activity {
 
 		CommunicationTask task = new CommunicationTask(ap.getMessageHandler(), ap, "auth", new LoginRequest(etxtEmail.getText().toString(), etxtPass.getText().toString()));
 		task.execute();
+
+		/** DEBUG */
+		ap.handleLoginAuthorization(true, null);
 	}
 	
 	public void RegisterRoutine(View v) {
