@@ -6,6 +6,7 @@ import lac.puc.ubi.invbat.concept.connection.CommunicationTask;
 import lac.puc.ubi.invbat.concept.model.BattleData;
 import lac.puc.ubi.invisiblebattlefields.concept.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,12 +47,7 @@ public class BattleScreen extends Activity {
 			public void onClick(View v) 
 			{
 				Toast.makeText(getBaseContext(), "Attack Union!", Toast.LENGTH_SHORT).show();
-			    ap.m_battleManager.newAcceptedBattle(thisbattle);
-			    
-			    CommunicationTask task = new CommunicationTask(ap.getMessageHandler(), ap, "fight", new FightResponse(ap.m_player.getId(), thisbattle.getId(), true, 0));
-				task.execute();
-			    
-				finish();
+			    finalizeBattleStuff(0);
 			}
 		};
 		
@@ -61,12 +57,7 @@ public class BattleScreen extends Activity {
 			public void onClick(View v) 
 			{
 				Toast.makeText(getBaseContext(), "Attack Mercenaries!", Toast.LENGTH_SHORT).show();
-			    ap.m_battleManager.newAcceptedBattle(thisbattle);
-			    
-			    CommunicationTask task = new CommunicationTask(ap.getMessageHandler(), ap, "fight", new FightResponse(ap.m_player.getId(), thisbattle.getId(), true, 1));
-				task.execute();
-			    
-			    finish();
+			    finalizeBattleStuff(1);
 			}
 		};
 		
@@ -75,12 +66,7 @@ public class BattleScreen extends Activity {
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getBaseContext(), "Attack Berserkers!", Toast.LENGTH_SHORT).show();
-			    ap.m_battleManager.newAcceptedBattle(thisbattle);
-
-			    CommunicationTask task = new CommunicationTask(ap.getMessageHandler(), ap, "fight", new FightResponse(ap.m_player.getId(), thisbattle.getId(), true, 2));
-				task.execute();
-			    
-			    finish();
+			    finalizeBattleStuff(2);
 			}
 		};
 		
@@ -108,5 +94,17 @@ public class BattleScreen extends Activity {
 			default:
 				
 		}
+	}
+
+	private void finalizeBattleStuff(int clanId) {
+	    ap.m_battleManager.newAcceptedBattle(thisbattle);
+	    CommunicationTask task = new CommunicationTask(ap.getMessageHandler(), ap, "fight", new FightResponse(ap.m_player.getId(), thisbattle.getId(), true, clanId));
+		task.execute();
+		
+		Intent resultIntent = new Intent();
+		resultIntent.putExtra ("clanid", clanId);
+		setResult(Activity.RESULT_OK, resultIntent);
+		
+		finish();
 	}
 }

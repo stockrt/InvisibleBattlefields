@@ -6,6 +6,7 @@ import lac.puc.ubi.invbat.concept.activities.BattleScreen;
 import lac.puc.ubi.invbat.concept.app.InvBatApplication;
 import lac.puc.ubi.invbat.concept.model.BattleData;
 import lac.puc.ubi.invisiblebattlefields.concept.R;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -61,11 +62,11 @@ public class PendingBattleArrayAdapter extends ArrayAdapter<BattleData> {
 		{	
 			@Override
 			public void onClick(View v) 
-			{
+			{   
 			    Intent i = new Intent(context, BattleScreen.class);
 			    i.putExtra("battledata", values.get(position));
 			    i.putExtra("clanID", ap.m_player.getClanId());
-			    context.startActivity(i);
+			    ((Activity) context).startActivityForResult(i, 1);
 			}
 		});
 

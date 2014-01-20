@@ -8,11 +8,11 @@ import lac.puc.ubi.invbat.concept.misc.PendingBattleArrayAdapter;
 import lac.puc.ubi.invbat.concept.model.BattleData;
 import lac.puc.ubi.invisiblebattlefields.concept.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,8 +28,9 @@ public class MainMenuScreen extends Activity {
 	private TextView m_level;
 	private TextView m_winStreak;
 	private ListView m_listView;
-	
-	private ArrayAdapter<BattleData> adapter;
+
+	private PendingBattleArrayAdapter pendingAdapter;
+	private AcceptedBattleArrayAdapter acceptedAdapter;
 	private List<BattleData> battleList;
 	
 	@Override
@@ -52,22 +53,26 @@ public class MainMenuScreen extends Activity {
 		
 		refreshCharValues();
 		refreshListValues();
+
+		pendingAdapter = new PendingBattleArrayAdapter(this, ap.m_battleManager.retrievePendingBattleList(), ap);
+		acceptedAdapter = new AcceptedBattleArrayAdapter(this, ap.m_battleManager.retrieveAcceptedBattleList(), ap);
 	}
 
 	private void refreshListValues() 
 	{
+		pendingAdapter = new PendingBattleArrayAdapter(this, ap.m_battleManager.retrievePendingBattleList(), ap);
+		acceptedAdapter = new AcceptedBattleArrayAdapter(this, ap.m_battleManager.retrieveAcceptedBattleList(), ap);
+
 		if(state.equals("pending"))
 		{
 			battleList = ap.m_battleManager.retrievePendingBattleList();
 			refreshPendingBattleValues();
-			adapter = new PendingBattleArrayAdapter(this, battleList, ap);
-			m_listView.setAdapter(adapter);
+			m_listView.setAdapter(pendingAdapter);
 		}
 		else if(state.equals("accepted"))
 		{
 			battleList = ap.m_battleManager.retrieveAcceptedBattleList();
-			adapter = new AcceptedBattleArrayAdapter(this, battleList, ap);
-			m_listView.setAdapter(adapter);
+			m_listView.setAdapter(acceptedAdapter);
 		}
 		
 	}
@@ -97,18 +102,19 @@ public class MainMenuScreen extends Activity {
 		
 		for(BattleData item : ap.m_battleManager.retrieveResults())
 		{
-			((AcceptedBattleArrayAdapter) adapter).setVisibilityOfView(battleList.indexOf(item), true);
+			acceptedAdapter.setVisibilityOfView(battleList.indexOf(item), true);
 		}
-		ap.m_battleManager.clearResults();
 	}
 	
 	private Runnable mCheckBattleState = new Runnable() {
 
-		public void run() {
+		public void run() 
+		{
 			refreshPendingBattleValues();
 			refreshAcceptedBattleValues();
 			mRunnableHandler.postDelayed(this, 5000);
-			adapter.notifyDataSetChanged();
+			pendingAdapter.notifyDataSetChanged();
+			acceptedAdapter.notifyDataSetChanged();
     	}
     };
 	
@@ -125,13 +131,13 @@ public class MainMenuScreen extends Activity {
 		{
 			state = "accepted";
 			refreshListValues();
-			adapter.notifyDataSetChanged();
+			pendingAdapter.notifyDataSetChanged();
 		}
 		else if(state.equals("accepted"))
 		{
 			state = "pending";
 			refreshListValues();
-			adapter.notifyDataSetChanged();
+			acceptedAdapter.notifyDataSetChanged();
 		}
 		
 		return true;
@@ -145,8 +151,30 @@ public class MainMenuScreen extends Activity {
 		BattleData lastAcceptedBattle = ap.m_battleManager.peekLastAcceptedBattle();
 		
 		if(lastAcceptedBattle != null)
-			ap.m_battleManager.removePendingBattleByID(lastAcceptedBattle.getId());
+			ap.m_battleManager.removePendingBattleByID(lastAcceptedBattle.getRegionId());
+
+		pendingAdapter.notifyDataSetChanged();
+		acceptedAdapter.notifyDataSetChanged();
+	}
+	
+	@Override 
+	public void onActivityResult(int requestCode, int resultCode, Intent data) 
+	{     
+		super.onActivityResult(requestCode, resultCode, data); 
+
+		refreshListValues();
 		
-		adapter.notifyDataSetChanged();
+		int clanId;
+		
+		switch(requestCode) 
+		{ 
+		    case (1): 
+		    	if (resultCode == Activity.RESULT_OK) 
+		    	{ 
+		    		clanId = data.getIntExtra("clanid", 0);
+					acceptedAdapter.setClanIconOfView(acceptedAdapter.getPositionFromObj(ap.m_battleManager.peekLastAcceptedBattle()), clanId);
+		    	} 
+		      	break; 
+		} 
 	}
 }

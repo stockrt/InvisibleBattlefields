@@ -17,6 +17,10 @@ public class BattleManager {
 	private Queue<BattleData> aditionQueue;
 	private Queue<BattleData> resultQueue;
 	
+	/** For the accepted battles interface */
+	public List<Integer> visibilityList;
+	public List<Integer> attackingClanList;
+	
 	public BattleManager()
 	{
 		pendingBattleList = new ArrayList<BattleData>();
@@ -24,6 +28,9 @@ public class BattleManager {
 		removalQueue = new LinkedList<BattleData>();
 		aditionQueue = new LinkedList<BattleData>();
 		resultQueue = new LinkedList<BattleData>();
+		
+		visibilityList = new ArrayList<Integer>();
+		attackingClanList = new ArrayList<Integer>();
 		
 		/** DEBUG, idealmente seria pego e gravado em preferences */
 		BattleData b1, b2, b3, b4;
@@ -64,7 +71,7 @@ public class BattleManager {
 		
 		for (BattleData item : acceptedBattleList) 
 		{
-            if(!DateHelper.isItToday(item.getDate(), new Date()) || !DateHelper.checkTimeFrame(item.getTimeFrameId()))
+            if((!DateHelper.isItToday(item.getDate(), new Date()) || !DateHelper.checkTimeFrame(item.getTimeFrameId())) && !resultQueue.contains(item))
             {
             	ret += "Batalha das " + DateHelper.getTimeLimitFromTimeframeID(item.getTimeFrameId()) + " em \"" + item.getRegionData().getName() + "\" tem resultados!\n";
             	queueToResult(item);
@@ -102,11 +109,6 @@ public class BattleManager {
 	public Queue<BattleData> retrieveResults()
 	{
 		return resultQueue;
-	}
-	
-	public void clearResults()
-	{
-		resultQueue.clear();
 	}
 	
 	public void removePendingBattles()
@@ -159,7 +161,7 @@ public class BattleManager {
 	{
 		for(BattleData item : pendingBattleList)
 		{
-			if(item.getId() == battleID)
+			if(item.getRegionId() == battleID)
 			{
 				queueToRemove(item);
 				break;
