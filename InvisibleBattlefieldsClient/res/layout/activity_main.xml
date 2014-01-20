@@ -20,29 +20,53 @@
         android:gravity="center"
         android:layout_alignParentTop="true" >
 
-        <ImageButton android:id="@+id/img_btn_char"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/alert_dark_frame" 
-            android:contentDescription="@string/char_img_description"/>
+		<LinearLayout
+		    android:orientation="vertical"
+        	android:gravity="center_horizontal"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" >
+        
+	        <ImageButton android:id="@+id/img_btn_char"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/warrior" 
+	            android:scaleX="0.7"
+	            android:scaleY="0.7"
+	            android:contentDescription="@string/char_img_description"
+	       		android:onClick="ShowCharacterStats"/>
+	        
+	        <TextView android:id="@+id/txt_level"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/prefix_level"
+	            android:textAppearance="?android:attr/textAppearanceListItem" />
+	        
+	    </LinearLayout>
 		
 		<LinearLayout android:id="@+id/lyt_char_data"
 		    android:orientation="vertical"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-	        android:layout_marginLeft="20dp"
+	        android:layout_marginLeft="10dp"
 		    android:gravity="center">
 		       
 	        <TextView android:id="@+id/txt_charname"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:text="@string/prefix_name"
-	            android:textAppearance="?android:attr/textAppearanceMedium" />
-		       
-	        <TextView android:id="@+id/txt_level"
+	            android:textStyle="bold"
+	            android:textAppearance="?android:attr/textAppearanceListItem" />
+	        
+	        <TextView android:id="@+id/txt_clanname"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="@string/prefix_level"
+	            android:text="@string/prefix_clanname"
+	            android:textAppearance="?android:attr/textAppearanceListItem" />
+	        
+	        <TextView android:id="@+id/txt_mainatt"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/prefix_mainatt"
 	            android:textAppearance="?android:attr/textAppearanceListItem" />
 		       
 	        <TextView android:id="@+id/txt_winstreak"

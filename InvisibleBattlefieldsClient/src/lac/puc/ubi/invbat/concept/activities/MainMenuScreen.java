@@ -4,15 +4,19 @@ import java.util.List;
 
 import lac.puc.ubi.invbat.concept.app.InvBatApplication;
 import lac.puc.ubi.invbat.concept.misc.AcceptedBattleArrayAdapter;
+import lac.puc.ubi.invbat.concept.misc.LocationService;
 import lac.puc.ubi.invbat.concept.misc.PendingBattleArrayAdapter;
 import lac.puc.ubi.invbat.concept.model.BattleData;
 import lac.puc.ubi.invisiblebattlefields.concept.R;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +31,8 @@ public class MainMenuScreen extends Activity {
 	private TextView m_charName;
 	private TextView m_level;
 	private TextView m_winStreak;
+	private TextView m_mainatt;
+	private TextView m_clanname;
 	private ListView m_listView;
 
 	private PendingBattleArrayAdapter pendingAdapter;
@@ -39,6 +45,10 @@ public class MainMenuScreen extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		/** Location Service */
+		ComponentName comp = new ComponentName(getPackageName(), LocationService.class.getName());
+		ComponentName service = startService(new Intent().setComponent(comp));
+		
 		state = "pending";
 		
 		ap = (InvBatApplication) getApplication();
@@ -48,6 +58,8 @@ public class MainMenuScreen extends Activity {
 		m_charName = (TextView) findViewById(R.id.txt_charname);
 		m_level = (TextView) findViewById(R.id.txt_level);
 		m_winStreak = (TextView) findViewById(R.id.txt_winstreak);
+		m_clanname = (TextView) findViewById(R.id.txt_clanname);
+		m_mainatt = (TextView) findViewById(R.id.txt_mainatt);
 		
 		m_listView = (ListView) findViewById(R.id.listview_menu);
 		
@@ -81,8 +93,24 @@ public class MainMenuScreen extends Activity {
 	{
 		m_charName.append(" " + ap.m_player.getName() + " ");
 		m_level.append(" " + ap.m_player.getLevel()  + " ");
+		m_clanname.append(getResources().getStringArray(R.array.clan_name_array)[ap.m_player.getClanId()]);
 		m_winStreak.append(" " + ap.m_player.getNum_victories() + " ");
 		m_winStreak.append(getResources().getText(R.string.sufix_winstreak));
+		
+		m_mainatt.append(ap.m_player.getMainAttLbl() + ": " + ap.m_player.getMainAttValue());
+		char c = ap.m_player.getMainAttLbl().charAt(0);
+		switch(c)
+		{
+			case 'S':
+				m_mainatt.setTextColor(Color.RED);
+				break;
+			case 'A':
+				m_mainatt.setTextColor(Color.GREEN);
+				break;
+			case 'I':
+				m_mainatt.setTextColor(Color.BLUE);
+				break;
+		}
 	}
 	
 	private void refreshPendingBattleValues() 
@@ -176,5 +204,16 @@ public class MainMenuScreen extends Activity {
 		    	} 
 		      	break; 
 		} 
+	}
+	
+	public void ShowCharacterStats(View v)
+	{
+		String stats = "";
+
+		stats += "STR: " + ap.m_player.getAttributeStrength() + "\n";
+		stats += "AGI: " + ap.m_player.getAttributeAgility() + "\n";
+		stats += "INT: " + ap.m_player.getAttributeIntelligence() + "\n";
+		
+		Toast.makeText(getBaseContext(), stats, Toast.LENGTH_LONG).show();
 	}
 }

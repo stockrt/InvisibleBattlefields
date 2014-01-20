@@ -96,10 +96,11 @@ public class CharacterData implements Serializable {
 
 	private int[] generateRandomBaseStats()
 	{
+		Random generator = new Random(); 
 		int stats[] = new int[3];
-		stats[0] = (new Random()).nextInt(); //TODO: consertar o acesso a esse random depois
-		stats[1] = (new Random()).nextInt();
-		stats[2] = (new Random()).nextInt();
+		stats[0] = generator.nextInt(5) + 1;
+		stats[1] = generator.nextInt(5) + 1;
+		stats[2] = generator.nextInt(5) + 1;
 		
 		return stats;
 	}
@@ -114,7 +115,7 @@ public class CharacterData implements Serializable {
 			highestAtValue = base_intel;
 			highestAtIndex = 1;
 		}
-		if(base_agili < highestAtValue)
+		if(base_agili > highestAtValue)
 		{
 			highestAtValue = base_agili;
 			highestAtIndex = 2;
@@ -142,17 +143,17 @@ public class CharacterData implements Serializable {
 	
 	public int getAttributeStrength()
 	{
-		return (int) (base_stren * Math.floor(mod_stren * level));
+		return (int) (base_stren * Math.ceil((double) mod_stren * level));
 	}
 	
 	public int getAttributeIntelligence()
 	{
-		return (int) (base_intel * Math.floor(mod_intel * level));
+		return (int) (base_intel * Math.ceil((double) mod_intel * level));
 	}
 	
 	public int getAttributeAgility()
 	{
-		return (int) (base_agili * Math.floor(mod_agili * level));
+		return (int) (base_agili * Math.ceil((double) mod_agili * level));
 	}
 	
 	public double getMod_stren() {
@@ -181,7 +182,7 @@ public class CharacterData implements Serializable {
 
 	public boolean checkLevelUp() {
 		
-		//Exp necess�ria para lvl n + 1 = Ceil[(n^(2.25) + 12*n)*raiz(n*10)]
+		//Exp necessaria para lvl n + 1 = Ceil[(n^(2.25) + 12*n)*raiz(n*10)]
 		boolean leveled = false;
 		double needed_exp = expToNextLevel();
 		
@@ -189,6 +190,39 @@ public class CharacterData implements Serializable {
 			leveled = true;
 		
 		return leveled;
+	}
+
+	public int getMainAttValue() 
+	{
+		int ret = getAttributeStrength();
+		
+		if(getAttributeAgility() > ret)
+			ret = getAttributeAgility();
+		
+		if(getAttributeIntelligence() > ret)
+			ret = getAttributeIntelligence();
+		
+		return ret;
+	}
+	
+	public String getMainAttLbl() 
+	{
+		String ret = "STR";
+		int value = getAttributeStrength();
+		
+		if(getAttributeAgility() > value)
+		{
+			ret = "AGI";
+			value = getAttributeAgility();
+		}
+		
+		if(getAttributeIntelligence() > value)
+		{
+			ret = "INT";
+			value = getAttributeIntelligence();
+		}
+		
+		return ret;
 	}
 	
 	public double expToNextLevel()

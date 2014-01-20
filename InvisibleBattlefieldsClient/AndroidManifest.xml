@@ -16,6 +16,8 @@
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 	<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 	
     <application
         android:allowBackup="true"
@@ -23,6 +25,10 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <service android:name="lac.puc.ubi.invbat.concept.misc.LocationService" 
+			android:enabled="true" 
+		    android:exported="false"
+		    android:label="LocationService" />
         <activity
             android:name="lac.puc.ubi.invbat.concept.activities.AuthScreen"
             android:label="@string/app_name"

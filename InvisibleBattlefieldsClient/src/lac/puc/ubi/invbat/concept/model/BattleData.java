@@ -91,7 +91,6 @@ public class BattleData implements Serializable {
 			result.put("date",date.toString());
 			result.put("regionId",regionId);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result.toString();

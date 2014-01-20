@@ -224,36 +224,37 @@ containing a value of this type.
         public static final int ic_plusone_tall_off_client=0x7f02001d;
         public static final int mercenaries=0x7f02001e;
         public static final int union=0x7f02001f;
+        public static final int warrior=0x7f020020;
     }
     public static final class id {
-        public static final int action_settings=0x7f05002b;
-        public static final int btnClanDescription=0x7f050020;
-        public static final int btnRegister=0x7f050019;
+        public static final int action_settings=0x7f05002d;
+        public static final int btnClanDescription=0x7f050022;
+        public static final int btnRegister=0x7f05001b;
         public static final int btn_login=0x7f05000a;
         public static final int btn_register=0x7f05000b;
         public static final int etxt_email=0x7f050006;
         public static final int etxt_pass=0x7f050009;
-        public static final int etxt_regcharname=0x7f05001d;
-        public static final int etxt_regemail=0x7f05001c;
-        public static final int etxt_regpass=0x7f050021;
+        public static final int etxt_regcharname=0x7f05001f;
+        public static final int etxt_regemail=0x7f05001e;
+        public static final int etxt_regpass=0x7f050023;
         public static final int hybrid=0x7f050004;
-        public static final int imgClanIcon=0x7f050028;
+        public static final int imgClanIcon=0x7f05002a;
         public static final int img_btn_char=0x7f050013;
-        public static final int imgbtnNo=0x7f05002a;
-        public static final int imgbtnYes=0x7f050029;
+        public static final int imgbtnNo=0x7f05002c;
+        public static final int imgbtnYes=0x7f05002b;
         public static final int imgbtn_clan1=0x7f05000f;
         public static final int imgbtn_clan2=0x7f050011;
-        public static final int imgbtn_info=0x7f050026;
-        public static final int lblRegionName=0x7f050023;
-        public static final int lblRemainingTime=0x7f050024;
-        public static final int lblSpinner=0x7f05001e;
+        public static final int imgbtn_info=0x7f050028;
+        public static final int lblRegionName=0x7f050025;
+        public static final int lblRemainingTime=0x7f050026;
+        public static final int lblSpinner=0x7f050020;
         public static final int lbl_chooseattacker=0x7f05000d;
-        public static final int listview_menu=0x7f050018;
-        public static final int lytCenter=0x7f050027;
-        public static final int lytLeft=0x7f050022;
-        public static final int lytLinear=0x7f05001b;
-        public static final int lytRight=0x7f050025;
-        public static final int lyt_char_data=0x7f050014;
+        public static final int listview_menu=0x7f05001a;
+        public static final int lytCenter=0x7f050029;
+        public static final int lytLeft=0x7f050024;
+        public static final int lytLinear=0x7f05001d;
+        public static final int lytRight=0x7f050027;
+        public static final int lyt_char_data=0x7f050015;
         public static final int lyt_clans=0x7f05000e;
         public static final int lyt_login=0x7f050005;
         public static final int lyt_pass=0x7f050008;
@@ -261,15 +262,17 @@ containing a value of this type.
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int satellite=0x7f050002;
-        public static final int scrollView1=0x7f05001a;
-        public static final int spClans=0x7f05001f;
+        public static final int scrollView1=0x7f05001c;
+        public static final int spClans=0x7f050021;
         public static final int space=0x7f050007;
         public static final int space01=0x7f05000c;
         public static final int space02=0x7f050010;
         public static final int terrain=0x7f050003;
-        public static final int txt_charname=0x7f050015;
-        public static final int txt_level=0x7f050016;
-        public static final int txt_winstreak=0x7f050017;
+        public static final int txt_charname=0x7f050016;
+        public static final int txt_clanname=0x7f050017;
+        public static final int txt_level=0x7f050014;
+        public static final int txt_mainatt=0x7f050018;
+        public static final int txt_winstreak=0x7f050019;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f070000;
@@ -317,8 +320,8 @@ containing a value of this type.
         /**  Main Menu Screen 
          */
         public static final int char_img_description=0x7f060022;
-        public static final int char_name=0x7f06002d;
-        public static final int clan=0x7f06002e;
+        public static final int char_name=0x7f06002f;
+        public static final int clan=0x7f060030;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -390,7 +393,7 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060013;
-        public static final int email=0x7f06002b;
+        public static final int email=0x7f06002d;
         public static final int entrar=0x7f060020;
         public static final int hello_world=0x7f06001c;
         /**  Login Screen 
@@ -398,17 +401,19 @@ containing a value of this type.
         public static final int login=0x7f06001e;
         public static final int ok=0x7f06001d;
         public static final int pass_login=0x7f06001f;
-        public static final int pass_registry=0x7f06002c;
+        public static final int pass_registry=0x7f06002e;
         public static final int placeholder_level=0x7f060024;
         public static final int placeholder_name=0x7f060023;
         public static final int placeholder_winstreak=0x7f060025;
-        public static final int prefix_level=0x7f060027;
+        public static final int prefix_clanname=0x7f060027;
+        public static final int prefix_level=0x7f060028;
+        public static final int prefix_mainatt=0x7f060029;
         public static final int prefix_name=0x7f060026;
-        public static final int prefix_winstreak=0x7f060028;
+        public static final int prefix_winstreak=0x7f06002a;
         /**  Registration Screen 
          */
-        public static final int register=0x7f06002a;
-        public static final int sufix_winstreak=0x7f060029;
+        public static final int register=0x7f06002c;
+        public static final int sufix_winstreak=0x7f06002b;
     }
     public static final class style {
         /** 

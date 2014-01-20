@@ -189,7 +189,6 @@ public class BattleResultData implements Serializable {
 			result.put("agili", agili);
 			result.put("state", state);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result.toString();

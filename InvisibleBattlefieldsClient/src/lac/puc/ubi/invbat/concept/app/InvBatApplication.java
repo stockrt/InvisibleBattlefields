@@ -40,8 +40,9 @@ public class InvBatApplication extends Application {
 	
 	private void handleCharData(CharacterData charData) {
 
-		if(charData == null) //debug
-			m_player = new CharacterData("Tobias the Great", 0);
+		/** DEBUG */
+		if(charData == null)
+			m_player = new CharacterData("Tobias the Great", 1);
 		else
 			m_player = charData;
 	}

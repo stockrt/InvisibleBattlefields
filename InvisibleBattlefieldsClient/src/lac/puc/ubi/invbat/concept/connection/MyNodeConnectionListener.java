@@ -29,7 +29,6 @@ public class MyNodeConnectionListener implements NodeConnectionListener {
 	
 	public MyNodeConnectionListener(Handler _handler, InvBatApplication _ap) 
 	{
-		//TODO: criar o handler no InvBatApplication
 		this.handler = _handler;
 		this.ap = _ap;
 	}

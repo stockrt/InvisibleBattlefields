@@ -19,7 +19,9 @@
     <string name="placeholder_level">Lvl: 5</string>
     <string name="placeholder_winstreak">Won 8 battles</string>
     <string name="prefix_name"></string>
+    <string name="prefix_clanname">Clan:</string>
     <string name="prefix_level">Lvl:</string>
+    <string name="prefix_mainatt"></string>
     <string name="prefix_winstreak">Won</string>
     <string name="sufix_winstreak">battles</string>
     
