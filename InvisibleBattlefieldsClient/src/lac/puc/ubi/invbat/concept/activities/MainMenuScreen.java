@@ -42,7 +42,7 @@ public class MainMenuScreen extends Activity {
 		
 		ap = (InvBatApplication) getApplication();
 		mRunnableHandler = new Handler();
-		mRunnableHandler.post(mCheckPendingBattlesState);
+		mRunnableHandler.post(mCheckBattleState);
 		
 		m_charName = (TextView) findViewById(R.id.txt_charname);
 		m_level = (TextView) findViewById(R.id.txt_level);
@@ -89,10 +89,24 @@ public class MainMenuScreen extends Activity {
 		ap.m_battleManager.addPendingBattles();
 	}
 	
-	private Runnable mCheckPendingBattlesState = new Runnable() {
+	private void refreshAcceptedBattleValues() 
+	{
+		String battleResult = ap.m_battleManager.acceptedBattleHasResults();
+		if(!battleResult.equals(""))
+			Toast.makeText(getBaseContext(), battleResult, Toast.LENGTH_LONG).show();
+		
+		for(BattleData item : ap.m_battleManager.retrieveResults())
+		{
+			((AcceptedBattleArrayAdapter) adapter).setVisibilityOfView(battleList.indexOf(item), true);
+		}
+		ap.m_battleManager.clearResults();
+	}
+	
+	private Runnable mCheckBattleState = new Runnable() {
 
 		public void run() {
 			refreshPendingBattleValues();
+			refreshAcceptedBattleValues();
 			mRunnableHandler.postDelayed(this, 5000);
 			adapter.notifyDataSetChanged();
     	}

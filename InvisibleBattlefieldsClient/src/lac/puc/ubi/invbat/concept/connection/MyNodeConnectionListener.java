@@ -8,6 +8,7 @@ import lac.cnclib.net.NodeConnection;
 import lac.cnclib.net.NodeConnectionListener;
 import lac.cnclib.sddl.serialization.Serialization;
 import lac.puc.ubi.invbat.concept.app.InvBatApplication;
+import lac.puc.ubi.invbat.concept.comm.BattleResultResponse;
 import lac.puc.ubi.invbat.concept.comm.FightRequest;
 import lac.puc.ubi.invbat.concept.comm.LoginResponse;
 import android.os.Bundle;
@@ -64,6 +65,11 @@ public class MyNodeConnectionListener implements NodeConnectionListener {
 	{
 		ap.handleLoginAuthorization(obj.getAuthAnswer(), obj.getChardata());
 	}
+	
+	private void handleBattleResult(BattleResultResponse obj)
+	{
+		ap.handleBattleResponse(obj.getBattleResultData());
+	}
 
 	public void connected(NodeConnection remoteCon) {
 		handleNewStatus("connected");
@@ -89,6 +95,8 @@ public class MyNodeConnectionListener implements NodeConnectionListener {
 				handleNewPendingFight((FightRequest) s);
 			else if(className.equals(LoginResponse.class.getCanonicalName()))
 				handleLoginAuthorization((LoginResponse) s);
+			else if(className.equals(BattleResultResponse.class.getCanonicalName()))
+				handleBattleResult((BattleResultResponse) s);
 		}
 		else 
 		{

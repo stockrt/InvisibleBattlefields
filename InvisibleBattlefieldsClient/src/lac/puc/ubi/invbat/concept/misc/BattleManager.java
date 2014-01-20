@@ -15,6 +15,7 @@ public class BattleManager {
 	private List<BattleData> acceptedBattleList;
 	private Queue<BattleData> removalQueue;
 	private Queue<BattleData> aditionQueue;
+	private Queue<BattleData> resultQueue;
 	
 	public BattleManager()
 	{
@@ -22,6 +23,7 @@ public class BattleManager {
 		acceptedBattleList = new ArrayList<BattleData>();
 		removalQueue = new LinkedList<BattleData>();
 		aditionQueue = new LinkedList<BattleData>();
+		resultQueue = new LinkedList<BattleData>();
 		
 		/** DEBUG, idealmente seria pego e gravado em preferences */
 		BattleData b1, b2, b3, b4;
@@ -39,8 +41,8 @@ public class BattleManager {
 		pendingBattleList.add(b4);
 	}
 	
-	
-	public String removeOldBattles() {
+	public String removeOldBattles() 
+	{
 		String ret = "";
 		
 		for (BattleData item : pendingBattleList) 
@@ -56,6 +58,22 @@ public class BattleManager {
 		return ret;
 	}
 	
+	public String acceptedBattleHasResults()
+	{
+		String ret = "";
+		
+		for (BattleData item : acceptedBattleList) 
+		{
+            if(!DateHelper.isItToday(item.getDate(), new Date()) || !DateHelper.checkTimeFrame(item.getTimeFrameId()))
+            {
+            	ret += "Batalha das " + DateHelper.getTimeLimitFromTimeframeID(item.getTimeFrameId()) + " em \"" + item.getRegionData().getName() + "\" tem resultados!\n";
+            	queueToResult(item);
+            }
+        }
+		
+		return ret;
+	}
+	
 	public List<BattleData> retrievePendingBattleList()
 	{		
 		return pendingBattleList;
@@ -64,6 +82,11 @@ public class BattleManager {
 	public List<BattleData> retrieveAcceptedBattleList()
 	{
 		return acceptedBattleList;
+	}
+
+	private void queueToResult(BattleData battle)
+	{
+		resultQueue.add(battle);
 	}
 	
 	private void queueToRemove(BattleData battle)
@@ -76,6 +99,16 @@ public class BattleManager {
 		aditionQueue.add(battle);
 	}
 
+	public Queue<BattleData> retrieveResults()
+	{
+		return resultQueue;
+	}
+	
+	public void clearResults()
+	{
+		resultQueue.clear();
+	}
+	
 	public void removePendingBattles()
 	{
 		for(BattleData item : removalQueue)

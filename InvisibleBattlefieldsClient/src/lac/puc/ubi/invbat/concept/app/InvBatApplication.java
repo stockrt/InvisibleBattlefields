@@ -3,6 +3,7 @@ package lac.puc.ubi.invbat.concept.app;
 import lac.puc.ubi.invbat.concept.activities.MainMenuScreen;
 import lac.puc.ubi.invbat.concept.misc.BattleManager;
 import lac.puc.ubi.invbat.concept.model.BattleData;
+import lac.puc.ubi.invbat.concept.model.BattleResultData;
 import lac.puc.ubi.invbat.concept.model.CharacterData;
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -77,5 +78,11 @@ public class InvBatApplication extends Application {
 				}
 			}
 		}};
+	}
+
+	public void handleBattleResponse(BattleResultData battleResultData) {
+		m_player = battleResultData.getCharFrom();
+		
+		Toast.makeText(getBaseContext(), "You got " + battleResultData.getExp_points() + " exp points!", Toast.LENGTH_SHORT).show();
 	}
 }
