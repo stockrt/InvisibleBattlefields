@@ -1,4 +1,4 @@
-package br.pucrio.inf.lac.helloworld;
+package lac.puc.ubi.invbat.concept.core;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -16,18 +16,22 @@ import lac.cnclib.net.mrudp.MrUdpNodeConnection;
 import lac.cnclib.sddl.message.ApplicationMessage;
 import lac.cnclib.sddl.message.Message;
 import lac.cnclib.sddl.serialization.Serialization;
+import lac.puc.ubi.invbat.concept.comm.BattleResultRequest;
+import lac.puc.ubi.invbat.concept.comm.BattleResultResponse;
 import lac.puc.ubi.invbat.concept.comm.FightRequest;
 import lac.puc.ubi.invbat.concept.comm.FightResponse;
 import lac.puc.ubi.invbat.concept.comm.LocationRequest;
 import lac.puc.ubi.invbat.concept.comm.LoginRequest;
 import lac.puc.ubi.invbat.concept.comm.LoginResponse;
 import lac.puc.ubi.invbat.concept.comm.RegistrationRequest;
+import lac.puc.ubi.invbat.concept.dao.BattleDAO;
+import lac.puc.ubi.invbat.concept.dao.CharacterDAO;
 import lac.puc.ubi.invbat.concept.dao.ClanDAO;
 import lac.puc.ubi.invbat.concept.model.BattleData;
 import lac.puc.ubi.invbat.concept.model.CharacterData;
 import lac.puc.ubi.invbat.concept.model.ClanData;
 
-public class HelloCoreClient implements NodeConnectionListener {
+public class BattleCoreClient implements NodeConnectionListener {
 
 	private static String gatewayIP = "127.0.0.1";
 	private static int gatewayPort = 5500;
@@ -36,10 +40,10 @@ public class HelloCoreClient implements NodeConnectionListener {
 	public static void main(String[] args) {
 		Logger.getLogger("").setLevel(Level.OFF);
 
-		new HelloCoreClient();
+		new BattleCoreClient();
 	}
 
-	public HelloCoreClient() {
+	public BattleCoreClient() {
 		InetSocketAddress address = new InetSocketAddress(gatewayIP,
 				gatewayPort);
 		try {
@@ -64,6 +68,44 @@ public class HelloCoreClient implements NodeConnectionListener {
 
 		// Passando por uma regiao
 		movendo(remoteCon);
+
+		// solicitando resultado da batalha
+		batteResult(remoteCon);
+	}
+
+	private void batteResult(NodeConnection remoteCon) {
+		ApplicationMessage message = new ApplicationMessage();
+
+		BattleDAO daoB = new BattleDAO();
+		Vector<BattleData> vetB = daoB.buscarTodos();
+		int indexB = (int) (vetB.size() * Math.random());
+		BattleData battle = vetB.elementAt(indexB);
+		int battleId = battle.getId();
+
+		CharacterDAO daoC = new CharacterDAO();
+		Vector<CharacterData> vetC = daoC.buscarTodos();
+		int indexC = (int) (vetC.size() * Math.random());
+		CharacterData charData = vetC.elementAt(indexC);
+		int charId = charData.getId();
+
+		ClanDAO daoClan = new ClanDAO();
+		Vector<ClanData> vetClan = daoClan.buscarTodos();
+		int indexClan = (int) (vetClan.size() * Math.random());
+		ClanData clanData = vetClan.elementAt(indexClan);
+		int clanId = clanData.getId();
+		BattleResultRequest request = new BattleResultRequest(battleId, charId,
+				clanId);
+
+		message.setContentObject(request);
+
+		try {
+			remoteCon.sendMessage(message);
+			Thread.sleep(5000);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
 	}
 
 	private void movendo(NodeConnection remoteCon) {
@@ -71,8 +113,8 @@ public class HelloCoreClient implements NodeConnectionListener {
 		// REQUEST login: passando login e senha (autenticação)
 
 		// Criando Usuário
-		double lat = Math.random() % 1000;
-		double lng = Math.random() % 1000;
+		double lat = Math.random() * 1000;
+		double lng = Math.random() * 1000;
 		LocationRequest request = new LocationRequest(lat, lng);
 
 		message.setContentObject(request);
@@ -96,7 +138,7 @@ public class HelloCoreClient implements NodeConnectionListener {
 		String _charName = "xvan";
 		ClanDAO dao = new ClanDAO();
 		Vector<ClanData> vet = dao.buscarTodos();
-		int index = (int) (Math.random() % vet.size());
+		int index = (int) (Math.random() * vet.size());
 		int _clanId = vet.elementAt(index).getId();
 
 		// Criando Usuário
@@ -184,6 +226,9 @@ public class HelloCoreClient implements NodeConnectionListener {
 			// resposta do LocationRequest, se passar por uma área de batalha
 			else if (className.equals(FightRequest.class.getCanonicalName())) {
 				aceitaLuta(remoteCon, message);
+			} else if (className.equals(BattleResultResponse.class
+					.getCanonicalName())) {
+				atualizaLuta(remoteCon, message);
 			} else {
 				System.out.println("nada");
 			}
@@ -193,6 +238,14 @@ public class HelloCoreClient implements NodeConnectionListener {
 
 	// other methods
 
+	private void atualizaLuta(NodeConnection remoteCon, Message message) {
+		BattleResultResponse request = (BattleResultResponse) Serialization
+				.fromJavaByteStream(message.getContent());
+
+		System.out.println(request.getBattleResultData().toString());
+
+	}
+
 	private void aceitaLuta(NodeConnection remoteCon, Message message) {
 		FightRequest request = (FightRequest) Serialization
 				.fromJavaByteStream(message.getContent());
@@ -201,7 +254,7 @@ public class HelloCoreClient implements NodeConnectionListener {
 
 		ClanDAO dao = new ClanDAO();
 		Vector<ClanData> vet = dao.buscarTodos();
-		int index = (int) (Math.random() % vet.size());
+		int index = (int) (Math.random() * vet.size());
 		ClanData clan = vet.elementAt(index);
 		// Logando
 		FightResponse response = new FightResponse(charData.getId(),

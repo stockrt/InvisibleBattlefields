@@ -21,13 +21,6 @@ public class RegionData implements Serializable {
 		id = 0;
 		name = strPoints = "";
 	}
-	
-	public RegionData(int _id, String _name)
-	{
-		id = _id;
-		name = _name;
-		strPoints = "";
-	}
 
 	public RegionData(int _id, String _name, String _points) {
 		id = _id;

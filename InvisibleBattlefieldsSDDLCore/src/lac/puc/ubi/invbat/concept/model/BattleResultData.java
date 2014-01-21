@@ -38,6 +38,27 @@ public class BattleResultData implements Serializable {
 	private double agili;
 	private int state;
 
+	public BattleResultData() {
+		super();
+		date = null;
+		battle = null;
+		charFrom = null;
+		charTo = null;
+		clan = null;
+	}
+
+	public BattleResultData(int battleId, int charFromId, int clanAttackId) {
+		super();
+		this.battleId = battleId;
+		this.charFromId = charFromId;
+		this.clanId = clanAttackId;
+		date = null;
+		battle = null;
+		charFrom = null;
+		charTo = null;
+		clan = null;
+	}
+
 	public int getClanId() {
 		return clanId;
 	}
@@ -127,6 +148,9 @@ public class BattleResultData implements Serializable {
 	}
 
 	public Date getDate() {
+		if (date == null) {
+			date = getBattle().getDate();
+		}			
 		return date;
 	}
 

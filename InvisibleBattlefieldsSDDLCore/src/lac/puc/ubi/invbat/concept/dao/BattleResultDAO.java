@@ -20,7 +20,7 @@ public class BattleResultDAO extends BaseDAO {
 		}
 	}
 
-	private BattleResultData setUserBattle(ResultSet rs) throws SQLException {
+	private BattleResultData setBattleResult(ResultSet rs) throws SQLException {
 		BattleResultData temp = new BattleResultData();
 		// pega todos os atributos da BattleResult
 		temp.setId(rs.getInt("id"));
@@ -43,7 +43,7 @@ public class BattleResultDAO extends BaseDAO {
 		try {
 			rs = comando.executeQuery("SELECT * FROM BattleResult");
 			while (rs.next()) {
-				BattleResultData temp = setUserBattle(rs);
+				BattleResultData temp = setBattleResult(rs);
 				resultados.add(temp);
 			}
 			return resultados;
@@ -53,19 +53,20 @@ public class BattleResultDAO extends BaseDAO {
 		}
 	}
 
-	public void atualizar(BattleResultData userBattle) {
+	public void atualizar(BattleResultData battleResult) {
 		conectar();
-		long mili = userBattle.getDate().getTime();
+		long mili = battleResult.getDate().getTime();
 		java.sql.Date dataSQL = new java.sql.Date(mili);
 		String com = "UPDATE BattleResult SET Battle_id = "
-				+ userBattle.getBattleId() + ", User_From = "
-				+ userBattle.getCharFromId() + ", User_To = "
-				+ userBattle.getCharToId() + ", date ='" + dataSQL.toString()
-				+ "', exp_points = " + userBattle.getExp_points() + ", sten = "
-				+ userBattle.getSten() + ", intel = " + userBattle.getIntel()
-				+ ", agili = " + userBattle.getAgili() + ", state = "
-				+ userBattle.getState() + " WHERE  id = " + userBattle.getId()
-				+ ";";
+				+ battleResult.getBattleId() + ", User_From = "
+				+ battleResult.getCharFromId() + ", User_To = "
+				+ battleResult.getCharToId() + ", date ='" + dataSQL.toString()
+				+ "', exp_points = " + battleResult.getExp_points()
+				+ ", sten = " + battleResult.getSten() + ", intel = "
+				+ battleResult.getIntel() + ", agili = "
+				+ battleResult.getAgili() + ", state = "
+				+ battleResult.getState() + " WHERE  id = "
+				+ battleResult.getId() + ";";
 		System.out.println("Atualizada!");
 		try {
 			System.out.println("Sql:" + com);
@@ -87,7 +88,7 @@ public class BattleResultDAO extends BaseDAO {
 			rs = comando.executeQuery("SELECT * FROM BattleResult WHERE id = "
 					+ id + ";");
 			while (rs.next()) {
-				BattleResultData temp = setUserBattle(rs);
+				BattleResultData temp = setBattleResult(rs);
 				resultados.add(temp);
 				return temp;
 			}
@@ -98,23 +99,43 @@ public class BattleResultDAO extends BaseDAO {
 		}
 	}
 
-	public void insere(BattleResultData userBattle) {
+	public BattleResultData buscar(int battleId, int charId) {
 		conectar();
-		long mili = userBattle.getDate().getTime();
+		Vector<BattleResultData> resultados = new Vector<BattleResultData>();
+		ResultSet rs;
+		BattleResultData userBattle = null;
+		try {
+			rs = comando
+					.executeQuery("SELECT * FROM BattleResult WHERE Battle_id = "
+							+ battleId + " and Char_From = " + charId + ";");
+			while (rs.next()) {
+				BattleResultData temp = setBattleResult(rs);
+				resultados.add(temp);
+				return temp;
+			}
+			return userBattle;
+		} catch (SQLException e) {
+			imprimeErro("Erro ao buscar BattleResult", e.getMessage());
+			return null;
+		}
+	}
+
+	public void insere(BattleResultData battleResult) {
+		conectar();
+		long mili = battleResult.getDate().getTime();
 		java.sql.Date dataSQL = new java.sql.Date(mili);
 		String sql = "";
-		String charTo = (String) ((userBattle.getCharToId() == 0)?"null":userBattle.getCharToId());
+		String charTo = (String) ((battleResult.getCharToId() == 0) ? "null"
+				: battleResult.getCharToId());
 		try {
 			sql = "INSERT INTO BattleResult VALUES (null" + " , "
-					+ userBattle.getBattleId() + " ,"
-					+ userBattle.getCharFromId() + " , "
-					+ userBattle.getClanId() + " , '"
-					+ dataSQL.toString() + "' , "
-					+ charTo + " , " 
-					+ userBattle.getExp_points() + " , "
-					+ userBattle.getSten() + " , " + userBattle.getIntel()
-					+ " , " + userBattle.getAgili() + " , "
-					+ userBattle.getState() + ")";
+					+ battleResult.getBattleId() + " ,"
+					+ battleResult.getCharFromId() + " , "
+					+ battleResult.getClanId() + " , '" + dataSQL.toString()
+					+ "' , " + charTo + " , " + battleResult.getExp_points()
+					+ " , " + battleResult.getSten() + " , "
+					+ battleResult.getIntel() + " , " + battleResult.getAgili()
+					+ " , " + battleResult.getState() + ")";
 
 			comando.executeUpdate(sql);
 			System.out.println("Inserida!");

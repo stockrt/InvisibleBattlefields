@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.swing.JOptionPane;
-
 import lac.puc.ubi.invbat.concept.dao.banco.ConFactory;
 
 
@@ -19,7 +17,7 @@ public class BaseDAO {
 		try {
 			con = ConFactory.conexao(URL, NOME, SENHA, ConFactory.MYSQL);
 			comando = con.createStatement();
-			System.out.println("Conectado!");
+//			System.out.println("Conectado!");
 		} catch (ClassNotFoundException e) {
 			System.out.println(URL);
 			imprimeErro("Erro ao carregar o driver", e.getMessage());
@@ -32,14 +30,14 @@ public class BaseDAO {
 		try {
 			comando.close();
 			con.close();
-			System.out.println("Conexão Fechada");
+//			System.out.println("Conexão Fechada");
 		} catch (SQLException e) {
 			imprimeErro("Erro ao fechar conexão", e.getMessage());
 		}
 	}
 
 	protected void imprimeErro(String msg, String msgErro) {
-		JOptionPane.showMessageDialog(null, msg, "Erro crítico", 0);
+//		JOptionPane.showMessageDialog(null, msg, "Erro crítico", 0);
 		System.err.println(msg);
 		System.out.println(msgErro);
 		System.exit(0);

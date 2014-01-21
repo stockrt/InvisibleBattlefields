@@ -1,4 +1,4 @@
-package br.pucrio.inf.lac.helloworld;
+package lac.puc.ubi.invbat.concept.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +14,8 @@ import lac.cnet.sddl.objects.PrivateMessage;
 import lac.cnet.sddl.udi.core.SddlLayer;
 import lac.cnet.sddl.udi.core.UniversalDDSLayerFactory;
 import lac.cnet.sddl.udi.core.listener.UDIDataReaderListener;
+import lac.puc.ubi.invbat.concept.comm.BattleResultRequest;
+import lac.puc.ubi.invbat.concept.comm.BattleResultResponse;
 import lac.puc.ubi.invbat.concept.comm.FightRequest;
 import lac.puc.ubi.invbat.concept.comm.FightResponse;
 import lac.puc.ubi.invbat.concept.comm.LocationRequest;
@@ -29,7 +31,7 @@ import lac.puc.ubi.invbat.concept.model.CharacterData;
 import ContextNetGeo.CtxCoordinate;
 import ContextNetGeo.Polygon;
 
-public class HelloCoreServer implements
+public class BattleCoreServer implements
 		UDIDataReaderListener<ApplicationObject> {
 	SddlLayer core;
 	int counter;
@@ -37,10 +39,10 @@ public class HelloCoreServer implements
 	public static void main(String[] args) {
 		Logger.getLogger("").setLevel(Level.OFF);
 
-		new HelloCoreServer();
+		new BattleCoreServer();
 	}
 
-	public HelloCoreServer() {
+	public BattleCoreServer() {
 		core = UniversalDDSLayerFactory.getInstance();
 		core.createParticipant(UniversalDDSLayerFactory.CNET_DOMAIN);
 
@@ -92,6 +94,10 @@ public class HelloCoreServer implements
 					.getCanonicalName())) {
 				// uuid e latlng (cliente-server) retorna FightRequest
 				appMsg = processLocation(message);
+			} else if (className.equals(BattleResultRequest.class
+					.getCanonicalName())) {
+				// uuid e latlng (cliente-server) retorna FightRequest
+				appMsg = processBattleResult(message);
 			} else if (className.equals(FightResponse.class.getCanonicalName())) {
 				// uuid e latlng (cliente-server) retorna FightRequest
 				appMsg = processFight(message);
@@ -114,6 +120,30 @@ public class HelloCoreServer implements
 		privateMessage.setMessage(Serialization.toProtocolMessage(appMsg));
 
 		core.writeTopic(PrivateMessage.class.getSimpleName(), privateMessage);
+	}
+
+	private ApplicationMessage processBattleResult(Message message) {
+		System.out.println("[BattleResultRequest]: " + message.toString());
+		BattleResultRequest request = (BattleResultRequest) Serialization
+				.fromJavaByteStream(message.getContent());
+		ApplicationMessage appMsg = new ApplicationMessage();
+		BattleResultResponse response = null;
+		// UUID uuid = message.getSenderId();
+		try {
+			BattleResultDAO dao = new BattleResultDAO();
+			BattleResultData battleResult= new BattleResultData();
+			battleResult.setBattleId(request.getBattleId());
+			battleResult.setCharFromId(request.getCharId());
+			battleResult.setClanId(request.getClanId());
+			dao.insere(battleResult);
+			battleResult = dao.buscar(request.getBattleId(),request.getCharId());
+			response = new BattleResultResponse(battleResult);
+			appMsg.setContentObject(response);
+		} catch (Exception e) {
+			response = new BattleResultResponse(null);
+			appMsg.setContentObject(response);
+		}
+		return appMsg;
 	}
 
 	private ApplicationMessage processLogin(Message message) {
@@ -202,6 +232,8 @@ public class HelloCoreServer implements
 				request = new FightRequest(battle, charData);
 				appMsg.setContentObject(request);
 			}
+			else
+				appMsg.setContentObject("Não há batalha");
 		} catch (Exception e) {
 			appMsg.setContentObject("Não há batalha");
 		}
